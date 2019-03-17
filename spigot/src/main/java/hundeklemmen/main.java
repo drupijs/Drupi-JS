@@ -34,7 +34,7 @@ public class main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         instance = this;
-        Metrics metrics = new Metrics(this);
+        //Metrics metrics = new Metrics(this);
 
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             getLogger().info("PlaceholderAPI found, loading PlaceholderManager class");
