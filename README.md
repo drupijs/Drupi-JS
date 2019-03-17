@@ -7,3 +7,6 @@ Drupi is a plugin that allows you to create custom plugins easily using JavaScri
 
 [Get started!](https://github.com/drupijs/Drupi-JS/wiki/Getting-Started)
 [Dowload here](https://github.com/drupijs/Drupi-JS/releases)
+
+Link to our community discord: 
+[Click here](https://discord.gg/hEwaxsN)
