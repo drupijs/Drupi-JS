@@ -1,0 +1,11 @@
+name: Drupi
+api: "1.0.0"
+main: hundeklemmen.main
+author: Hundeklemmen
+version: "1.0"
+description: js scripting in spigot
+softdepend: [PlaceholderAPI]
+commands:
+  drupi:
+    description: Interacting with the plugin
+    usage: /drupi [args]
