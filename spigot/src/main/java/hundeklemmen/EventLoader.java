@@ -199,4 +199,16 @@ public class EventLoader implements Listener {
     public void inventoryListener(InventoryClickEvent event){
         plugin.callEventHandler(event, event.getClass().getSimpleName());
     }
+    @EventHandler
+    public void ChatListener(PlayerChatEvent event){
+        plugin.callEventHandler(event, event.getClass().getSimpleName());
+    }
+    @EventHandler
+    public void ChatListenerAsync(AsyncPlayerChatEvent event){
+        plugin.callEventHandler(event, event.getClass().getSimpleName());
+    }
+    @EventHandler
+    public void ChatTabCompleteListener(PlayerChatTabCompleteEvent event){
+        plugin.callEventHandler(event, event.getClass().getSimpleName());
+    }
 }
