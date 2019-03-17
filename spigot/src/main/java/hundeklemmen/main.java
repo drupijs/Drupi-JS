@@ -314,9 +314,9 @@ public class main extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
         if(player.isOp() == true){
             if(main.instance.update == true){
-                String prefix = ChatColor.GRAY + "[" + ChatColor.AQUA + "Drupi" + ChatColor.GRAY + "]";
-                player.sendMessage(prefix + " It looks like drupi is out of date!");
-                player.sendMessage(prefix + " Please update Drpi to get the latest features and bug fixes");
+                String prefix = ChatColor.GRAY + "[" + ChatColor.AQUA + "Drupi" + ChatColor.GRAY + "]" + ChatColor.WHITE;
+                player.sendMessage(prefix + " It looks like Drupi is out of date!");
+                player.sendMessage(prefix + " Please update Drupi to get the latest features and bug fixes");
             }
         }
     }
