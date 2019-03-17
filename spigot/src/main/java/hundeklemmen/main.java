@@ -34,7 +34,7 @@ public class main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         instance = this;
-        //Metrics metrics = new Metrics(this);
+        Metrics metrics = new Metrics(this);
 
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             getLogger().info("PlaceholderAPI found, loading PlaceholderManager class");
@@ -44,7 +44,10 @@ public class main extends JavaPlugin implements Listener {
         }
         getLogger().info("Loading Drupi-JS");
         getLogger().info("Loading variables");
-        saveResource("variables.csv", false);
+        File variablesFile = new File(instance.getDataFolder(), "variables.csv");
+        if(!variablesFile.exists()){
+            saveResource("variables.csv", false);
+        }
         loadVariables();
         getLogger().info("Starting engine");
         String[] options = new String[] {"--language=es6"};
