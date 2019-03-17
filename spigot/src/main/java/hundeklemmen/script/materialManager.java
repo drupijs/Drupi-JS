@@ -24,6 +24,7 @@ public class materialManager {
         return Material.getMaterial(search);
     }
 
+
     public ItemStack setName(ItemStack it, String name){
         ItemMeta meta = it.getItemMeta();
         meta.setDisplayName(name);
@@ -33,6 +34,7 @@ public class materialManager {
 
     public ItemStack setLore(ItemStack it, NativeArray list){
         ItemMeta meta = it.getItemMeta();
+
         ArrayData data = list.getArray();
         int length = (int) data.length();
         ArrayList<String> listFixed = new ArrayList<String>(length);
@@ -40,6 +42,7 @@ public class materialManager {
             listFixed.add(String.valueOf(data.getObject(i)));
         }
         meta.setLore(listFixed);
+
         it.setItemMeta(meta);
         return it;
     }
