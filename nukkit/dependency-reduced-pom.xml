@@ -34,10 +34,6 @@
   </build>
   <repositories>
     <repository>
-      <id>CodeMC</id>
-      <url>https://repo.codemc.org/repository/maven-public</url>
-    </repository>
-    <repository>
       <id>nukkit-repo</id>
       <url>https://repo.nukkitx.com/snapshot</url>
     </repository>

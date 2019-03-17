@@ -8,12 +8,15 @@ import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -30,11 +33,14 @@ public class main extends JavaPlugin implements Listener {
     public static NashornScriptEngine engine;
     public static main instance;
     public static HashMap<String, Object> variables = new HashMap<String, Object>();
+    public static boolean update = false;
 
     @Override
     public void onEnable() {
         instance = this;
         Metrics metrics = new Metrics(this);
+
+        util.checkVersion();
 
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             getLogger().info("PlaceholderAPI found, loading PlaceholderManager class");
@@ -301,6 +307,18 @@ public class main extends JavaPlugin implements Listener {
             }
         }
         return true;
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event){
+        Player player = event.getPlayer();
+        if(player.isOp() == true){
+            if(main.instance.update == true){
+                String prefix = ChatColor.GRAY + "[" + ChatColor.AQUA + "Drupi" + ChatColor.GRAY + "]";
+                player.sendMessage(prefix + " It looks like drupi is out of date!");
+                player.sendMessage(prefix + " Please update Drpi to get the latest features and bug fixes");
+            }
+        }
     }
 
     public synchronized void callEventHandler(final Event e, final String functionName) {
