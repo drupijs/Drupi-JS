@@ -6,6 +6,7 @@ import hundeklemmen.extra.PlaceholderAPIExtension;
 import hundeklemmen.script.*;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -33,6 +34,8 @@ public class main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         instance = this;
+        Metrics metrics = new Metrics(this);
+
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             getLogger().info("PlaceholderAPI found, loading PlaceholderManager class");
             new PlaceholderAPIExtension(instance, "drupi").hook();
