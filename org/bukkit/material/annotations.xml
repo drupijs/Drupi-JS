@@ -1,0 +1,5 @@
+<root>
+    <item name='org.bukkit.material.Wool'>
+        <annotation name='java.lang.Deprecated'/>
+    </item>
+</root>
