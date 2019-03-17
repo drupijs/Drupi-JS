@@ -6,6 +6,8 @@ import hundeklemmen.extra.PlaceholderAPIExtension;
 import hundeklemmen.script.*;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.permission.Permission;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,6 +19,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -41,7 +44,6 @@ public class main extends JavaPlugin implements Listener {
         Metrics metrics = new Metrics(this);
 
         util.checkVersion();
-
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             getLogger().info("PlaceholderAPI found, loading PlaceholderManager class");
             new PlaceholderAPIExtension(instance, "drupi").hook();
@@ -89,6 +91,18 @@ public class main extends JavaPlugin implements Listener {
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             engine.put("placeholderapi", new placeholderAPIManager(instance));
             getLogger().info("Hooked into placeholder and registered onPlaceholderRequest event");
+        }
+        if(Bukkit.getPluginManager().getPlugin("Vault") != null) {
+            RegisteredServiceProvider<Economy> rspE = main.instance.getServer().getServicesManager().getRegistration(Economy.class);
+            if(rspE != null){
+                engine.put("economy", rspE.getProvider());
+                instance. getLogger().info("Hooked into vault Economy and registered economy variable");
+            }
+            RegisteredServiceProvider<Permission> rspP = main.instance.getServer().getServicesManager().getRegistration(Permission.class);
+            if(rspP != null){
+                engine.put("permission", rspP.getProvider());
+                instance.getLogger().info("Hooked into vault Permission and registered permission variable");
+            }
         }
 
         getLogger().info("Loading scripts");
@@ -186,6 +200,18 @@ public class main extends JavaPlugin implements Listener {
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             engine.put("placeholderapi", new placeholderAPIManager(instance));
             instance.getLogger().info("Hooked into placeholder and registered onPlaceholderRequest event");
+        }
+        if(Bukkit.getPluginManager().getPlugin("Vault") != null) {
+            RegisteredServiceProvider<Economy> rspE = main.instance.getServer().getServicesManager().getRegistration(Economy.class);
+            if(rspE != null){
+                engine.put("economy", rspE.getProvider());
+                instance. getLogger().info("Hooked into vault Economy and registered economy variable");
+            }
+            RegisteredServiceProvider<Permission> rspP = main.instance.getServer().getServicesManager().getRegistration(Permission.class);
+            if(rspP != null){
+                engine.put("permission", rspP.getProvider());
+                instance.getLogger().info("Hooked into vault Permission and registered permission variable");
+            }
         }
 
         if (!instance.getDataFolder().exists()) {

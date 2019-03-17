@@ -2,9 +2,9 @@ name: Drupi
 api: "1.0.0"
 main: hundeklemmen.main
 author: Hundeklemmen
-version: "0.0.3"
+version: "0.0.5"
 description: js scripting in spigot
-softdepend: [PlaceholderAPI]
+softdepend: [PlaceholderAPI, Vault]
 commands:
   drupi:
     description: Interacting with the plugin

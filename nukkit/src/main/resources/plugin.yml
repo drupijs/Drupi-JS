@@ -2,7 +2,7 @@ name: Drupi
 api: "1.0.0"
 main: hundeklemmen.main
 author: Hundeklemmen
-version: "1.0"
+version: "0.0.2"
 description: js scripting in bedrock
 softdepend: [PlaceholderAPI]
 commands:
