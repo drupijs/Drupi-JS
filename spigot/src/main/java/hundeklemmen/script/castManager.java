@@ -1,7 +1,9 @@
 package hundeklemmen.script;
 
 import hundeklemmen.main;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
+import org.bukkit.material.Wool;
 
 public class castManager {
     private main plugin;
@@ -26,5 +28,11 @@ public class castManager {
     }
     public byte asByte(Object text){
         return (byte) text;
+    }
+    public Wool asWool(Object obj){
+        return (Wool) obj;
+    }
+    public Sign asSign(Object obj){
+        return (Sign) obj;
     }
 }
