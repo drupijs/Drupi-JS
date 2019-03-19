@@ -322,11 +322,23 @@ public class main extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender instanceof Player) {
-            Player player = (Player) sender;
-            if (command.getLabel().equalsIgnoreCase("drupi")) {
-                if (args.length == 1) {
-                    if (args[0].equalsIgnoreCase("reload")) {
+        if (command.getLabel().equalsIgnoreCase("drupi")) {
+            if (args.length == 1) {
+                if (args[0].equalsIgnoreCase("reload")) {
+                    if(sender instanceof Player) {
+                        Player player = (Player) sender;
+                        if (player.isOp()) {
+                            sender.sendMessage("Reloading scripts");
+                            try {
+                                main.reload();
+                                sender.sendMessage("Reloaded scripts!");
+                            } catch (Exception e) {
+                                sender.sendMessage("Something went wrong!");
+                            }
+                        } else {
+                            player.sendMessage("Whoups! It requires OP to reload scripts/Drupis!");
+                        }
+                    } else {
                         sender.sendMessage("Reloading scripts");
                         try {
                             main.reload();
@@ -334,12 +346,12 @@ public class main extends JavaPlugin implements Listener {
                         } catch (Exception e) {
                             sender.sendMessage("Something went wrong!");
                         }
-                    } else {
-                        sender.sendMessage("Uknown argument");
                     }
                 } else {
-                    sender.sendMessage("usage: /drupi reload - Reload js scripts");
+                    sender.sendMessage("Uknown argument");
                 }
+            } else {
+                sender.sendMessage("usage: /drupi reload - Reload js scripts");
             }
         }
         return true;
