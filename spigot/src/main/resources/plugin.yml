@@ -2,7 +2,7 @@ name: Drupi
 api: "1.0.0"
 main: hundeklemmen.main
 author: Hundeklemmen
-version: "0.0.6"
+version: "0.0.7"
 description: js scripting in spigot
 softdepend: [PlaceholderAPI, Vault]
 commands:
