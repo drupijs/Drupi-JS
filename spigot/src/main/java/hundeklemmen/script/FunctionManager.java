@@ -4,6 +4,7 @@ import hundeklemmen.extra.configHandler;
 import hundeklemmen.main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
@@ -84,6 +85,10 @@ public class FunctionManager {
         loc.setX(x);
         loc.setY(y);
         loc.setZ(z);
+        return loc;
+    }
+    public Location newLocationWorld(World world, double x, double y, double z){
+        Location loc = new Location(world, x, y, z);
         return loc;
     }
     public int createTask(String functionName, int delay){

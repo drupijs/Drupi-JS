@@ -1,6 +1,7 @@
 package hundeklemmen;
 
 
+import hundeklemmen.api.DrupiLoadEvent;
 import hundeklemmen.extra.PlaceholderAPIEventHandler;
 import hundeklemmen.extra.PlaceholderAPIExtension;
 import hundeklemmen.script.*;
@@ -36,12 +37,15 @@ public class main extends JavaPlugin implements Listener {
     public static NashornScriptEngine engine;
     public static main instance;
     public static HashMap<String, Object> variables = new HashMap<String, Object>();
+    public static HashMap<Object, Object> addons = new HashMap<Object, Object>();
+
     public static boolean update = false;
 
     @Override
     public void onEnable() {
         instance = this;
         Metrics metrics = new Metrics(this);
+
 
         util.checkVersion();
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
@@ -104,6 +108,9 @@ public class main extends JavaPlugin implements Listener {
                 instance.getLogger().info("Hooked into vault Permission and registered permission variable");
             }
         }
+
+        DrupiLoadEvent loadE = new DrupiLoadEvent();
+        main.instance.getServer().getPluginManager().callEvent(loadE);
 
         getLogger().info("Loading scripts");
         if (!getDataFolder().exists()) {
@@ -213,6 +220,9 @@ public class main extends JavaPlugin implements Listener {
                 instance.getLogger().info("Hooked into vault Permission and registered permission variable");
             }
         }
+
+        DrupiLoadEvent loadE = new DrupiLoadEvent();
+        main.instance.getServer().getPluginManager().callEvent(loadE);
 
         if (!instance.getDataFolder().exists()) {
             instance.getDataFolder().mkdir();
