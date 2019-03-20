@@ -6,7 +6,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
-import org.bukkit.event.weather.WeatherEvent;
 
 public class weatherEvents implements Listener {
 
@@ -20,10 +19,6 @@ public class weatherEvents implements Listener {
     }
     @EventHandler
     public void WeatherChange(WeatherChangeEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
-    }
-    @EventHandler
-    public void Weather(WeatherEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
 }

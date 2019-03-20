@@ -8,10 +8,6 @@ import org.bukkit.event.world.*;
 public class worldEvents implements Listener {
 
     @EventHandler
-    public void Chunk(ChunkEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
-    }
-    @EventHandler
     public void ChunkLoad(ChunkLoadEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
@@ -33,10 +29,6 @@ public class worldEvents implements Listener {
     }
     @EventHandler
     public void StructureGrow(StructureGrowEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
-    }
-    @EventHandler
-    public void World(WorldEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
     @EventHandler

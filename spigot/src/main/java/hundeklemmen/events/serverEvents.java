@@ -23,20 +23,13 @@ public class serverEvents implements Listener {
     public void PluginEnable(PluginEnableEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
-    @EventHandler
-    public void Plugin(PluginEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
-    }
+
     @EventHandler
     public void RemoteServerCommand(RemoteServerCommandEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
     @EventHandler
     public void ServerCommand(ServerCommandEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
-    }
-    @EventHandler
-    public void Server(ServerEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
     @EventHandler
@@ -47,10 +40,7 @@ public class serverEvents implements Listener {
     public void ServerLoad(ServerLoadEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }*/
-    @EventHandler
-    public void Service(ServiceEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
-    }
+
     @EventHandler
     public void ServiceRegister(ServiceRegisterEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());

@@ -80,10 +80,6 @@ public class entityEvents implements Listener {
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }*/
     @EventHandler
-    public void Entity(EntityEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
-    }
-    @EventHandler
     public void EntityExplode(EntityExplodeEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }

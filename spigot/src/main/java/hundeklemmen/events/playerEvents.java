@@ -36,10 +36,6 @@ public class playerEvents implements Listener {
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
     @EventHandler
-    public void PlayerBucket(PlayerBucketEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
-    }
-    @EventHandler
     public void PlayerBucketFill(PlayerBucketFillEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
@@ -73,10 +69,6 @@ public class playerEvents implements Listener {
     }
     @EventHandler
     public void PlayerEggThrow(PlayerEggThrowEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
-    }
-    @EventHandler
-    public void PlayerEvent(PlayerEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
     @EventHandler

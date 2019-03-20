@@ -49,10 +49,6 @@ public class inventoryEvents implements Listener {
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
     @EventHandler
-    public void Inventory(InventoryEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
-    }
-    @EventHandler
     public void InventoryInteract(InventoryInteractEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }

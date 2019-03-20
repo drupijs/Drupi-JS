@@ -36,10 +36,6 @@ public class blockEvents implements Listener {
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }*/
     @EventHandler
-    public void Block(BlockEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
-    }
-    @EventHandler
     public void BlockExp(BlockExpEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
@@ -79,10 +75,7 @@ public class blockEvents implements Listener {
     public void BlockPhysics(BlockPhysicsEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
-    @EventHandler
-    public void BlockPiston(BlockPistonEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
-    }
+
     @EventHandler
     public void BlockPistonExtend(BlockPistonExtendEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
