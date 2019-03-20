@@ -2,6 +2,7 @@ package hundeklemmen;
 
 
 import hundeklemmen.api.DrupiLoadEvent;
+import hundeklemmen.events.*;
 import hundeklemmen.extra.PlaceholderAPIEventHandler;
 import hundeklemmen.extra.PlaceholderAPIExtension;
 import hundeklemmen.script.*;
@@ -165,7 +166,17 @@ public class main extends JavaPlugin implements Listener {
         this.getServer().getPluginManager().registerEvents(this, this);
 
 
-        new EventLoader(this);
+        //new EventLoader(this);
+        this.getServer().getPluginManager().registerEvents(new playerEvents(), this);
+        this.getServer().getPluginManager().registerEvents(new entityEvents(), this);
+        this.getServer().getPluginManager().registerEvents(new inventoryEvents(), this);
+        this.getServer().getPluginManager().registerEvents(new hangingEvents(), this);
+        this.getServer().getPluginManager().registerEvents(new enchantmentEvents(), this);
+        this.getServer().getPluginManager().registerEvents(new blockEvents(), this);
+        this.getServer().getPluginManager().registerEvents(new serverEvents(), this);
+        this.getServer().getPluginManager().registerEvents(new vehicleEvents(), this);
+        this.getServer().getPluginManager().registerEvents(new weatherEvents(), this);
+        this.getServer().getPluginManager().registerEvents(new worldEvents(), this);
     }
 
     @Override
