@@ -6,6 +6,10 @@ import hundeklemmen.events.*;
 import hundeklemmen.extra.PlaceholderAPIEventHandler;
 import hundeklemmen.extra.PlaceholderAPIExtension;
 import hundeklemmen.script.*;
+import hundeklemmen.worldedit.worldEditEvents;
+import hundeklemmen.worldguard.WGRegionEventsListener;
+import hundeklemmen.worldguard.region;
+import hundeklemmen.worldguard.worldguardEvents;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import net.milkbowl.vault.economy.Economy;
@@ -16,6 +20,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -23,7 +28,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import javax.script.Invocable;
 import javax.script.ScriptException;
@@ -39,16 +43,32 @@ public class main extends JavaPlugin implements Listener {
     public static main instance;
     public static HashMap<String, Object> variables = new HashMap<String, Object>();
     public static HashMap<Object, Object> addons = new HashMap<Object, Object>();
+    public static FileConfiguration config;
+    public static File DrupiFile;
 
     public static boolean update = false;
+    public static boolean updateNotifyOP = true;
 
     @Override
     public void onEnable() {
         instance = this;
         Metrics metrics = new Metrics(this);
 
+        //saving the config
+        instance.saveDefaultConfig();
+        config = instance.getConfig();
+        DrupiFile = this.getFile();
+        updateNotifyOP = config.getBoolean("versionChecker.notifyOP");
+        if(config.getBoolean("versionChecker.checkOnLoad") == true) {
+            util.checkVersion();
+        }
 
-        util.checkVersion();
+       /*try {
+            WatchService watcher = FileSystems.getDefault().newWatchService();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             getLogger().info("PlaceholderAPI found, loading PlaceholderManager class");
             new PlaceholderAPIExtension(instance, "drupi").hook();
@@ -63,105 +83,7 @@ public class main extends JavaPlugin implements Listener {
         }
         loadVariables();
         getLogger().info("Starting engine");
-        String[] options = new String[] {"--language=es6"};
-        final NashornScriptEngineFactory  manager = new NashornScriptEngineFactory();
-        engine = (NashornScriptEngine) manager.getScriptEngine(options);
-        if (engine == null) {
-            getLogger().warning("No JavaScript engine was found!");
-            return;
-        }
-        if (!(engine instanceof Invocable)) {
-            getLogger().warning("JavaScript engine does not support the Invocable API!");
-            engine = null;
-            return;
-        }
-        getLogger().info("Javascript engine: " + engine.getFactory().getEngineName() + " " + engine.getFactory().getEngineVersion());
-        getLogger().info("Engine factories: " + engine.getFactory().getLanguageName() + " " + engine.getFactory().getLanguageVersion());
-        getLogger().info("Engine loaded");
-        getLogger().info("Registering javascript global variables");
-        engine.put("server", getServer());
-        engine.put("plugin", this);
-        engine.put("manager", new FunctionManager(instance));
-        engine.put("http", new httpManager(instance));
-        engine.put("cast", new castManager(instance));
-        engine.put("logger", getLogger());
-        engine.put("variable", new variableManager(instance));
-        engine.put("scoreboard", new scoreboardManager(instance));
-        engine.put("players", 0);
-        engine.put("material", new materialManager(instance));
-        engine.put("database", new databaseManager(instance));
-
-        getLogger().info("Global variables registered");
-
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            engine.put("placeholderapi", new placeholderAPIManager(instance));
-            getLogger().info("Hooked into placeholder and registered onPlaceholderRequest event");
-        }
-        if(Bukkit.getPluginManager().getPlugin("Vault") != null) {
-            RegisteredServiceProvider<Economy> rspE = main.instance.getServer().getServicesManager().getRegistration(Economy.class);
-            if(rspE != null){
-                engine.put("economy", rspE.getProvider());
-                instance. getLogger().info("Hooked into vault Economy and registered economy variable");
-            }
-            RegisteredServiceProvider<Permission> rspP = main.instance.getServer().getServicesManager().getRegistration(Permission.class);
-            if(rspP != null){
-                engine.put("permission", rspP.getProvider());
-                instance.getLogger().info("Hooked into vault Permission and registered permission variable");
-            }
-        }
-
-        DrupiLoadEvent loadE = new DrupiLoadEvent();
-        main.instance.getServer().getPluginManager().callEvent(loadE);
-
-        getLogger().info("Loading scripts");
-        if (!getDataFolder().exists()) {
-            getDataFolder().mkdir();
-        }
-        File defaultJS = new File(instance.getDataFolder(), "scripts");
-        if(!defaultJS.exists()){
-            defaultJS.mkdir();
-            File defaultJSFile = new File(defaultJS, "default.js");
-            util.copy(instance.getResource("default.js"), defaultJSFile);
-        }
-        File UtilsJSFile = new File(instance.getDataFolder(), "utils.js");
-        if(!UtilsJSFile.exists()) {
-            util.copy(instance.getResource("utils.js"), UtilsJSFile);
-        }
-        //Load Utils.js
-        try (final Reader reader = new InputStreamReader(new FileInputStream(UtilsJSFile))) {
-            engine.eval(reader);
-            instance.getLogger().warning("Loaded Script: " + UtilsJSFile.getName());
-        } catch (final Exception e) {
-            instance.getLogger().warning("Could not load " + UtilsJSFile.getName());
-            e.printStackTrace();
-        }
-
-        //Load other scripts from folder
-        for (File file : Objects.requireNonNull(defaultJS.listFiles())) {
-            if(file.isDirectory()) continue;
-            if(file.getName().contains(".js")){
-                if(!file.getName().substring(0, 1).equalsIgnoreCase("_")) {
-                    try (final Reader reader = new InputStreamReader(new FileInputStream(file))) {
-                        engine.eval(reader);
-                        getLogger().warning("Loaded Script: " + file.getName());
-                    } catch (final Exception e) {
-                        getLogger().warning("Could not load " + file.getName());
-                        e.printStackTrace();
-                    }
-                } else {
-                    getLogger().warning(file.getName() + " is disabled and was not loaded! Remove _ to enable it!");
-                }
-            }
-        }
-        getLogger().info("All scripts have been loaded!");
-
-        this.getServer().getScheduler().scheduleSyncRepeatingTask(main.instance, new BukkitRunnable() {
-            @Override
-            public void run() {
-                int playersOnline = Bukkit.getServer().getOnlinePlayers().size();
-                engine.put("players", playersOnline);
-            }
-        }, 20, 20);
+        setupDropi();
 
         this.getServer().getPluginManager().registerEvents(this, this);
 
@@ -177,6 +99,16 @@ public class main extends JavaPlugin implements Listener {
         this.getServer().getPluginManager().registerEvents(new vehicleEvents(), this);
         this.getServer().getPluginManager().registerEvents(new weatherEvents(), this);
         this.getServer().getPluginManager().registerEvents(new worldEvents(), this);
+
+        if(Bukkit.getPluginManager().getPlugin("WorldEdit") != null){
+            this.getServer().getPluginManager().registerEvents(new worldEditEvents(), this);
+            this.getServer().getLogger().info("Hooked into WorldEdit events");
+        }
+        if(Bukkit.getPluginManager().getPlugin("WorldGuard") != null){
+            this.getServer().getPluginManager().registerEvents(new WGRegionEventsListener(instance), this);
+            this.getServer().getPluginManager().registerEvents(new worldguardEvents(), this);
+            this.getServer().getLogger().info("Hooked into WorldGuard events");
+        }
     }
 
     @Override
@@ -186,7 +118,7 @@ public class main extends JavaPlugin implements Listener {
         }
     }
 
-    public static void reload(){
+    public static void setupDropi(){
         String[] options = new String[] {"--language=es6"};
         final NashornScriptEngineFactory  manager = new NashornScriptEngineFactory();
         engine = (NashornScriptEngine) manager.getScriptEngine(options);
@@ -211,7 +143,7 @@ public class main extends JavaPlugin implements Listener {
         engine.put("logger",  instance.getLogger());
         engine.put("variable", new variableManager(instance));
         engine.put("scoreboard", new scoreboardManager(instance));
-        engine.put("players", 0);
+        engine.put("players", instance.getServer().getOnlinePlayers().size());
         engine.put("material", new materialManager(instance));
         engine.put("database", new databaseManager(instance));
 
@@ -230,6 +162,14 @@ public class main extends JavaPlugin implements Listener {
                 engine.put("permission", rspP.getProvider());
                 instance.getLogger().info("Hooked into vault Permission and registered permission variable");
             }
+        }
+        if(Bukkit.getPluginManager().getPlugin("WorldEdit") != null){
+            engine.put("worldedit", new worldEditManager(instance));
+            instance.getLogger().info("Hooked into WorldEdit");
+        }
+        if(Bukkit.getPluginManager().getPlugin("WorldGuard") != null){
+            engine.put("worldguard", new region(instance));
+            instance.getLogger().info("Hooked into WorldGuard");
         }
 
         DrupiLoadEvent loadE = new DrupiLoadEvent();
@@ -334,35 +274,69 @@ public class main extends JavaPlugin implements Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getLabel().equalsIgnoreCase("drupi")) {
-            if (args.length == 1) {
+            if (args.length != 0) {
                 if (args[0].equalsIgnoreCase("reload")) {
-                    if(sender instanceof Player) {
+                    if (sender instanceof Player) {
                         Player player = (Player) sender;
                         if (player.isOp()) {
-                            sender.sendMessage("Reloading scripts");
+                            sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
+                            sender.sendMessage(ChatColor.GREEN + "Reloading Scripts...");
                             try {
-                                main.reload();
-                                sender.sendMessage("Reloaded scripts!");
+                                main.setupDropi();
+                                sender.sendMessage(ChatColor.GREEN + "Successfully reloaded the scripts");
                             } catch (Exception e) {
-                                sender.sendMessage("Something went wrong!");
+                                sender.sendMessage(ChatColor.RED + "Whoops! Something went wrong");
                             }
                         } else {
-                            player.sendMessage("Whoups! It requires OP to reload scripts/Drupis!");
+                            sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
+                            sender.sendMessage(ChatColor.RED + "Whoops! It looks like you don't have access");
                         }
                     } else {
-                        sender.sendMessage("Reloading scripts");
+                        sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
+                        sender.sendMessage(ChatColor.GREEN + "Reloading Scripts...");
                         try {
-                            main.reload();
-                            sender.sendMessage("Reloaded scripts!");
+                            main.setupDropi();
+                            sender.sendMessage(ChatColor.GREEN + "Successfully reloaded the scripts");
                         } catch (Exception e) {
-                            sender.sendMessage("Something went wrong!");
+                            sender.sendMessage(ChatColor.RED + "Whoops! Something went wrong");
                         }
                     }
+                } else if (args[0].equalsIgnoreCase("update")) {
+                    if(args.length == 2){
+                        if(args[1].equalsIgnoreCase("download")) {
+                            Boolean access = true;
+                            if(sender instanceof Player){
+                                if(!((Player) sender).isOp()){
+                                    access = false;
+                                }
+                            }
+                            if(access == true){
+                                util.Update(sender);
+                            } else {
+                                sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
+                                sender.sendMessage(ChatColor.RED + "Whoops! It looks like you don't have access");
+                            }
+                        } else {
+                            sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
+                            sender.sendMessage(ChatColor.AQUA + "Arguments:");
+                            sender.sendMessage(ChatColor.AQUA + "/Drupi update " + ChatColor.GRAY + " - Check Drupi version.");
+                            sender.sendMessage(ChatColor.AQUA + "/Drupi update download" + ChatColor.GRAY + " - Download the latest version of Drupi");
+                        };
+                    } else {
+                        sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
+                        sender.sendMessage(ChatColor.GREEN + "You're currently running " + ChatColor.AQUA + main.instance.getDescription().getVersion());
+                        sender.sendMessage(ChatColor.GREEN + "Latest version: " + ChatColor.AQUA + util.getLatestVersion());
+                        sender.sendMessage(ChatColor.GREEN + "Releases: " + ChatColor.AQUA + "https://drupi.xyz/releases");
+                    }
                 } else {
-                    sender.sendMessage("Uknown argument");
+                    sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
+                    sender.sendMessage(ChatColor.GREEN + "/Drupi reload " + ChatColor.AQUA + "Reload your scripts");
+                    sender.sendMessage(ChatColor.GREEN + "/Drupi update " + ChatColor.AQUA + "Update Drupi");
                 }
             } else {
-                sender.sendMessage("usage: /drupi reload - Reload js scripts");
+                sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
+                sender.sendMessage(ChatColor.GREEN + "/Drupi reload " + ChatColor.AQUA + "Reload your scripts");
+                sender.sendMessage(ChatColor.GREEN + "/Drupi update " + ChatColor.AQUA + "Update Drupi");
             }
         }
         return true;
@@ -370,12 +344,14 @@ public class main extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
-        Player player = event.getPlayer();
-        if(player.isOp() == true){
-            if(main.instance.update == true){
-                String prefix = ChatColor.GRAY + "[" + ChatColor.AQUA + "Drupi" + ChatColor.GRAY + "]" + ChatColor.WHITE;
-                player.sendMessage(prefix + " It looks like Drupi is out of date!");
-                player.sendMessage(prefix + " Please update Drupi to get the latest features and bug fixes");
+        if(updateNotifyOP == true) {
+            Player player = event.getPlayer();
+            if (player.isOp() == true) {
+                if (main.instance.update == true) {
+                    String prefix = ChatColor.GRAY + "[" + ChatColor.AQUA + "Drupi" + ChatColor.GRAY + "]" + ChatColor.WHITE;
+                    player.sendMessage(prefix + " It looks like Drupi is out of date!");
+                    player.sendMessage(prefix + " Use /Drupi update download to download the lateset version!");
+                }
             }
         }
     }

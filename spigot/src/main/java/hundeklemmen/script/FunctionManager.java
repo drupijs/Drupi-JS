@@ -40,6 +40,10 @@ public class FunctionManager {
         return new File(plugin.getDataFolder() + "/" + folder + "/" + archive);
     }
 
+    public World getWorld(String worldName){
+        return plugin.getServer().getWorld(worldName);
+    }
+
     public FileConfiguration createConfig(File file){
         FileConfiguration Config = new configHandler() {
             @Override
