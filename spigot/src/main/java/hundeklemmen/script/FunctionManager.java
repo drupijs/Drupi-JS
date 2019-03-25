@@ -1,5 +1,7 @@
 package hundeklemmen.script;
 
+import hundeklemmen.extra.ActionBar;
+import hundeklemmen.extra.Title;
 import hundeklemmen.extra.configHandler;
 import hundeklemmen.main;
 import org.bukkit.Bukkit;
@@ -16,6 +18,8 @@ import org.bukkit.plugin.Plugin;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+
+
 
 public class FunctionManager {
 
@@ -109,6 +113,20 @@ public class FunctionManager {
 
     public Plugin getPlugin(String name){
         return plugin.getServer().getPluginManager().getPlugin(name);
+    }
+
+    public void sendTitle(Player player, String titleMessage, String subtitle, int fadeIn, int stay, int fadeOut){
+        Title titleAPI = new Title(String.valueOf(titleMessage), String.valueOf(subtitle), fadeIn, stay, fadeOut);
+        titleAPI.send(player);
+    }
+
+    public void sendActionBar(Player player, String Message){
+        try {
+            ActionBar.sendHotBarMessage(player, Message);
+        } catch (Exception e) {
+            player.sendMessage(Message);
+            e.printStackTrace();
+        }
     }
 
     public String time(int seconds){

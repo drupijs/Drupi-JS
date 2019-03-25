@@ -24,7 +24,6 @@ public class EventLoader implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
-        // event.getPlayer().getLocation().getBlock().setType();
         plugin.callEventHandler(event, event.getClass().getSimpleName());
     }
 

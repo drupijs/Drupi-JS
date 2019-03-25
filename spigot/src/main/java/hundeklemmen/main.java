@@ -135,6 +135,10 @@ public class main extends JavaPlugin implements Listener {
         instance.getLogger().info("Javascript engine: " + engine.getFactory().getEngineName() + " " + engine.getFactory().getEngineVersion());
         instance.getLogger().info("Engine factories: " + engine.getFactory().getLanguageName() + " " + engine.getFactory().getLanguageVersion());
 
+        instance.getLogger().info("Executing Drupi API event");
+        DrupiLoadEvent loadE = new DrupiLoadEvent();
+        main.instance.getServer().getPluginManager().callEvent(loadE);
+
         engine.put("server",  instance.getServer());
         engine.put("plugin", instance);
         engine.put("manager", new FunctionManager(instance));
@@ -172,9 +176,6 @@ public class main extends JavaPlugin implements Listener {
             instance.getLogger().info("Hooked into WorldGuard");
         }
 
-        DrupiLoadEvent loadE = new DrupiLoadEvent();
-        main.instance.getServer().getPluginManager().callEvent(loadE);
-
         if (!instance.getDataFolder().exists()) {
             instance.getDataFolder().mkdir();
         }
@@ -202,7 +203,7 @@ public class main extends JavaPlugin implements Listener {
         //Load other scripts from folder
         for (File file : Objects.requireNonNull(defaultJS.listFiles())) {
             if(file.isDirectory()) continue;
-            if(file.getName().contains(".js")){
+            if(file.getName().contains(".js")||file.getName().contains(".drupi")){
                 if(!file.getName().substring(0, 1).equalsIgnoreCase("_")) {
                     try (final Reader reader = new InputStreamReader(new FileInputStream(file))) {
                         engine.eval(reader);

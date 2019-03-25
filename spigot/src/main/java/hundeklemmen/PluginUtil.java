@@ -49,7 +49,7 @@ public class PluginUtil {
                 names = (Map<String, Plugin>) lookupNamesField.get(pluginManager);
 
                 try {
-                    Field listenersField = Bukkit.getPluginManager().getClass().getDeclaredField("listeners");
+                    Field listenersField = Bukkit.getPluginManager().getClass().getDeclaredField("events");
                     listenersField.setAccessible(true);
                     listeners = (Map<Event, SortedSet<RegisteredListener>>) listenersField.get(pluginManager);
                 } catch (Exception e) {

@@ -45,8 +45,28 @@
       <id>vault-repo</id>
       <url>http://nexus.hc.to/content/repositories/pub_releases</url>
     </repository>
+    <repository>
+      <id>sk89q</id>
+      <url>http://maven.sk89q.com/repo/</url>
+    </repository>
   </repositories>
   <dependencies>
+    <dependency>
+      <groupId>com.sk89q.worldedit</groupId>
+      <artifactId>worldedit-bukkit</artifactId>
+      <version>6.1.4-SNAPSHOT</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>dummypermscompat</artifactId>
+          <groupId>com.sk89q</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>worldedit-core</artifactId>
+          <groupId>com.sk89q.worldedit</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
     <dependency>
       <groupId>net.milkbowl.vault</groupId>
       <artifactId>VaultAPI</artifactId>
@@ -60,24 +80,8 @@
       <scope>provided</scope>
       <exclusions>
         <exclusion>
-          <artifactId>commons-lang</artifactId>
-          <groupId>commons-lang</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>json-simple</artifactId>
-          <groupId>com.googlecode.json-simple</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>guava</artifactId>
-          <groupId>com.google.guava</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>gson</artifactId>
           <groupId>com.google.code.gson</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>ebean</artifactId>
-          <groupId>org.avaje</groupId>
         </exclusion>
         <exclusion>
           <artifactId>bungeecord-chat</artifactId>
@@ -92,24 +96,8 @@
       <scope>provided</scope>
       <exclusions>
         <exclusion>
-          <artifactId>commons-lang</artifactId>
-          <groupId>commons-lang</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>json-simple</artifactId>
-          <groupId>com.googlecode.json-simple</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>guava</artifactId>
-          <groupId>com.google.guava</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>gson</artifactId>
           <groupId>com.google.code.gson</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>ebean</artifactId>
-          <groupId>org.avaje</groupId>
         </exclusion>
       </exclusions>
     </dependency>
