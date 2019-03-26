@@ -4,6 +4,7 @@ import hundeklemmen.extra.ActionBar;
 import hundeklemmen.extra.Title;
 import hundeklemmen.extra.configHandler;
 import hundeklemmen.main;
+import hundeklemmen.util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -127,6 +128,16 @@ public class FunctionManager {
             player.sendMessage(Message);
             e.printStackTrace();
         }
+    }
+
+    public String getTPS(){
+        return util.getTPS();
+    }
+    public double getCPU(){
+        return util.getProcessCpuLoad();
+    }
+    public String color(String message){
+        return util.color(message);
     }
 
     public String time(int seconds){

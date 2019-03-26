@@ -151,6 +151,12 @@ public class main extends JavaPlugin implements Listener {
         engine.put("material", new materialManager(instance));
         engine.put("database", new databaseManager(instance));
 
+        try {
+            engine.eval("function color(message){return manager.color(message);};");
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
+
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             engine.put("placeholderapi", new placeholderAPIManager(instance));
             instance.getLogger().info("Hooked into placeholder and registered onPlaceholderRequest event");

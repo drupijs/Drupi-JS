@@ -39,8 +39,9 @@ public class blockEvents implements Listener {
     public void BlockExp(BlockExpEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
+
     @EventHandler
-    public void BlockExplode(BlockExplodeEvent event){
+    public void BlBlockBurnEventockExplode(BlockExplodeEvent event){
         main.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
     @EventHandler
