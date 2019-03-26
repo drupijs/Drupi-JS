@@ -1,0 +1,5 @@
+<root>
+    <item name='net.md_5.bungee.api.ChatMessageType ACTION_BAR'>
+        <annotation name='java.lang.Deprecated'/>
+    </item>
+</root>
