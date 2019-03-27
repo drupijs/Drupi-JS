@@ -11,10 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URLClassLoader;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
+import java.util.*;
 
 public class PluginUtil {
     @SuppressWarnings("unchecked")
@@ -66,11 +63,12 @@ public class PluginUtil {
 
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace();
-                main.instance.getLogger().info("&cError while unloading plugin: "+e.getLocalizedMessage());
+                MainPlugin.instance.getLogger().info("&cError while unloading plugin: "+e.getLocalizedMessage());
             }
 
         }
 
+        assert pluginManager != null;
         pluginManager.disablePlugin(plugin);
 
         if (plugins != null && plugins.contains(plugin))
@@ -86,7 +84,7 @@ public class PluginUtil {
         }
 
         if (commandMap != null) {
-            for (Iterator<Map.Entry<String, Command>> it = commands.entrySet().iterator(); it.hasNext(); ) {
+            for (Iterator<Map.Entry<String, Command>> it = Objects.requireNonNull(commands).entrySet().iterator(); it.hasNext(); ) {
                 Map.Entry<String, Command> entry = it.next();
                 if (entry.getValue() instanceof PluginCommand) {
                     PluginCommand c = (PluginCommand) entry.getValue();
@@ -114,14 +112,14 @@ public class PluginUtil {
                 pluginInitField.set(cl, null);
 
             } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-                main.instance.getLogger().info("&cError while unloading plugin: "+ex.getLocalizedMessage());
+                MainPlugin.instance.getLogger().info("&cError while unloading plugin: "+ex.getLocalizedMessage());
             }
 
             try {
 
                 ((URLClassLoader) cl).close();
             } catch (IOException ex) {
-                main.instance.getLogger().info("&cError while unloading plugin: "+ex.getLocalizedMessage());
+                MainPlugin.instance.getLogger().info("&cError while unloading plugin: "+ex.getLocalizedMessage());
             }
 
         }
@@ -141,16 +139,16 @@ public class PluginUtil {
         File pluginFile = new File(pluginDir, name + ".jar");
 
         if (!pluginFile.isFile()) {
-            for (File f : pluginDir.listFiles()) {
+            for (File f : Objects.requireNonNull(pluginDir.listFiles())) {
                 if (f.getName().endsWith(".jar")) {
                     try {
-                        PluginDescriptionFile desc = main.instance.getPluginLoader().getPluginDescription(f);
+                        PluginDescriptionFile desc = MainPlugin.instance.getPluginLoader().getPluginDescription(f);
                         if (desc.getName().equalsIgnoreCase(name)) {
                             pluginFile = f;
                             break;
                         }
                     } catch (InvalidDescriptionException e) {
-                        main.instance.getLogger().info("Error while loading plugin: " + e.getLocalizedMessage());
+                        MainPlugin.instance.getLogger().info("Error while loading plugin: " + e.getLocalizedMessage());
                     }
                 }
             }
@@ -160,9 +158,10 @@ public class PluginUtil {
             target = Bukkit.getPluginManager().loadPlugin(pluginFile);
         } catch (InvalidDescriptionException | InvalidPluginException e) {
             e.printStackTrace();
-            main.instance.getLogger().info("Error while loading plugin: "+e.getLocalizedMessage());
+            MainPlugin.instance.getLogger().info("Error while loading plugin: "+e.getLocalizedMessage());
         }
 
+        assert target != null;
         target.onLoad();
         Bukkit.getPluginManager().enablePlugin(target);
     }

@@ -1,6 +1,6 @@
 package hundeklemmen.extra;
 
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -10,13 +10,13 @@ public class PlaceholderAPIEventHandler implements Listener {
 
     @EventHandler
     public String get(PlaceholderAPIEvent event){
-        if (main.engine.get("onPlaceholderRequest") == null) {
+        if (MainPlugin.engine.get("onPlaceholderRequest") == null) {
             return null;
         }
         try {
-            ((Invocable) main.engine).invokeFunction("onPlaceholderRequest", event);
+            ((Invocable) MainPlugin.engine).invokeFunction("onPlaceholderRequest", event);
         } catch (final Exception se) {
-            main.instance.getLogger().warning("Error while calling onPlaceholderRequest");
+            MainPlugin.instance.getLogger().warning("Error while calling onPlaceholderRequest");
             se.printStackTrace();
         }
         return null;

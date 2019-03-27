@@ -7,7 +7,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.player.PlayerEvent;
 
 /**
- * event that is triggered before a player enters a WorldGuard region, can be cancelled sometimes
+ * event that is triggered before a player enters a WorldGuard Region, can be cancelled sometimes
  * @author mewin
  */
 public class RegionEnterEvent extends RegionEvent implements Cancellable
@@ -15,9 +15,9 @@ public class RegionEnterEvent extends RegionEvent implements Cancellable
     private boolean cancelled, cancellable;
     /**
      * creates a new RegionEnterEvent
-     * @param region the region the player is entering
+     * @param region the Region the player is entering
      * @param player the player who triggered the event
-     * @param movement the type of movement how the player enters the region
+     * @param movement the type of movement how the player enters the Region
      */
     public RegionEnterEvent(ProtectedRegion region, Player player, MovementWay movement, PlayerEvent parent)
     {
@@ -34,8 +34,8 @@ public class RegionEnterEvent extends RegionEvent implements Cancellable
     
     /**
      * sets whether this event should be cancelled
-     * when the event is cancelled the player will not be able to move into the region
-     * @param cancelled true if the player should be stopped from moving into the region
+     * when the event is cancelled the player will not be able to move into the Region
+     * @param cancelled true if the player should be stopped from moving into the Region
      */
     @Override
     public void setCancelled(boolean cancelled)
@@ -60,7 +60,7 @@ public class RegionEnterEvent extends RegionEvent implements Cancellable
     
     
     /**
-     * sometimes you can not cancel an event, i.e. if a player entered a region by spawning inside of it
+     * sometimes you can not cancel an event, i.e. if a player entered a Region by spawning inside of it
      * @return true, if you can cancel this event
      */
     public boolean isCancellable()

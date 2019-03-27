@@ -1,10 +1,10 @@
 package hundeklemmen.script;
 
+import hundeklemmen.MainPlugin;
 import hundeklemmen.extra.ActionBar;
 import hundeklemmen.extra.Title;
-import hundeklemmen.extra.configHandler;
-import hundeklemmen.main;
-import hundeklemmen.util;
+import hundeklemmen.extra.ConfigHandler;
+import hundeklemmen.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -24,9 +24,9 @@ import java.lang.reflect.Field;
 
 public class FunctionManager {
 
-    private main plugin;
+    private MainPlugin plugin;
 
-    public FunctionManager(main plugin){
+    public FunctionManager(MainPlugin plugin){
         this.plugin = plugin;
     }
 
@@ -50,7 +50,7 @@ public class FunctionManager {
     }
 
     public FileConfiguration createConfig(File file){
-        FileConfiguration Config = new configHandler() {
+        FileConfiguration Config = new ConfigHandler() {
             @Override
             public boolean exists(String index) {
                 return this.contains(index);
@@ -131,13 +131,13 @@ public class FunctionManager {
     }
 
     public String getTPS(){
-        return util.getTPS();
+        return Utils.getTPS();
     }
     public double getCPU(){
-        return util.getProcessCpuLoad();
+        return Utils.getProcessCpuLoad();
     }
     public String color(String message){
-        return util.color(message);
+        return Utils.color(message);
     }
 
     public String time(int seconds){
@@ -159,7 +159,7 @@ public class FunctionManager {
         return String.valueOf(time);
     }
 
-    public main plugin(){
+    public MainPlugin plugin(){
         return plugin;
     }
 

@@ -1,6 +1,6 @@
 name: Drupi
 api: "1.0.0"
-main: hundeklemmen.main
+main: hundeklemmen.MainPlugin
 author: Hundeklemmen
 version: "0.0.11"
 description: js scripting in spigot

@@ -9,11 +9,12 @@ import org.bukkit.event.player.*;
 import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 
+@SuppressWarnings("ALL")
 public class EventLoader implements Listener {
 
-    private main plugin;
+    private MainPlugin plugin;
 
-    public EventLoader(main plugin){
+    public EventLoader(MainPlugin plugin){
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
