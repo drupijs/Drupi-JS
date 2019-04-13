@@ -1,6 +1,6 @@
 package hundeklemmen.events;
 
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
@@ -10,10 +10,10 @@ public class enchantmentEvents implements Listener {
 
     @EventHandler
     public void EnchantItem(EnchantItemEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
+        MainPlugin.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
     @EventHandler
     public void PrepareItemEnchant(PrepareItemEnchantEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
+        MainPlugin.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
 }

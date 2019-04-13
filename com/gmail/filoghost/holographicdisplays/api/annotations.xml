@@ -1,0 +1,5 @@
+<root>
+    <item name='com.gmail.filoghost.holographicdisplays.api.HologramsAPI'>
+        <annotation name='java.lang.Deprecated'/>
+    </item>
+</root>

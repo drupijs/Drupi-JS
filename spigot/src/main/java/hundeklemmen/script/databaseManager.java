@@ -3,16 +3,16 @@ package hundeklemmen.script;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 
 import java.net.UnknownHostException;
 import java.util.Map;
 
 public class databaseManager {
 
-    private main plugin;
+    private MainPlugin plugin;
 
-    public databaseManager(main plugin){
+    public databaseManager(MainPlugin plugin){
         this.plugin = plugin;
     }
 

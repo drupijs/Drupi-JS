@@ -1,6 +1,6 @@
 package hundeklemmen.events;
 
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.weather.LightningStrikeEvent;
@@ -11,14 +11,14 @@ public class weatherEvents implements Listener {
 
     @EventHandler
     public void LightningStrike(LightningStrikeEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
+        MainPlugin.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
     @EventHandler
     public void ThunderChange(ThunderChangeEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
+        MainPlugin.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
     @EventHandler
     public void WeatherChange(WeatherChangeEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
+        MainPlugin.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
 }

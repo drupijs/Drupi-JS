@@ -1,14 +1,14 @@
 package hundeklemmen.script;
 
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 
 public class placeholderAPIManager {
 
-    private main plugin;
+    private MainPlugin plugin;
 
-    public placeholderAPIManager(main plugin){
+    public placeholderAPIManager(MainPlugin plugin){
         this.plugin = plugin;
     }
 

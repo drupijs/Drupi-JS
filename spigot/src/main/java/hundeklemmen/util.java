@@ -6,6 +6,8 @@ import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 
 import javax.management.*;
 import java.io.*;
@@ -20,6 +22,11 @@ import java.text.DecimalFormat;
 import java.util.Map;
 
 public class util {
+    static void loadListeners(Plugin plugin, Listener... listeners) {
+        for (Listener listener : listeners)
+            plugin.getServer().getPluginManager().registerEvents(listener, plugin);
+    }
+
     public static void copy(InputStream in, File file) {
         try {
             OutputStream out = new FileOutputStream(file);
@@ -37,18 +44,18 @@ public class util {
 
     public static void checkVersion(){
         if(isUpdateAvailable() == true){
-            main.instance.getLogger().info("Whoups! It looks like Drupi is out of date!");
-            main.instance.getLogger().info("Pleaes go download the latest version of Drupi at https://www.spigotmc.org/resources/drupi-js.65706/");
-            main.instance.getLogger().info("!NOTE! If you don't have access to updating Drupi, please contact those who have.");
-            main.instance.update = true;
+            MainPlugin.instance.getLogger().info("Whoups! It looks like Drupi is out of date!");
+            MainPlugin.instance.getLogger().info("Pleaes go download the latest version of Drupi at https://www.spigotmc.org/resources/drupi-js.65706/");
+            MainPlugin.instance.getLogger().info("!NOTE! If you don't have access to updating Drupi, please contact those who have.");
+            MainPlugin.instance.update = true;
         } else {
-            main.instance.getLogger().info("You're running the latest version of Drupi!");
+            MainPlugin.instance.getLogger().info("You're running the latest version of Drupi!");
         }
     }
 
     public static boolean isUpdateAvailable(){
         String latestVersion = getLatestVersion();
-        String currentVersion = main.instance.getDescription().getVersion();
+        String currentVersion = MainPlugin.instance.getDescription().getVersion();
         if(!latestVersion.equalsIgnoreCase(currentVersion)){
            return true;
         } else {
@@ -57,14 +64,14 @@ public class util {
     }
 
     public static String getLatestVersion(){
-        main.instance.getLogger().info("Checking for updates");
+        MainPlugin.instance.getLogger().info("Checking for updates");
         try {
             String githubLatest = util.fireGet("https://api.github.com/repos/drupijs/Drupi-JS/releases/latest").toString();
             Map<String, Object> javaMap = new Gson().fromJson(githubLatest, Map.class);
             String latestVersion = javaMap.get("tag_name").toString();
             return latestVersion;
         } catch (IOException e) {
-            main.instance.getLogger().info("Something went wrong while trying to check for updates!");
+            MainPlugin.instance.getLogger().info("Something went wrong while trying to check for updates!");
             e.printStackTrace();
             return null;
         }
@@ -95,14 +102,14 @@ public class util {
 
     public static void Update(CommandSender sender){
         sender.sendMessage("Checking version..");
-        String currentVersion = main.instance.getDescription().getVersion();
+        String currentVersion = MainPlugin.instance.getDescription().getVersion();
         String latestVersion = getLatestVersion();
         sender.sendMessage("You're currently running " + currentVersion);
         sender.sendMessage("Latest Drupi version: " + latestVersion);
         if(currentVersion != latestVersion){
             sender.sendMessage("Downloading latest version of Drupi..");
             try {
-                download("https://github.com/drupijs/Drupi-JS/releases/download/"+latestVersion+"/Drupi-Spigot.jar", new File("plugins", main.DrupiFile.getName()));
+                download("https://github.com/drupijs/Drupi-JS/releases/download/"+latestVersion+"/Drupi-Spigot.jar", new File("plugins", MainPlugin.DrupiFile.getName()));
                 sender.sendMessage("Updated to version "+latestVersion+", please restart the server to finish the update!");
             } catch (IOException e) {
                 e.printStackTrace();

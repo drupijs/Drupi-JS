@@ -10,7 +10,7 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.managers.RemovalStrategy;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -21,9 +21,9 @@ import java.util.Map;
 
 public class region {
 
-    private main plugin;
+    private MainPlugin plugin;
 
-    public region(main plugin){
+    public region(MainPlugin plugin){
         this.plugin = plugin;
     }
 

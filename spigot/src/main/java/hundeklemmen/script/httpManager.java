@@ -1,14 +1,14 @@
 package hundeklemmen.script;
 
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 
 public class httpManager {
-    private main plugin;
-    public httpManager(main plugin){
+    private MainPlugin plugin;
+    public httpManager(MainPlugin plugin){
         this.plugin = plugin;
     }
 

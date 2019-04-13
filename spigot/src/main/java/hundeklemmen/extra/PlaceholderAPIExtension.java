@@ -1,16 +1,16 @@
 package hundeklemmen.extra;
 
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import me.clip.placeholderapi.external.EZPlaceholderHook;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class PlaceholderAPIExtension extends EZPlaceholderHook {
 
-    private main plugin;
+    private MainPlugin plugin;
     private String prefix;
 
-    public PlaceholderAPIExtension(main plugin, String prefix) {
+    public PlaceholderAPIExtension(MainPlugin plugin, String prefix) {
         super(plugin, prefix);
         this.prefix = prefix;
         this.plugin = plugin;

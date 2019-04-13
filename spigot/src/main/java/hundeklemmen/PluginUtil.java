@@ -66,7 +66,7 @@ public class PluginUtil {
 
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace();
-                main.instance.getLogger().info("&cError while unloading plugin: "+e.getLocalizedMessage());
+                MainPlugin.instance.getLogger().info("&cError while unloading plugin: "+e.getLocalizedMessage());
             }
 
         }
@@ -114,14 +114,14 @@ public class PluginUtil {
                 pluginInitField.set(cl, null);
 
             } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-                main.instance.getLogger().info("&cError while unloading plugin: "+ex.getLocalizedMessage());
+                MainPlugin.instance.getLogger().info("&cError while unloading plugin: "+ex.getLocalizedMessage());
             }
 
             try {
 
                 ((URLClassLoader) cl).close();
             } catch (IOException ex) {
-                main.instance.getLogger().info("&cError while unloading plugin: "+ex.getLocalizedMessage());
+                MainPlugin.instance.getLogger().info("&cError while unloading plugin: "+ex.getLocalizedMessage());
             }
 
         }
@@ -144,13 +144,13 @@ public class PluginUtil {
             for (File f : pluginDir.listFiles()) {
                 if (f.getName().endsWith(".jar")) {
                     try {
-                        PluginDescriptionFile desc = main.instance.getPluginLoader().getPluginDescription(f);
+                        PluginDescriptionFile desc = MainPlugin.instance.getPluginLoader().getPluginDescription(f);
                         if (desc.getName().equalsIgnoreCase(name)) {
                             pluginFile = f;
                             break;
                         }
                     } catch (InvalidDescriptionException e) {
-                        main.instance.getLogger().info("Error while loading plugin: " + e.getLocalizedMessage());
+                        MainPlugin.instance.getLogger().info("Error while loading plugin: " + e.getLocalizedMessage());
                     }
                 }
             }
@@ -160,7 +160,7 @@ public class PluginUtil {
             target = Bukkit.getPluginManager().loadPlugin(pluginFile);
         } catch (InvalidDescriptionException | InvalidPluginException e) {
             e.printStackTrace();
-            main.instance.getLogger().info("Error while loading plugin: "+e.getLocalizedMessage());
+            MainPlugin.instance.getLogger().info("Error while loading plugin: "+e.getLocalizedMessage());
         }
 
         target.onLoad();

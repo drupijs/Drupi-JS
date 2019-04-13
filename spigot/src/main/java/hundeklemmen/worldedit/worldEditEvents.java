@@ -1,7 +1,7 @@
 package hundeklemmen.worldedit;
 
 import com.sk89q.worldedit.event.extent.EditSessionEvent;
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -17,13 +17,13 @@ public class worldEditEvents implements Listener {
 
     public void callWorldEditEvent(EditSessionEvent event, String functionName){
         functionName = "WorldEdit_" + functionName;
-        if (main.engine.get(functionName) == null) {
+        if (MainPlugin.engine.get(functionName) == null) {
             return;
         }
         try {
-            ((Invocable) main.engine).invokeFunction(functionName, event);
+            ((Invocable) MainPlugin.engine).invokeFunction(functionName, event);
         } catch (final Exception se) {
-            main.instance.getLogger().warning("Error while calling " + functionName);
+            MainPlugin.instance.getLogger().warning("Error while calling " + functionName);
             se.printStackTrace();
         }
     }

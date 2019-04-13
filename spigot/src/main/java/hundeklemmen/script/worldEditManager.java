@@ -3,16 +3,16 @@ package hundeklemmen.script;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldedit.bukkit.selections.Selection;
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import hundeklemmen.worldedit.simpleManager;
 import org.bukkit.Location;
 import org.bukkit.World;
 
 public class worldEditManager {
 
-    private main plugin;
+    private MainPlugin plugin;
 
-    public worldEditManager(main plugin){
+    public worldEditManager(MainPlugin plugin){
         this.plugin = plugin;
     }
 

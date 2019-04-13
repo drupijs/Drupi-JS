@@ -8,7 +8,7 @@ import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.data.DataException;
 import com.sk89q.worldedit.schematic.SchematicFormat;
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
 
@@ -17,11 +17,11 @@ import java.io.IOException;
 
 public class simpleManager {
 
-    private main plugin;
+    private MainPlugin plugin;
     private WorldEditPlugin WE;
     private static Plugin WEP;
 
-    public simpleManager(main plugin){
+    public simpleManager(MainPlugin plugin){
         this.plugin = plugin;
         this.WEP = plugin.getServer().getPluginManager().getPlugin("WorldEdit");
         this.WE = (WorldEditPlugin) WEP;

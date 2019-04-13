@@ -1,14 +1,14 @@
 package hundeklemmen.script;
 
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class guiManager {
 
-    private main plugin;
+    private MainPlugin plugin;
 
-    public guiManager(main plugin){
+    public guiManager(MainPlugin plugin){
         this.plugin = plugin;
     }
 

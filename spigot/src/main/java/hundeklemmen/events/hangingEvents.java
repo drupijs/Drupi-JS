@@ -1,6 +1,6 @@
 package hundeklemmen.events;
 
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
@@ -11,15 +11,15 @@ public class hangingEvents implements Listener {
 
     @EventHandler
     public void HangingBreakByEntity(HangingBreakByEntityEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
+        MainPlugin.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
     @EventHandler
     public void HangingBreak(HangingBreakEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
+        MainPlugin.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
 
     @EventHandler
     public void HangingPlace(HangingPlaceEvent event){
-        main.instance.callEventHandler(event, event.getClass().getSimpleName());
+        MainPlugin.instance.callEventHandler(event, event.getClass().getSimpleName());
     }
 }

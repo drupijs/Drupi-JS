@@ -1,6 +1,6 @@
 package hundeklemmen.script;
 
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import jdk.nashorn.internal.objects.NativeArray;
 import jdk.nashorn.internal.runtime.arrays.ArrayData;
 import org.bukkit.Color;
@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class materialManager {
 
-    private main plugin;
+    private MainPlugin plugin;
 
-    public materialManager(main plugin){
+    public materialManager(MainPlugin plugin){
         this.plugin = plugin;
     }
 

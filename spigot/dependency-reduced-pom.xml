@@ -49,6 +49,10 @@
       <id>sk89q</id>
       <url>http://maven.sk89q.com/repo/</url>
     </repository>
+    <repository>
+      <id>filoghost-repo</id>
+      <url>https://ci.filoghost.me/plugin/repository/everything/</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
@@ -66,6 +70,12 @@
           <groupId>com.sk89q.worldedit</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.gmail.filoghost.holographicdisplays</groupId>
+      <artifactId>holographicdisplays-api</artifactId>
+      <version>LATEST</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>net.milkbowl.vault</groupId>

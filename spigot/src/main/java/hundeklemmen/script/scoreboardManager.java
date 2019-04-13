@@ -1,6 +1,6 @@
 package hundeklemmen.script;
 
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -10,14 +10,14 @@ import org.bukkit.scoreboard.Scoreboard;
 
 public class scoreboardManager {
 
-    private main plugin;
+    private MainPlugin plugin;
 
-    public scoreboardManager(main plugin) {
+    public scoreboardManager(MainPlugin plugin) {
         this.plugin = plugin;
     }
 
     public Scoreboard create(){
-        return main.instance.getServer().getScoreboardManager().getNewScoreboard();
+        return MainPlugin.instance.getServer().getScoreboardManager().getNewScoreboard();
     }
     public Objective newDisplay(Scoreboard sc, String title){
         Objective obj = sc.registerNewObjective("dummy", "dummy");

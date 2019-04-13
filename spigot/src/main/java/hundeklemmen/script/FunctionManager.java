@@ -3,7 +3,7 @@ package hundeklemmen.script;
 import hundeklemmen.extra.ActionBar;
 import hundeklemmen.extra.Title;
 import hundeklemmen.extra.configHandler;
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import hundeklemmen.util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -24,9 +24,9 @@ import java.lang.reflect.Field;
 
 public class FunctionManager {
 
-    private main plugin;
+    private MainPlugin plugin;
 
-    public FunctionManager(main plugin){
+    public FunctionManager(MainPlugin plugin){
         this.plugin = plugin;
     }
 
@@ -159,7 +159,7 @@ public class FunctionManager {
         return String.valueOf(time);
     }
 
-    public main plugin(){
+    public MainPlugin plugin(){
         return plugin;
     }
 

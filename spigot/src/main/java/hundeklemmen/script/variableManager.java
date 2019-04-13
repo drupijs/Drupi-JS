@@ -1,22 +1,22 @@
 package hundeklemmen.script;
 
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import org.bukkit.OfflinePlayer;
 
 public class variableManager {
 
-    private main plugin;
+    private MainPlugin plugin;
 
-    public variableManager(main plugin) {
+    public variableManager(MainPlugin plugin) {
         this.plugin = plugin;
     }
     public Object get(String index) {
-        if (main.variables.containsKey(index)) {
-            String type = main.variables.get(index).getClass().getName();
-            if (type.equals("cn.nukkit.OfflinePlayer") && ((OfflinePlayer) main.variables.get(index)).getPlayer() != null) {
-                return ((OfflinePlayer) main.variables.get(index)).getPlayer();
+        if (MainPlugin.variables.containsKey(index)) {
+            String type = MainPlugin.variables.get(index).getClass().getName();
+            if (type.equals("cn.nukkit.OfflinePlayer") && ((OfflinePlayer) MainPlugin.variables.get(index)).getPlayer() != null) {
+                return ((OfflinePlayer) MainPlugin.variables.get(index)).getPlayer();
             } else {
-                return main.variables.get(index);
+                return MainPlugin.variables.get(index);
             }
         } else {
             return null;
@@ -24,14 +24,14 @@ public class variableManager {
     }
 
     public void set(String index, Object value) {
-        if (main.variables.containsKey(index)) {
-            main.variables.remove(index);
+        if (MainPlugin.variables.containsKey(index)) {
+            MainPlugin.variables.remove(index);
         }
-        main.variables.put(index, value);
+        MainPlugin.variables.put(index, value);
     }
 
     public boolean exist(String index){
-        if (main.variables.containsKey(index)) {
+        if (MainPlugin.variables.containsKey(index)) {
             return true;
         } else {
             return false;
@@ -39,8 +39,8 @@ public class variableManager {
     }
 
     public void delete(String index){
-        if(main.variables.containsKey(index)){
-            main.variables.remove(index);
+        if(MainPlugin.variables.containsKey(index)){
+            MainPlugin.variables.remove(index);
         }
     }
 }

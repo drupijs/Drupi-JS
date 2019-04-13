@@ -1,14 +1,14 @@
 package hundeklemmen.script;
 
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.material.Wool;
 
 public class castManager {
-    private main plugin;
+    private MainPlugin plugin;
 
-    public castManager(main plugin){
+    public castManager(MainPlugin plugin){
         this.plugin = plugin;
     }
     public Player asPlayer(Object sender){

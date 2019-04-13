@@ -3,7 +3,7 @@ package hundeklemmen.worldguard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import hundeklemmen.main;
+import hundeklemmen.MainPlugin;
 import hundeklemmen.worldguard.customEvents.RegionEnterEvent;
 import hundeklemmen.worldguard.customEvents.RegionEnteredEvent;
 import hundeklemmen.worldguard.customEvents.RegionLeaveEvent;
@@ -24,11 +24,11 @@ import java.util.*;
 public class WGRegionEventsListener implements Listener
 {
     private WorldGuardPlugin wgPlugin;
-    private main plugin;
+    private MainPlugin plugin;
     
     private Map<Player, Set<ProtectedRegion>> playerRegions;
     
-    public WGRegionEventsListener(main plugin)
+    public WGRegionEventsListener(MainPlugin plugin)
     {
         this.plugin = plugin;
         this.wgPlugin = (WorldGuardPlugin) plugin.getServer().getPluginManager().getPlugin("WorldGuard");
