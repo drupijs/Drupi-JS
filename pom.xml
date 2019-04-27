@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>drupi.xyz</groupId>
+    <artifactId>plugin</artifactId>
+    <packaging>pom</packaging>
+    <version>11.0.1</version>
+    <modules>
+        <module>core</module>
+        <module>Spigot-Legacy</module>
+        <module>version.v1_8</module>
+        <module>version.v1_9</module>
+        <module>version.v1_10</module>
+        <module>version.v1_11</module>
+        <module>version.v1_12</module>
+        <module>version.v1_13</module>
+        <module>version.v1_14</module>
+    </modules>
+
+    <repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>oss-sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>bungeecord-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+        <repository>
+            <id>nukkit-repo</id>
+            <url>https://repo.nukkitx.com/snapshot</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.4</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

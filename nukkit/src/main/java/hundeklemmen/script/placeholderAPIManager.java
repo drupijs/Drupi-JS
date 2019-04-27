@@ -1,7 +1,5 @@
 package hundeklemmen.script;
 
-import cn.nukkit.Player;
-import com.creeperface.nukkit.placeholderapi.api.PlaceholderAPI;
 import hundeklemmen.main;
 
 public class placeholderAPIManager {
@@ -11,7 +9,7 @@ public class placeholderAPIManager {
     public placeholderAPIManager(main plugin){
         this.plugin = plugin;
     }
-    public String translateString(Player player, String text){
+    /*public String translateString(Player player, String text){
         return PlaceholderAPI.getInstance().translateString(text, player);
     }
     public void setStaticPlaceholder(String title, Object text){
@@ -19,6 +17,6 @@ public class placeholderAPIManager {
     }
     public void setPlayerPlaceholder(String title, Object text, Player player){
         PlaceholderAPI.getInstance().visitorSensitivePlaceholder(title, (Player) -> text);
-    }
+    }*/
 
 }

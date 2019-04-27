@@ -25,7 +25,7 @@
             <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.itxtech.synapse</groupId>
             <artifactId>synapse-api</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -35,7 +35,7 @@
             <groupId>org.itxtech.synapse</groupId>
             <artifactId>synapse-api</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>io.socket</groupId>
             <artifactId>socket.io-client</artifactId>
@@ -72,14 +72,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.18</version>
-        </dependency>
-        <dependency>
-            <groupId>com.creeperface.nukkit</groupId>
-            <artifactId>PlaceholderAPI</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <optional>false</optional>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/PlaceholderAPI.jar</systemPath>
         </dependency>
     </dependencies>
     <build>

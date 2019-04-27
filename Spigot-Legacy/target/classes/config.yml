@@ -1,0 +1,3 @@
+versionChecker:
+  checkOnLoad: true
+  notifyOP: true

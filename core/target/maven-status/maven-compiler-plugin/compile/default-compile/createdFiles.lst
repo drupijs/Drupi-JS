@@ -1,0 +1,14 @@
+hundeklemmen\shared\api\config.class
+hundeklemmen\shared\api\utils\version.class
+hundeklemmen\shared\script\HttpManager.class
+hundeklemmen\shared\api\variablesHandler.class
+hundeklemmen\shared\api\DrupiScript.class
+hundeklemmen\shared\script\console.class
+hundeklemmen\shared\script\DatabaseManager.class
+hundeklemmen\shared\api\interfaces\SetupMessage.class
+hundeklemmen\shared\script\CastManager.class
+hundeklemmen\shared\api\Platform.class
+hundeklemmen\shared\api\Drupi.class
+hundeklemmen\shared\script\JSON.class
+hundeklemmen\shared\api\interfaces\ScriptLoadMessage.class
+hundeklemmen\shared\api\utils\http.class
