@@ -110,7 +110,7 @@ public class util {
         if(currentVersion != latestVersion){
             sender.sendMessage("Downloading latest version of Drupi..");
             try {
-                download("https://github.com/drupijs/Drupi-JS/releases/download/"+latestVersion+"/Drupi-Spigot.jar", new File("plugins", MainPlugin.DrupiFile.getName()));
+                download("https://github.com/drupijs/Drupi-JS/releases/download/"+latestVersion+"/Drupi-Spigot-Legacy.jar", new File("plugins", MainPlugin.DrupiFile.getName()));
                 sender.sendMessage("Updated to version "+latestVersion+", please restart the server to finish the update!");
             } catch (IOException e) {
                 e.printStackTrace();

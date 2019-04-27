@@ -195,5 +195,6 @@
                 </executions>
             </plugin>
         </plugins>
+        <finalName>Drupi-Spigot-Legacy</finalName>
     </build>
 </project>

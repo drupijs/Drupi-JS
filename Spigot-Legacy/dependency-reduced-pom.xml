@@ -5,6 +5,7 @@
   <artifactId>Spigot-Legacy</artifactId>
   <version>1.0-SNAPSHOT</version>
   <build>
+    <finalName>Drupi-Spigot-Legacy</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
