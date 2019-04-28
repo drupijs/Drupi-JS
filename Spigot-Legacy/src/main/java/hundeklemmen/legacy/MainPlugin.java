@@ -249,7 +249,7 @@ public class MainPlugin extends JavaPlugin implements Listener {
         try {
             util.unregisterCommands();
         } catch (Exception e){
-            drupi.log.warning("Error while unregistering commands! (Drupi reload)");
+            drupi.log.warning("Error while unregistering commands!");
             drupi.log.warning(e.getMessage());
         }
         drupi.Setup(new SetupMessage() {

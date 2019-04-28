@@ -9,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.SimpleCommandMap;
 
 import javax.management.*;
 import java.io.*;
@@ -26,17 +25,22 @@ import java.util.Map;
 
 public class util {
 
-    public static CommandMap getCommandMap(){
-        CommandMap commandMap=ReflectionUtil.getField(MainPlugin.instance.getServer().getPluginManager(),"commandMap");
-        if (commandMap == null) {
-            commandMap = new SimpleCommandMap(Bukkit.getServer());
-        }
-        return commandMap;
-    }
 
     public static boolean unregisterCommands(){
-        CommandMap commandMap=getCommandMap();
-        Map<String,org.bukkit.command.Command> knownCommands=ReflectionUtil.getField(commandMap,"knownCommands");
+        CommandMap commandMap = hundeklemmen.v1_8.utils.getCommandMap();
+        Map<String, Command> knownCommands = null;
+        if(MainPlugin.serverVersion.startsWith("v1_8")||MainPlugin.serverVersion.startsWith("v1_9")||MainPlugin.serverVersion.startsWith("v1_10")||MainPlugin.serverVersion.startsWith("v1_11")||MainPlugin.serverVersion.startsWith("v1_12")) {
+            knownCommands = hundeklemmen.v1_8.utils.getField(commandMap, "knownCommands");
+        } else {
+            try {
+                knownCommands = (Map<String, Command>) hundeklemmen.v1_13.utils.getPrivateField(commandMap, "knownCommands");
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
         if (knownCommands == null) {
             return false;
         }
@@ -46,8 +50,11 @@ public class util {
                 i.remove();
             }
         }
+
+
         return true;
     }
+
     public static void copy(InputStream in, File file) {
         try {
             OutputStream out = new FileOutputStream(file);
