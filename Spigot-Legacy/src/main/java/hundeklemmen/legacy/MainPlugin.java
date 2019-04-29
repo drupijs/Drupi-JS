@@ -5,6 +5,9 @@ import hundeklemmen.legacy.api.handlers.SpigotConfig;
 import hundeklemmen.legacy.expansions.Vault;
 import hundeklemmen.legacy.expansions.placeholderapi.PlaceholderAPIEventHandler;
 import hundeklemmen.legacy.expansions.placeholderapi.PlaceholderAPIExtension;
+import hundeklemmen.legacy.expansions.worldguard.WGRegionEventsListener;
+import hundeklemmen.legacy.expansions.worldguard.WorldguardAPIManager;
+import hundeklemmen.legacy.expansions.worldguard.worldguardEvents;
 import hundeklemmen.legacy.script.*;
 import hundeklemmen.shared.api.Drupi;
 import hundeklemmen.shared.api.DrupiScript;
@@ -106,8 +109,20 @@ public class MainPlugin extends JavaPlugin implements Listener {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             drupi.log.info("PlaceholderAPI found, activating PlaceholderAPI expansion class.");
             new PlaceholderAPIExtension(instance, "drupi").hook();
-            getServer().getPluginManager().registerEvents(new PlaceholderAPIEventHandler(), instance);
+            this.getServer().getPluginManager().registerEvents(new PlaceholderAPIEventHandler(), instance);
             drupi.registerManager("placeholderapi", new placeholderAPIManager(instance));
+        }
+
+        if(Bukkit.getPluginManager().getPlugin("WorldGuard") != null){
+            if(serverVersion.startsWith("v1_8")||serverVersion.startsWith("v1_9")||serverVersion.startsWith("v1_10")||serverVersion.startsWith("v1_11")||serverVersion.startsWith("v1_12")) {
+                drupi.log.info("WorldGuard found, activating WorldGuard expansion class.");
+                this.getServer().getPluginManager().registerEvents(new WGRegionEventsListener(instance), this);
+                this.getServer().getPluginManager().registerEvents(new worldguardEvents(), this);
+                drupi.registerManager("worldguard", new WorldguardAPIManager(instance));
+                this.getServer().getLogger().info("Hooked into WorldGuard events");
+            } else {
+                drupi.log.info("WorldGuard found, but is not supported on 1.13+");
+            }
         }
 
         drupi.Setup(new SetupMessage() {
