@@ -1,4 +1,4 @@
-package hundeklemmen.legacy.expansions.worldguard;
+package hundeklemmen.v1_8.expansions.worldguard;
 
 /**
  * describes the way how a player left/entered a region

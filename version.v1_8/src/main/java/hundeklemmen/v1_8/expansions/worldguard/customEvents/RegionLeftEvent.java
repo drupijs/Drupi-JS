@@ -1,7 +1,7 @@
-package hundeklemmen.legacy.expansions.worldguard.customEvents;
+package hundeklemmen.v1_8.expansions.worldguard.customEvents;
 
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import hundeklemmen.legacy.expansions.worldguard.MovementWay;
+import hundeklemmen.v1_8.expansions.worldguard.MovementWay;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
 

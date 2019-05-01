@@ -1,16 +1,18 @@
-package hundeklemmen.legacy.expansions.worldguard;
+package hundeklemmen.v1_13.expansions.worldguard;
 
-import com.sk89q.worldedit.Vector;
+import com.sk89q.minecraft.util.commands.CommandException;
+import com.sk89q.worldedit.extension.platform.Actor;
+import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.LocalPlayer;
-import com.sk89q.worldguard.bukkit.WGBukkit;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.domains.DefaultDomain;
-import com.sk89q.worldguard.protection.flags.*;
+import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.managers.RemovalStrategy;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import hundeklemmen.legacy.MainPlugin;
+import hundeklemmen.shared.api.Drupi;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -21,21 +23,21 @@ import java.util.Map;
 
 public class WorldguardAPIManager {
 
-    private MainPlugin plugin;
+    private Drupi drupi;
 
-    public WorldguardAPIManager(MainPlugin plugin){
-        this.plugin = plugin;
+    public WorldguardAPIManager(Drupi drupi){
+        this.drupi = drupi;
     }
 
-    public WorldGuardPlugin get(){
-        return (WorldGuardPlugin) plugin.getServer().getPluginManager().getPlugin("WorldGuard");
+    public WorldGuard get(){
+        return (WorldGuard) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
     };
 
     public void addMember(Player player, String region, World world){
         String name = region;
-        RegionManager regionManager = WGBukkit.getRegionManager(world);
+        RegionManager regionManager = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) world);
         if (!regionManager.hasRegion(name)) {
-            plugin.getLogger().warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
+            drupi.log.warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
             return;
         }
         DefaultDomain members = regionManager.getRegion(name).getMembers();
@@ -50,9 +52,9 @@ public class WorldguardAPIManager {
 
     public void removeMember(Player player, String region, World world){
         String name = region;
-        RegionManager regionManager = WGBukkit.getRegionManager(world);
+        RegionManager regionManager = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) world);
         if (!regionManager.hasRegion(name)) {
-            plugin.getLogger().warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
+            drupi.log.warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
             return;
         }
 
@@ -68,9 +70,9 @@ public class WorldguardAPIManager {
 
     public void addOwner(Player player, String region, World world){
         String name = region;
-        RegionManager regionManager = WGBukkit.getRegionManager(world);
+        RegionManager regionManager = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) world);
         if (!regionManager.hasRegion(name)) {
-            plugin.getLogger().warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
+            drupi.log.warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
             return;
         }
         DefaultDomain owners = regionManager.getRegion(name).getOwners();
@@ -84,9 +86,9 @@ public class WorldguardAPIManager {
     }
     public void removeOwner(Player player, String region, World world){
         String name = region;
-        RegionManager regionManager = WGBukkit.getRegionManager(world);
+        RegionManager regionManager = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) world);
         if (!regionManager.hasRegion(name)) {
-            plugin.getLogger().warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
+            drupi.log.warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
             return;
         }
 
@@ -109,10 +111,10 @@ public class WorldguardAPIManager {
         int y2 = loc2.getBlockY();
         int z2 = loc2.getBlockZ();
 
-        Vector p1 = new Vector(x1, y1, z1);
-        Vector p2 = new Vector(x2, y2, z2);
-        RegionManager regionManager = WGBukkit.getRegionManager(world);
-        ProtectedCuboidRegion region = new ProtectedCuboidRegion(name, p1.toBlockVector(), p2.toBlockVector());
+        BlockVector3 p1 = BlockVector3.at(x1, y1, z1);
+        BlockVector3 p2 = BlockVector3.at(x2, y2, z2);
+        RegionManager regionManager = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) world);
+        ProtectedCuboidRegion region = new ProtectedCuboidRegion(name, p1, p2);
         regionManager.addRegion(region);
         try {
             regionManager.save();
@@ -122,9 +124,9 @@ public class WorldguardAPIManager {
     }
 
     public void deleteRegion(String name, World world){
-        RegionManager regionManager = WGBukkit.getRegionManager(world);
+        RegionManager regionManager = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) world);
         if (!regionManager.hasRegion(name)) {
-            plugin.getLogger().warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
+            drupi.log.warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
             return;
         }
         regionManager.removeRegion(name, RemovalStrategy.REMOVE_CHILDREN);
@@ -136,16 +138,23 @@ public class WorldguardAPIManager {
     }
 
     public String[] regionsOfPlayer(Player player, World world){
-        WorldGuardPlugin wg = (WorldGuardPlugin) plugin.getServer().getPluginManager().getPlugin("WorldGuard");
-        RegionManager regionManager = wg.getRegionManager(world);
+        RegionManager regionManager = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) world);
         if (player == null) {
             return new String[] {};
         }
         LocalPlayer wpl = null;
         if (player.isOnline()) {
-            wpl = wg.wrapPlayer(player.getPlayer());
+            try {
+                wpl = (LocalPlayer) get().checkPlayer((Actor) player.getPlayer());
+            } catch (CommandException e) {
+                e.printStackTrace();
+            }
         } else {
-            wpl = wg.wrapOfflinePlayer(player);
+            try {
+                wpl = (LocalPlayer) get().checkPlayer((Actor) player.getPlayer());
+            } catch (CommandException e) {
+                e.printStackTrace();
+            }
         }
         ArrayList<String> pregions = new ArrayList<String>();
         for (Map.Entry<String, ProtectedRegion> reg : regionManager.getRegions().entrySet()) {
@@ -158,10 +167,9 @@ public class WorldguardAPIManager {
 
     public String[] regionAt(Location loc){
         String a = null;
-        WorldGuardPlugin wg = (WorldGuardPlugin) plugin.getServer().getPluginManager().getPlugin("WorldGuard");
-        RegionManager regionManager = wg.getRegionContainer().get(loc.getWorld());
+        RegionManager regionManager = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) loc.getWorld());
 
-        for (ProtectedRegion reg : regionManager.getApplicableRegions(loc)) {
+        for (ProtectedRegion reg : regionManager.getApplicableRegions(BlockVector3.at(loc.getX(), loc.getY(), loc.getZ()))) {
 
             if (reg.contains(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ())) {
                 a = reg.getId().toString();
@@ -170,44 +178,10 @@ public class WorldguardAPIManager {
         return new String[] { a };
     }
 
-    public void setFlag(String region, World world, String flag, Object value){
-        WorldGuardPlugin wg = (WorldGuardPlugin) plugin.getServer().getPluginManager().getPlugin("WorldGuard");
-        RegionManager set = wg.getRegionManager(world);
-        Flag<?> fl = null;
-        for (Flag<?> f : DefaultFlag.getFlags()) {
-            if (f.getName().equalsIgnoreCase(flag)) {
-                fl = f;
-                break;
-            }
-        }
-        try {
-            try {
-                if (value instanceof Boolean) {
-                    if ((Boolean) value) {
-                        set.getRegion(region).setFlag((StateFlag) fl, StateFlag.State.ALLOW);
-                    } else {
-                        set.getRegion(region).setFlag((StateFlag) fl, StateFlag.State.DENY);
-                    }
-                } else if (value instanceof String) {
-                    set.getRegion(region).setFlag((StringFlag) fl, (String) value);
-                } else if (value instanceof Integer) {
-                    set.getRegion(region).setFlag((IntegerFlag) fl, (int) value);
-                } else if (value instanceof Double) {
-                    set.getRegion(region).setFlag((DoubleFlag) fl, (double) value);
-                } else {
-                    plugin.getLogger().warning("Region flag " + "\"" + fl.getName() + "\"" + " cannot be set to: " + value);
-                }
-            } catch (ClassCastException ex) {
-                plugin.getLogger().warning("Region flag " + "\"" + fl.getName() + "\"" + " cannot be set to: " + value);
-            }
-        } catch (NullPointerException ex) {
-            plugin.getLogger().warning("Region flag " + "\"" + flag + "\"" + " does not exist");
-        }
-    }
 
     public String[] allFlagOfRegion(String region, World world){
-        RegionManager rm = WGBukkit.getRegionManager(world);
-        ProtectedRegion pregion = rm.getRegion(region);
+        RegionManager regionManager = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) world);
+        ProtectedRegion pregion = regionManager.getRegion(region);
         List<String> rfl = new ArrayList<String>();
 
         for (Map.Entry<Flag<?>, Object> ra : pregion.getFlags().entrySet()) {
@@ -219,8 +193,8 @@ public class WorldguardAPIManager {
     }
 
     public String[] allMembers(String region, World world){
-        RegionManager rm = WGBukkit.getRegionManager(world);
-        ProtectedRegion pregion = rm.getRegion(region);
+        RegionManager regionManager = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) world);
+        ProtectedRegion pregion = regionManager.getRegion(region);
         List<String> list = new ArrayList<String>(pregion.getMembers().getPlayers());
 
         String[] s = new String[list.size()];
@@ -228,7 +202,7 @@ public class WorldguardAPIManager {
     }
 
     public String[] allOwners(String region, World world){
-        RegionManager rm = WGBukkit.getRegionManager(world);
+        RegionManager rm = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) world);
         ProtectedRegion pregion = rm.getRegion(region);
         List<String> list = new ArrayList<String>(pregion.getOwners().getPlayers());
 
@@ -237,7 +211,7 @@ public class WorldguardAPIManager {
     }
 
     public String[] allRegionsInWorld(World world){
-        RegionManager set = WGBukkit.getRegionManager(world);
+        RegionManager set = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) world);
         Map<String, ProtectedRegion> regions = set.getRegions();
         List<String> list = new ArrayList<String>(regions.keySet());
 
@@ -247,9 +221,9 @@ public class WorldguardAPIManager {
 
     public Location[] aetPoint1(String region, World world){
         String name = region;
-        RegionManager regionManager = WGBukkit.getRegionManager(world);
+        RegionManager regionManager = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) world);
         if (!regionManager.hasRegion(name)) {
-            plugin.getLogger().warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
+            drupi.log.warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
             return null;
         }
 
@@ -264,9 +238,9 @@ public class WorldguardAPIManager {
 
     public Location[] aetPoint2(String region, World world){
         String name = region;
-        RegionManager regionManager = WGBukkit.getRegionManager(world);
+        RegionManager regionManager = get().getInstance().getPlatform().getRegionContainer().get((com.sk89q.worldedit.world.World) world);
         if (!regionManager.hasRegion(name)) {
-            plugin.getLogger().warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
+            drupi.log.warning("Region \"" + name + "\" in world \"" + world.getName() + "\" does not exists.");
             return null;
         }
 

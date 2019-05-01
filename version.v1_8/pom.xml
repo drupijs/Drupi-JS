@@ -15,6 +15,13 @@
     <artifactId>version.v1.8</artifactId>
     <version>1.8.8</version>
 
+    <repositories>
+        <repository>
+            <id>sk89q-repo</id>
+            <url>http://maven.sk89q.com/repo/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
@@ -38,6 +45,13 @@
             <groupId>drupi.xyz</groupId>
             <artifactId>core</artifactId>
             <version>0.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Expansions -->
+        <dependency>
+            <groupId>com.sk89q</groupId>
+            <artifactId>worldguard</artifactId>
+            <version>6.1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

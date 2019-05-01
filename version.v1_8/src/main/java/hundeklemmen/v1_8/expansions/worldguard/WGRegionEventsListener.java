@@ -1,14 +1,14 @@
-package hundeklemmen.legacy.expansions.worldguard;
+package hundeklemmen.v1_8.expansions.worldguard;
 
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import hundeklemmen.legacy.MainPlugin;
-import hundeklemmen.legacy.expansions.worldguard.customEvents.RegionEnterEvent;
-import hundeklemmen.legacy.expansions.worldguard.customEvents.RegionEnteredEvent;
-import hundeklemmen.legacy.expansions.worldguard.customEvents.RegionLeaveEvent;
-import hundeklemmen.legacy.expansions.worldguard.customEvents.RegionLeftEvent;
+import hundeklemmen.shared.api.Drupi;
+import hundeklemmen.v1_8.expansions.worldguard.customEvents.RegionEnterEvent;
+import hundeklemmen.v1_8.expansions.worldguard.customEvents.RegionEnteredEvent;
+import hundeklemmen.v1_8.expansions.worldguard.customEvents.RegionLeaveEvent;
+import hundeklemmen.v1_8.expansions.worldguard.customEvents.RegionLeftEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -25,14 +25,14 @@ import java.util.*;
 public class WGRegionEventsListener implements Listener
 {
     private WorldGuardPlugin wgPlugin;
-    private MainPlugin plugin;
+    private Drupi drupi;
 
     private Map<Player, Set<ProtectedRegion>> playerRegions;
 
-    public WGRegionEventsListener(MainPlugin plugin)
+    public WGRegionEventsListener(Drupi drupi)
     {
-        this.plugin = plugin;
-        this.wgPlugin = (WorldGuardPlugin) plugin.getServer().getPluginManager().getPlugin("WorldGuard");
+        this.drupi = drupi;
+        this.wgPlugin = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
 
         playerRegions = new HashMap<Player, Set<ProtectedRegion>>();
     }
@@ -48,8 +48,8 @@ public class WGRegionEventsListener implements Listener
                 RegionLeaveEvent leaveEvent = new RegionLeaveEvent(region, e.getPlayer(), MovementWay.DISCONNECT, e);
                 RegionLeftEvent leftEvent = new RegionLeftEvent(region, e.getPlayer(), MovementWay.DISCONNECT, e);
 
-                plugin.getServer().getPluginManager().callEvent(leaveEvent);
-                plugin.getServer().getPluginManager().callEvent(leftEvent);
+                Bukkit.getServer().getPluginManager().callEvent(leaveEvent);
+                Bukkit.getServer().getPluginManager().callEvent(leftEvent);
             }
         }
     }
@@ -65,8 +65,8 @@ public class WGRegionEventsListener implements Listener
                 RegionLeaveEvent leaveEvent = new RegionLeaveEvent(region, e.getPlayer(), MovementWay.DISCONNECT, e);
                 RegionLeftEvent leftEvent = new RegionLeftEvent(region, e.getPlayer(), MovementWay.DISCONNECT, e);
 
-                plugin.getServer().getPluginManager().callEvent(leaveEvent);
-                plugin.getServer().getPluginManager().callEvent(leftEvent);
+                Bukkit.getServer().getPluginManager().callEvent(leaveEvent);
+                Bukkit.getServer().getPluginManager().callEvent(leftEvent);
             }
         }
     }
@@ -132,7 +132,7 @@ public class WGRegionEventsListener implements Listener
             {
                 RegionEnterEvent e = new RegionEnterEvent(region, player, movement, event);
 
-                plugin.getServer().getPluginManager().callEvent(e);
+                Bukkit.getServer().getPluginManager().callEvent(e);
 
                 if (e.isCancelled())
                 {
@@ -143,7 +143,7 @@ public class WGRegionEventsListener implements Listener
                 }
                 else
                 {
-                    Bukkit.getScheduler().runTaskLater(plugin,new Runnable()
+                    Bukkit.getScheduler().runTaskLater(Bukkit.getServer().getPluginManager().getPlugin("Drupi"), new Runnable()
                     {
                         @Override
                         public void run()
@@ -151,7 +151,7 @@ public class WGRegionEventsListener implements Listener
                             {}
                             RegionEnteredEvent e = new RegionEnteredEvent(region, player, movement, event);
 
-                            plugin.getServer().getPluginManager().callEvent(e);
+                            Bukkit.getServer().getPluginManager().callEvent(e);
                         }
                     }, 1L);
                     regions.add(region);
@@ -172,7 +172,7 @@ public class WGRegionEventsListener implements Listener
                 }
                 RegionLeaveEvent e = new RegionLeaveEvent(region, player, movement, event);
 
-                plugin.getServer().getPluginManager().callEvent(e);
+                Bukkit.getServer().getPluginManager().callEvent(e);
 
                 if (e.isCancelled())
                 {
@@ -182,14 +182,14 @@ public class WGRegionEventsListener implements Listener
                 }
                 else
                 {
-                    Bukkit.getScheduler().runTaskLater(plugin,new Runnable()
+                    Bukkit.getScheduler().runTaskLater(Bukkit.getServer().getPluginManager().getPlugin("Drupi"), new Runnable()
                     {
                         @Override
                         public void run()
                         {
                             RegionLeftEvent e = new RegionLeftEvent(region, player, movement, event);
 
-                            plugin.getServer().getPluginManager().callEvent(e);
+                            Bukkit.getServer().getPluginManager().callEvent(e);
                         }
                     }, 1L);
                     itr.remove();

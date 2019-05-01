@@ -1,7 +1,7 @@
-package hundeklemmen.legacy.expansions.worldguard.customEvents;
+package hundeklemmen.v1_8.expansions.worldguard.customEvents;
 
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import hundeklemmen.legacy.expansions.worldguard.MovementWay;
+import hundeklemmen.v1_8.expansions.worldguard.MovementWay;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.*;
@@ -36,6 +36,10 @@ public abstract class RegionEvent extends PlayerEvent {
         return region;
     }
 
+    public String getRegionName(){
+        return region.getId();
+    }
+
     public static HandlerList getHandlerList()
     {
         return handlerList;
@@ -46,16 +50,7 @@ public abstract class RegionEvent extends PlayerEvent {
         return this.movement;
     }
 
-    /**
-     * retrieves the event that has been used to create this event
-     * @see PlayerMoveEvent
-     * @see PlayerTeleportEvent
-     * @see PlayerQuitEvent
-     * @see PlayerKickEvent
-     * @see PlayerJoinEvent
-     * @see PlayerRespawnEvent
-     * @return
-     */
+
     public PlayerEvent getParentEvent()
     {
         return parentEvent;
