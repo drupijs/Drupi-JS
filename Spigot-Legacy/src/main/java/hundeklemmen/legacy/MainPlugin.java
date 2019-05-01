@@ -17,7 +17,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,23 +32,16 @@ import java.util.Objects;
 
 public class MainPlugin extends JavaPlugin implements Listener {
 
-    public static NashornScriptEngine engine;
     public static MainPlugin instance;
     public static HashMap<String, Object> variables = new HashMap<String, Object>();
-    public static HashMap<Object, Object> addons = new HashMap<Object, Object>();
-    public static FileConfiguration config;
     public static File DrupiFile;
     public static String serverVersion;
 
     public static int ErrorAmount = 0;
 
-    public static boolean update = false;
-    public static boolean updateNotifyOP = true;
-
 
     public static Drupi drupi;
     public static boolean dev = true;
-    public static Thread thread;
 
     @Override
     public void onEnable() {

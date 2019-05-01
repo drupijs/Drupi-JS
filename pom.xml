@@ -10,6 +10,7 @@
     <version>11.0.1</version>
     <modules>
         <module>core</module>
+
         <module>Spigot-Legacy</module>
         <module>version.v1_8</module>
         <module>version.v1_9</module>
@@ -18,6 +19,8 @@
         <module>version.v1_12</module>
         <module>version.v1_13</module>
         <module>version.v1_14</module>
+
+        <module>BungeeCord</module>
     </modules>
 
     <repositories>
