@@ -54,6 +54,12 @@
             <version>6.1</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sainttx.holograms</groupId>
+            <artifactId>Holograms-API</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../libs/Holograms-2.6-SNAPSHOT.jar</systemPath>
+        </dependency>
     </dependencies>
-
 </project>

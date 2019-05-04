@@ -118,6 +118,12 @@ public class MainPlugin extends JavaPlugin implements Listener {
             }
         }
 
+        if (Bukkit.getPluginManager().getPlugin("Holograms") != null) {
+            drupi.log.info("Holograms found, activating Holograms expansion class.");
+            drupi.registerManager("holograms", new hundeklemmen.v1_8.expansions.Holograms.HologramApi(drupi));
+        }
+
+
         drupi.Setup(new SetupMessage() {
             @Override
             public void onMessage(String message) {

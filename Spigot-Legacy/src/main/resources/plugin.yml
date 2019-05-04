@@ -4,7 +4,7 @@ main: hundeklemmen.legacy.MainPlugin
 author: Hundeklemmen
 version: "0.1.0"
 description: js scripting in spigot
-softdepend: [PlaceholderAPI, Vault, WorldGuard]
+softdepend: [PlaceholderAPI, Vault, WorldGuard, Holograms]
 commands:
   drupi:
     description: Interacting with the plugin

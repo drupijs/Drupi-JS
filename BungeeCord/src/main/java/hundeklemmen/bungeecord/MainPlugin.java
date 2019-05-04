@@ -1,5 +1,6 @@
 package hundeklemmen.bungeecord;
 
+import hundeklemmen.bungeecord.Events.event;
 import hundeklemmen.bungeecord.api.BungeeConfig;
 import hundeklemmen.shared.api.Drupi;
 import hundeklemmen.shared.api.DrupiScript;
@@ -31,7 +32,6 @@ public class MainPlugin extends Plugin implements Listener {
     @Override
     public void onEnable(){
         instance = this;
-        this.getProxy().broadcast();
         //Metrics metrics = new Metrics(this); //OOF
 
         //Prepare
@@ -141,6 +141,7 @@ public class MainPlugin extends Plugin implements Listener {
 
         //Register drupi required events for bungeecord events and 3rd party stuff.
         instance.getProxy().getPluginManager().registerListener(instance, this);
+        instance.getProxy().getPluginManager().registerListener(instance, new event(drupi));
     }
 
     @Override
