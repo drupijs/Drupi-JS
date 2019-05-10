@@ -41,13 +41,13 @@ public class MainPlugin extends JavaPlugin implements Listener {
 
 
     public static Drupi drupi;
-    public static boolean dev = true;
+    public static boolean dev = false;
 
     @Override
     public void onEnable() {
         instance = this;
         Metrics metrics = new Metrics(this); //OOF
-
+        DrupiFile = instance.getFile();
         serverVersion = instance.getServer().getClass().getPackage().getName().split("\\.")[3];
         //Prepare
         if (!instance.getDataFolder().exists()) {

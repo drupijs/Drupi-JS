@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class HttpManager {
-    public static String get(String s){
+    public String get(String s){
         try {
             URL url = new URL(s);
             Scanner a = new Scanner(url.openStream());

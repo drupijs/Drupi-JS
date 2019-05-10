@@ -5,12 +5,14 @@ import hundeklemmen.shared.api.interfaces.SetupMessage;
 import hundeklemmen.shared.script.DatabaseManager;
 import hundeklemmen.shared.script.HttpManager;
 import hundeklemmen.shared.script.JSON;
+import hundeklemmen.shared.api.utils.http;
 import hundeklemmen.shared.script.console;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 import javax.script.Invocable;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,16 +54,20 @@ public class Drupi {
 
     public void CheckForUpdate(){
         log.info("Checking for updates");
-        String githubLatest = HttpManager.get("https://api.github.com/repos/drupijs/Drupi-JS/releases/latest");
-        Map<String, Object> javaMap = new Gson().fromJson(githubLatest, Map.class);
-        String latestVersion = javaMap.get("tag_name").toString();
+        try {
+            String githubLatest = http.fireGet("https://api.github.com/repos/drupijs/Drupi-JS/releases/latest");
+            Map<String, Object> javaMap = new Gson().fromJson(githubLatest, Map.class);
+            String latestVersion = javaMap.get("tag_name").toString();
 
-        if(version != latestVersion){
-            update = true;
-            log.info("Whoups! It looks like Drupi is out of date!");
-            log.info("Go download the latest version of Drupi at https://www.spigotmc.org/resources/drupi-js.65706/");
-        } else {
-            log.info("You're running the latest version of Drupi!");
+            if(version != latestVersion){
+                update = true;
+                log.info("Whoups! It looks like Drupi is out of date!");
+                log.info("Go download the latest version of Drupi at https://www.spigotmc.org/resources/drupi-js.65706/");
+            } else {
+                log.info("You're running the latest version of Drupi!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
