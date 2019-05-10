@@ -12,6 +12,7 @@
         <module>core</module>
 
         <module>Spigot-Legacy</module>
+        <module>Minehut-Native</module>
         <module>version.v1_8</module>
         <module>version.v1_9</module>
         <module>version.v1_10</module>
