@@ -12,7 +12,6 @@ import com.sk89q.worldguard.protection.managers.RemovalStrategy;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import hundeklemmen.shared.api.Drupi;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -30,8 +29,9 @@ public class WorldguardAPIManager {
     }
 
     public WorldGuard get(){
-        return (WorldGuard) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
+        return com.sk89q.worldguard.WorldGuard.getInstance();
     };
+
 
     public void addMember(Player player, String region, World world){
         String name = region;
