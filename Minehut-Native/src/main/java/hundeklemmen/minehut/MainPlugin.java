@@ -6,6 +6,7 @@ import hundeklemmen.minehut.expansions.Vault;
 import hundeklemmen.minehut.expansions.placeholderapi.PlaceholderAPIEventHandler;
 import hundeklemmen.minehut.expansions.placeholderapi.PlaceholderAPIExtension;
 import hundeklemmen.minehut.script.*;
+import hundeklemmen.minehut.expansions.skript.SkAddon;
 import hundeklemmen.shared.api.Drupi;
 import hundeklemmen.shared.api.DrupiScript;
 import hundeklemmen.shared.api.Platform;
@@ -121,6 +122,11 @@ public class MainPlugin extends JavaPlugin implements Listener {
         if (Bukkit.getPluginManager().getPlugin("Holograms") != null) {
             drupi.log.info("Holograms found, activating Holograms expansion class.");
             drupi.registerManager("holograms", new hundeklemmen.v1_8.expansions.Holograms.HologramApi(drupi));
+        }
+
+        if (Bukkit.getPluginManager().getPlugin("Skript") != null) {
+            drupi.log.info("Skript found, activating Skript expansion class.");
+            new SkAddon(drupi);
         }
 
 

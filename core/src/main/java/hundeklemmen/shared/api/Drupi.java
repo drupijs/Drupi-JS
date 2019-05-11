@@ -151,6 +151,19 @@ public class Drupi {
 
     }
 
+    public Object callFunctionWithResult(String functionName, Object... args){
+        if (engine.get(functionName) == null) {
+            return null;
+        }
+        try {
+            return ((Invocable) engine).invokeFunction(functionName, args);
+        } catch (final Exception se) {
+            log.warning("Error while calling " + functionName);
+            se.printStackTrace();
+        }
+        return null;
+    }
+
     public Object getPlugin(){
         return plugin;
     }

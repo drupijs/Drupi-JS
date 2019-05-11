@@ -120,6 +120,13 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>com.github.SkriptLang</groupId>
+      <artifactId>Skript</artifactId>
+      <version>2.3.6</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/libs/Skript.jar</systemPath>
+    </dependency>
   </dependencies>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>

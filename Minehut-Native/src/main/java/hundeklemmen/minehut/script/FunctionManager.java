@@ -5,6 +5,7 @@ import hundeklemmen.minehut.extra.ActionBar;
 import hundeklemmen.minehut.extra.Title;
 import hundeklemmen.minehut.extra.configHandler;
 import hundeklemmen.minehut.util;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -17,7 +18,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -34,12 +37,20 @@ public class FunctionManager {
         return plugin.getServer().getOnlinePlayers().size();
     }
 
+    public void createFolder(String folderPath){
+        File folder = new File(folderPath);
+        if(!folder.exists()){
+            folder.mkdirs();
+        }
+    }
+
     public File getFile(String folder, String archive){
         File file = new File(plugin.getDataFolder() + "/" + folder + "/");
         file.mkdir();
         File yml =  new File(plugin.getDataFolder() + "/" + folder + "/", archive);
         if (!yml.exists()) {
             try {
+                yml.mkdirs();
                 yml.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -52,6 +63,31 @@ public class FunctionManager {
         } else {
             return null;
         }
+    }
+
+    public void writeToFile(File file, String content){
+        try {
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            FileWriter fileWriter = new FileWriter(file);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.write(content);
+            printWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String readFile(File file){
+        if(file.exists()) {
+            try {
+                return FileUtils.readFileToString(file, "UTF-8");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     public World getWorld(String worldName){
