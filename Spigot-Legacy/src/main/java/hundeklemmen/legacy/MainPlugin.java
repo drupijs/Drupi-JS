@@ -98,7 +98,7 @@ public class MainPlugin extends JavaPlugin implements Listener {
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             drupi.log.info("PlaceholderAPI found, activating PlaceholderAPI expansion class.");
-            new PlaceholderAPIExtension(instance, "drupi").hook();
+            new PlaceholderAPIExtension().register();
             this.getServer().getPluginManager().registerEvents(new PlaceholderAPIEventHandler(), instance);
             drupi.registerManager("placeholderapi", new placeholderAPIManager(instance));
         }
