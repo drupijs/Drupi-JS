@@ -28,6 +28,11 @@ public class PlaceholderAPIExtension extends PlaceholderExpansion {
     }
 
     @Override
+    public boolean persist(){
+        return true;
+    }
+
+    @Override
     public String onPlaceholderRequest(Player player, String identifier){
         PlaceholderAPIEvent event = new PlaceholderAPIEvent(identifier, player, "drupi");
         Bukkit.getServer().getPluginManager().callEvent(event);

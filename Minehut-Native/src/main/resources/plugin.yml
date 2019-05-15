@@ -2,7 +2,7 @@ name: "Drupi"
 api: "1.0.0"
 main: hundeklemmen.minehut.MainPlugin
 author: Hundeklemmen
-version: "0.1.3-minehut"
+version: "0.1.4-minehut"
 description: JavaScripting in Minecraft!
 softdepend: [PlaceholderAPI, Vault, WorldGuard, Holograms, Skript]
 commands:

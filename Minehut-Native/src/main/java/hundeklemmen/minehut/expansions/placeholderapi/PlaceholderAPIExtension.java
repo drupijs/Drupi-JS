@@ -1,24 +1,40 @@
 package hundeklemmen.minehut.expansions.placeholderapi;
 
 import hundeklemmen.minehut.MainPlugin;
-import me.clip.placeholderapi.external.EZPlaceholderHook;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class PlaceholderAPIExtension extends EZPlaceholderHook {
+public class PlaceholderAPIExtension extends PlaceholderExpansion {
 
-    private MainPlugin plugin;
-    private String prefix;
-
-    public PlaceholderAPIExtension(MainPlugin plugin, String prefix) {
-        super(plugin, prefix);
-        this.prefix = prefix;
-        this.plugin = plugin;
+    @Override
+    public boolean canRegister(){
+        return true;
     }
 
     @Override
-    public String onPlaceholderRequest(Player player, String identifier) {
-        PlaceholderAPIEvent event = new PlaceholderAPIEvent(identifier, player, prefix);
+    public String getAuthor(){
+        return "Hundeklemmen";
+    }
+
+    @Override
+    public String getIdentifier(){
+        return "drupi";
+    }
+
+    @Override
+    public String getVersion(){
+        return MainPlugin.instance.getDescription().getVersion();
+    }
+
+    @Override
+    public boolean persist(){
+        return true;
+    }
+
+    @Override
+    public String onPlaceholderRequest(Player player, String identifier){
+        PlaceholderAPIEvent event = new PlaceholderAPIEvent(identifier, player, "drupi");
         Bukkit.getServer().getPluginManager().callEvent(event);
         return event.getResult();
     }

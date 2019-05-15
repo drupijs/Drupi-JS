@@ -3,7 +3,6 @@ package hundeklemmen.legacy;
 
 import hundeklemmen.legacy.api.handlers.SpigotConfig;
 import hundeklemmen.legacy.expansions.Vault;
-import hundeklemmen.legacy.expansions.placeholderapi.PlaceholderAPIEventHandler;
 import hundeklemmen.legacy.expansions.placeholderapi.PlaceholderAPIExtension;
 import hundeklemmen.legacy.expansions.skript.SkAddon;
 import hundeklemmen.legacy.script.*;
@@ -99,7 +98,7 @@ public class MainPlugin extends JavaPlugin implements Listener {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             drupi.log.info("PlaceholderAPI found, activating PlaceholderAPI expansion class.");
             new PlaceholderAPIExtension().register();
-            this.getServer().getPluginManager().registerEvents(new PlaceholderAPIEventHandler(), instance);
+            //this.getServer().getPluginManager().registerEvents(new PlaceholderAPIEventHandler(), instance);
             drupi.registerManager("placeholderapi", new placeholderAPIManager(instance));
         }
 
