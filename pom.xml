@@ -22,6 +22,7 @@
         <module>version.v1_14</module>
 
         <module>BungeeCord</module>
+        <module>Addon</module>
     </modules>
 
     <repositories>
