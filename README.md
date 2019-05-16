@@ -13,10 +13,7 @@ You can join our community Discord at https://discord.gg/hEwaxsN
 *This plugin uses bStats, to track anonymous data about servers using this plugin. It will help the future development and has no impact on your server's performance. If you really want to disable it, go to the folder /plugins/bStats/config.yml and set "enabled: false"*
 
 Website: [https://drupi.js.org/](https://drupi.js.org/)
-
 Discord: [https://discord.gg/hEwaxsN](https://discord.gg/hEwaxsN)
-
 Github: [https://github.com/drupijs/Drupi-JS](https://github.com/drupijs/Drupi-JS)
-
 bStats: [https://bstats.org/plugin/bukkit/Drupi](https://bstats.org/plugin/bukkit/Drupi)
 
