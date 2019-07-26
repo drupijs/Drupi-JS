@@ -11,6 +11,7 @@ import hundeklemmen.shared.api.DrupiScript;
 import hundeklemmen.shared.api.Platform;
 import hundeklemmen.shared.api.interfaces.ScriptLoadMessage;
 import hundeklemmen.shared.api.interfaces.SetupMessage;
+import io.puharesource.mc.titlemanager.api.v2.TitleManagerAPI;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -95,6 +96,12 @@ public class MainPlugin extends JavaPlugin implements Listener {
             drupi.registerManager("vault", new Vault());
         }
 
+        if (Bukkit.getPluginManager().getPlugin("TitleManager") != null) {
+            drupi.log.info("TitleManager found, activating TitleManager expansion class.");
+            TitleManagerAPI TitleManagerapi = (TitleManagerAPI) Bukkit.getServer().getPluginManager().getPlugin("TitleManager");
+            drupi.registerManager("TitleManager", TitleManagerapi);
+        }
+        
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             drupi.log.info("PlaceholderAPI found, activating PlaceholderAPI expansion class.");
             new PlaceholderAPIExtension().register();

@@ -12,7 +12,6 @@
         <module>core</module>
 
         <module>Spigot-Legacy</module>
-        <module>Minehut-Native</module>
         <module>version.v1_8</module>
         <module>version.v1_9</module>
         <module>version.v1_10</module>
@@ -21,7 +20,6 @@
         <module>version.v1_13</module>
         <module>version.v1_14</module>
 
-        <module>BungeeCord</module>
         <module>Addon</module>
     </modules>
 

@@ -2,9 +2,11 @@ package hundeklemmen.shared.script;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
@@ -71,5 +73,58 @@ public class HttpManager {
     public String post(String url, Map<Object,Object> objectMap){
         JSONObject obj = hundeklemmen.shared.script.JSON.toJson(objectMap);
         return this.post(url, obj);
+    }
+
+
+
+    public String postWithHeaders(String url, Map<Object,Object> headersObject, Map<Object,Object> objectMap){
+        JSONObject Headers_obj = hundeklemmen.shared.script.JSON.toJson(headersObject);
+        JSONObject Body_obj = hundeklemmen.shared.script.JSON.toJson(objectMap);
+
+        String payload = Body_obj.toString();
+        StringEntity entity = new StringEntity(payload,
+                ContentType.APPLICATION_JSON);
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            HttpPost post = new HttpPost(url);
+
+            // add header
+            post.setHeader("User-Agent", "Mozilla/5.0");
+            for(int i = 0; i<Headers_obj.names().length(); i++){
+               post.setHeader(Headers_obj.names().getString(i), (String) Headers_obj.get(Headers_obj.names().getString(i)));
+           }
+
+            post.setEntity(entity);
+
+            HttpResponse response = client.execute(post);
+
+            return EntityUtils.toString(response.getEntity(), "UTF-8");
+        } catch(IOException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getWithHeaders(String url, Map<Object,Object> headersObject){
+        JSONObject Headers_obj = hundeklemmen.shared.script.JSON.toJson(headersObject);
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet(url);
+
+            // add request header
+            request.setHeader("User-Agent", "Mozilla/5.0");
+            for(int i = 0; i<Headers_obj.names().length(); i++){
+                request.setHeader(Headers_obj.names().getString(i), (String) Headers_obj.get(Headers_obj.names().getString(i)));
+            }
+
+            HttpResponse response = client.execute(request);
+
+            return EntityUtils.toString(response.getEntity(), "UTF-8");
+        } catch(IOException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }
