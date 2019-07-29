@@ -12,6 +12,7 @@ import hundeklemmen.shared.api.Platform;
 import hundeklemmen.shared.api.interfaces.ScriptLoadMessage;
 import hundeklemmen.shared.api.interfaces.SetupMessage;
 import io.puharesource.mc.titlemanager.api.v2.TitleManagerAPI;
+import io.socket.client.Socket;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -26,7 +27,9 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -37,6 +40,8 @@ public class MainPlugin extends JavaPlugin implements Listener {
     public static HashMap<String, Object> variables = new HashMap<String, Object>();
     public static File DrupiFile;
     public static String serverVersion;
+
+    public ArrayList<Socket> sockets = new ArrayList<Socket>();
 
     public static int ErrorAmount = 0;
 
@@ -91,6 +96,7 @@ public class MainPlugin extends JavaPlugin implements Listener {
         drupi.registerManager("variable", new variableManager(instance));
         drupi.registerManager("scoreboard", new scoreboardManager(instance));
         drupi.registerManager("material", new materialManager(instance));
+        drupi.registerManager("socket", new socketManager(instance));
 
         if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
             drupi.registerManager("vault", new Vault());
@@ -267,6 +273,13 @@ public class MainPlugin extends JavaPlugin implements Listener {
     }
 
     public void reloadDrupi(CommandSender sender){
+        if(sockets.size() != 0){
+            drupi.log.info("Disconnecting sockets..");
+            for (int i = 0; i < sockets.size(); i++){
+                sockets.get(i).disconnect();
+            }
+            sockets = new ArrayList<Socket>();
+        }
         if(serverVersion.startsWith("v1_8")||serverVersion.startsWith("v1_9")||serverVersion.startsWith("v1_10")||serverVersion.startsWith("v1_11")||serverVersion.startsWith("v1_12")) {
             Bukkit.getScheduler().cancelAllTasks();
         } else {

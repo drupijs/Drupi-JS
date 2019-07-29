@@ -1,11 +1,14 @@
 package hundeklemmen.shared.script;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class JSON {
+
+    public JSON(){ }
 
     public String stringify(Map<Object,Object> objectMap){
         JSONObject obj = new JSONObject();
@@ -33,6 +36,13 @@ public class JSON {
             obj.put(String.valueOf(entry.getKey()), entry.getValue());
         };
         return obj;
+    }
+
+    public JSONObject parseRawObject(String raw){
+        return new JSONObject(raw);
+    }
+    public JSONArray parseRawArray(String raw){
+        return new JSONArray(raw);
     }
 
 
