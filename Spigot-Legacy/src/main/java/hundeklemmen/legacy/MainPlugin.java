@@ -22,6 +22,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -415,7 +416,7 @@ public class MainPlugin extends JavaPlugin implements Listener {
                         sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
                         sender.sendMessage(ChatColor.GREEN + "You're currently running " + ChatColor.AQUA + MainPlugin.instance.getDescription().getVersion());
                         sender.sendMessage(ChatColor.GREEN + "Latest version: " + ChatColor.AQUA + util.getLatestVersion());
-                        sender.sendMessage(ChatColor.GREEN + "Releases: " + ChatColor.AQUA + "https://drupi.xyz/releases");
+                        sender.sendMessage(ChatColor.GREEN + "Releases: " + ChatColor.AQUA + "https://drupi.js.org");
                     }
                 } else {
                     sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
@@ -430,6 +431,7 @@ public class MainPlugin extends JavaPlugin implements Listener {
         }
         return true;
     }
+
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
