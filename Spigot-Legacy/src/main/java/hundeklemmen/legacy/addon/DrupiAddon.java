@@ -14,6 +14,9 @@ public class DrupiAddon {
         this.instance = this;
         this.drupi =  MainPlugin.drupi;
         drupi.registerManager(name, clas);
+        if(drupi.engine != null) {
+            drupi.engine.put(name, clas);
+        }
         drupi.log.info("Registered Addon: " + name);
     }
 
