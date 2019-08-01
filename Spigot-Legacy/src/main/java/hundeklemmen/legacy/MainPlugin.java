@@ -26,6 +26,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import java.util.Objects;
 
 
 
-public class MainPlugin extends JavaPlugin implements Listener {
+public class MainPlugin extends JavaPlugin implements Listener, PluginMessageListener {
 
     public static MainPlugin instance;
     public static HashMap<String, Object> variables = new HashMap<String, Object>();
@@ -56,6 +57,10 @@ public class MainPlugin extends JavaPlugin implements Listener {
         Metrics metrics = new Metrics(this); //OOF
         DrupiFile = instance.getFile();
         serverVersion = instance.getServer().getClass().getPackage().getName().split("\\.")[3];
+
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", this);
+
         //Prepare
         if (!instance.getDataFolder().exists()) {
             instance.getDataFolder().mkdir();
@@ -443,5 +448,10 @@ public class MainPlugin extends JavaPlugin implements Listener {
                 player.sendMessage(prefix + " Use /Drupi update download to download the latest version!");
             }
         }
+    }
+
+    @Override
+    public void onPluginMessageReceived(String channel, Player player, byte[] message) {
+        drupi.callFunction("onPluginMessageReceived", channel, player, message);
     }
 }

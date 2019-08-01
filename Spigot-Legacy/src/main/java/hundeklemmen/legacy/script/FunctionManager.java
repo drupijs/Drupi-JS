@@ -1,5 +1,7 @@
 package hundeklemmen.legacy.script;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import hundeklemmen.legacy.MainPlugin;
 import hundeklemmen.legacy.extra.ActionBar;
 import hundeklemmen.legacy.extra.Title;
@@ -245,6 +247,9 @@ public class FunctionManager {
         public void run() {
             plugin.drupi.callFunction(functionName);
         }
+    }
+    public ByteArrayDataOutput newByteArrayDataOutput(){
+        return ByteStreams.newDataOutput();
     }
 
     public void kickPlayer(Player player){
