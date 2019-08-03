@@ -5,6 +5,7 @@ import com.google.common.io.ByteStreams;
 import hundeklemmen.legacy.MainPlugin;
 import hundeklemmen.legacy.extra.ActionBar;
 import hundeklemmen.legacy.extra.Title;
+import hundeklemmen.legacy.extra.VersionSupportUtils;
 import hundeklemmen.legacy.extra.configHandler;
 import hundeklemmen.legacy.util;
 import org.apache.commons.io.FileUtils;
@@ -17,13 +18,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 
@@ -251,6 +256,11 @@ public class FunctionManager {
     public ByteArrayDataOutput newByteArrayDataOutput(){
         return ByteStreams.newDataOutput();
     }
+
+    public void renameInventory(Player player, String title){
+        VersionSupportUtils.getInstance().updateInventoryName(title, player);
+    }
+
 
     public void kickPlayer(Player player){
         player.kickPlayer("");

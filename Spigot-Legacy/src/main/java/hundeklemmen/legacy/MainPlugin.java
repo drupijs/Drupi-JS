@@ -22,7 +22,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,7 +30,6 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -55,6 +53,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
     public void onEnable() {
         instance = this;
         Metrics metrics = new Metrics(this); //OOF
+
         DrupiFile = instance.getFile();
         serverVersion = instance.getServer().getClass().getPackage().getName().split("\\.")[3];
 
