@@ -51,26 +51,19 @@ public class FunctionManager {
         }
     }
 
-    public File getFile(String folder, String archive){
+    public File getFile(String folder, String archive) {
         File file = new File(plugin.getDataFolder() + "/" + folder + "/");
-        file.mkdir();
-        File yml =  new File(plugin.getDataFolder() + "/" + folder + "/", archive);
+        file.mkdirs();
+        File yml = new File(plugin.getDataFolder() + "/" + folder + "/", archive);
         if (!yml.exists()) {
             try {
-                yml.mkdirs();
                 yml.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        File returnFile = new File(plugin.getDataFolder() + "/" + folder + "/" + archive);
-        //Check if it contains minehut's keywords
-        if(!returnFile.getAbsolutePath().contains("server.properties")||!returnFile.getAbsolutePath().contains("BukkitCore/config.yml")||!returnFile.getAbsolutePath().contains("PlayerServer/config.yml")||!returnFile.getAbsolutePath().contains("spigot.yml")||!returnFile.getAbsolutePath().contains("paper.yml")){
-            return returnFile;
-        } else {
-            return null;
-        }
-    }
+        return new File(plugin.getDataFolder() + "/" + folder + "/" + archive);
+    };
 
     public void writeToFile(File file, String content){
         try {
