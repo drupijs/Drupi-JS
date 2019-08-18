@@ -8,6 +8,9 @@ import hundeklemmen.legacy.extra.Title;
 import hundeklemmen.legacy.extra.VersionSupportUtils;
 import hundeklemmen.legacy.extra.configHandler;
 import hundeklemmen.legacy.util;
+import hundeklemmen.shared.api.Drupi;
+import hundeklemmen.shared.api.DrupiScript;
+import hundeklemmen.shared.api.interfaces.ScriptLoadMessage;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -35,9 +38,11 @@ import java.util.ArrayList;
 public class FunctionManager {
 
     private MainPlugin plugin;
+    private Drupi drupi;
 
-    public FunctionManager(MainPlugin plugin){
+    public FunctionManager(MainPlugin plugin, Drupi drupi){
         this.plugin = plugin;
+        this.drupi = drupi;
     }
 
     public int getPlayers(){
@@ -61,9 +66,26 @@ public class FunctionManager {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
         return new File(plugin.getDataFolder() + "/" + folder + "/" + archive);
     };
+
+    public void eval(File loc){
+        DrupiScript DS = new DrupiScript(loc);
+        DS.Load(drupi, new ScriptLoadMessage() {
+            @Override
+            public void onSuccess() {
+                drupi.log.info("A drupi script have successfully loaded " + loc.getName());
+            }
+
+            @Override
+            public void onError(String error){
+                drupi.log.info("Could not load " + loc.getName());
+                drupi.log.info("[ERROR] " + error);
+            }
+        });
+    }
 
     public void writeToFile(File file, String content){
         try {

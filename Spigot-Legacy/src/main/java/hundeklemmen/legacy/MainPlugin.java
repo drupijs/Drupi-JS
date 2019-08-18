@@ -44,6 +44,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
     public ArrayList<Socket> sockets = new ArrayList<Socket>();
 
     public static int ErrorAmount = 0;
+    public static int ErrorAmountLibs = 0;
 
 
     public static Drupi drupi;
@@ -94,7 +95,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
         //Register managers:
         drupi.registerManager("server", instance.getServer());
         drupi.registerManager("plugin", instance);
-        drupi.registerManager("manager", new FunctionManager(instance));
+        drupi.registerManager("manager", new FunctionManager(instance, drupi));
 
         drupi.registerManager("cast", new castManager());
         drupi.registerManager("logger", instance.getLogger());
@@ -102,6 +103,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
         drupi.registerManager("scoreboard", new scoreboardManager(instance));
         drupi.registerManager("material", new materialManager(instance));
         drupi.registerManager("socket", new socketManager(instance));
+
 
         if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
             drupi.registerManager("vault", new Vault());
@@ -161,6 +163,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
 
                 devLog("[DEV] Done loading managers!");
 
+
                 drupi.log.info("Loading scripts..");
                 ErrorAmount = 0;
 
@@ -176,6 +179,41 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                         MainPlugin.ErrorAmount++;
                     }
                 });
+
+                drupi.log.info("Loading libs..");
+                File libsFolder = new File(instance.getDataFolder(), "libs");
+                if(libsFolder.exists()) {
+                    ErrorAmountLibs = 0;
+                    for (File file : Objects.requireNonNull(libsFolder.listFiles())) {
+                        if(file.isDirectory()) continue;
+                        if(file.getName().toLowerCase().contains(".js")||file.getName().toLowerCase().contains(".drupi")){
+                            if(!file.getName().substring(0, 1).equalsIgnoreCase("_")) {
+                                DrupiScript DS = new DrupiScript(file);
+                                DS.Load(drupi, new ScriptLoadMessage() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(String error){
+                                        MainPlugin.ErrorAmountLibs++;
+                                    }
+                                });
+                            } else {
+                                drupi.log.warning(file.getName() + " is disabled and was not loaded! Remove _ to enable it!");
+                            }
+                        }
+                    }
+                    if(ErrorAmountLibs == 0) {
+                        drupi.log.info("Successfully reloaded all libs!");
+                    } else {
+                        drupi.log.info("Loaded all libs with a total of "+ ErrorAmountLibs + " errors!");
+                    }
+                } else {
+                    devLog("No libs founds, continuing.");
+                }
+
 
                 File defaultJS = new File(instance.getDataFolder(), "scripts");
                 for (File file : Objects.requireNonNull(defaultJS.listFiles())) {
@@ -309,6 +347,46 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
 
                 devLog("[DEV] Done loading managers!");
 
+                drupi.log.info("Loading libs..");
+                File libsFolder = new File(instance.getDataFolder(), "libs");
+                if(libsFolder.exists()) {
+                    ErrorAmountLibs = 0;
+                    sender.sendMessage("§a[§bDrupi§a] "+ "§aReloading all libs..");
+                    for (File file : Objects.requireNonNull(libsFolder.listFiles())) {
+                        if(file.isDirectory()) continue;
+                        if(file.getName().toLowerCase().contains(".js")||file.getName().toLowerCase().contains(".drupi")){
+                            if(!file.getName().substring(0, 1).equalsIgnoreCase("_")) {
+                                DrupiScript DS = new DrupiScript(file);
+                                DS.Load(drupi, new ScriptLoadMessage() {
+                                    @Override
+                                    public void onSuccess() {
+                                        sender.sendMessage("§aLoaded lib §b" + UtilsJSFile.getName() + "§a successfully");
+
+                                    }
+
+                                    @Override
+                                    public void onError(String error){
+                                        sender.sendMessage("§cCould not load §a" + UtilsJSFile.getName());
+                                        sender.sendMessage("§4[ERROR]§c " + error);
+                                        MainPlugin.ErrorAmountLibs++;
+                                    }
+                                });
+                            } else {
+                                drupi.log.warning(file.getName() + " is disabled and was not loaded! Remove _ to enable it!");
+                            }
+                        }
+                    }
+                    if(ErrorAmountLibs == 0) {
+                        sender.sendMessage(util.color("§a[§bDrupi§a] "+ "&aSuccessfully reloaded all libs!"));
+                        drupi.log.info("Successfully reloaded all libs!");
+                    } else {
+                        sender.sendMessage(util.color("§a[§bDrupi§a] "+"§cLoaded all libs with a total of §4"+ ErrorAmountLibs + "§c errors!"));
+                        drupi.log.info("Loaded all libs with a total of "+ ErrorAmountLibs + " errors!");
+                    }
+                } else {
+                    devLog("No libs founds, continuing.");
+                }
+
                 drupi.log.info("Loading scripts..");
                 ErrorAmount = 0;
 
@@ -327,6 +405,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                         MainPlugin.ErrorAmount++;
                     }
                 });
+
                 File defaultJS = new File(instance.getDataFolder(), "scripts");
                 for (File file : Objects.requireNonNull(defaultJS.listFiles())) {
                     if(file.isDirectory()) continue;
