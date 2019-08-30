@@ -4,6 +4,7 @@ import hundeklemmen.legacy.MainPlugin;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -33,6 +34,13 @@ public class materialManager {
     public ItemStack setLore(ItemStack it, List<String> lines){
         ItemMeta meta = it.getItemMeta();
         meta.setLore(lines);
+        it.setItemMeta(meta);
+        return it;
+    }
+    
+    public ItemStack addEnchantment(ItemStack it,Enchantment enchantment, int lvl) {
+        ItemMeta meta = it.getItemMeta();
+        meta.addEnchant(enchantment, lvl, false);
         it.setItemMeta(meta);
         return it;
     }
