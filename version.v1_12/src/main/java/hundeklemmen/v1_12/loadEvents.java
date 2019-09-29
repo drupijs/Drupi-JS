@@ -485,12 +485,6 @@ public class loadEvents implements Listener{
 
 
     @EventHandler
-    public void onPlayerAchievementAwardedEvent(PlayerAchievementAwardedEvent event){
-        drupi.callFunction("PlayerAchievementAwardedEvent", event);
-    }
-
-
-    @EventHandler
     public void onPlayerAdvancementDoneEvent(PlayerAdvancementDoneEvent event){
         drupi.callFunction("PlayerAdvancementDoneEvent", event);
     }
