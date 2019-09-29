@@ -114,7 +114,7 @@ public class util {
         String latestVersion = getLatestVersion();
         sender.sendMessage("You're currently running " + currentVersion);
         sender.sendMessage("Latest Drupi version: " + latestVersion);
-        if(currentVersion != latestVersion){
+        if(currentVersion.equalsIgnoreCase(latestVersion)){
             sender.sendMessage("Downloading latest version of Drupi..");
             try {
                 download("https://github.com/drupijs/Drupi-JS/releases/download/"+latestVersion+"/Drupi-Spigot-Legacy.jar", new File("plugins", MainPlugin.DrupiFile.getName()));
