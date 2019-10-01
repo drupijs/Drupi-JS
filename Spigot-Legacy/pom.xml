@@ -196,6 +196,13 @@
             <scope>system</scope>
             <systemPath>${basedir}/libs/Skript.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>com.github.LabyMod</groupId>
+            <artifactId>labymod-server-api</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/LabyMod.jar</systemPath>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

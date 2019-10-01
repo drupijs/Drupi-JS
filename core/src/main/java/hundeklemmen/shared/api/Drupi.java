@@ -60,8 +60,7 @@ public class Drupi {
             String githubLatest = http.fireGet("https://api.github.com/repos/drupijs/Drupi-JS/releases/latest");
             Map<String, Object> javaMap = new Gson().fromJson(githubLatest, Map.class);
             String latestVersion = javaMap.get("tag_name").toString();
-
-            if(version != latestVersion){
+            if(!version.equalsIgnoreCase(latestVersion)){
                 update = true;
                 log.info("Whoups! It looks like Drupi is out of date!");
                 log.info("Go download the latest version of Drupi at https://www.spigotmc.org/resources/drupi-js.65706/");

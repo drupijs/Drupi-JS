@@ -2,9 +2,9 @@ name: Drupi
 api: "1.0.0"
 main: hundeklemmen.legacy.MainPlugin
 author: Hundeklemmen
-version: "0.1.12"
-description: js scripting in spigot
-softdepend: [PlaceholderAPI, Vault, WorldGuard, Holograms, Skript, TitleManager]
+version: "0.1.13"
+description: Minecraft development made easy.
+softdepend: [PlaceholderAPI, Vault, WorldGuard, Holograms, Skript, TitleManager, LabyModAPI]
 commands:
   drupi:
     description: Interacting with the plugin

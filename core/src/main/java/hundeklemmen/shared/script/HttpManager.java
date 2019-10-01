@@ -71,15 +71,15 @@ public class HttpManager {
         }
     }
     public String post(String url, Map<Object,Object> objectMap){
-        JSONObject obj = hundeklemmen.shared.script.JSON.toJson(objectMap);
+        JSONObject obj = toJson(objectMap);
         return this.post(url, obj);
     }
 
 
 
     public String postWithHeaders(String url, Map<Object,Object> headersObject, Map<Object,Object> objectMap){
-        JSONObject Headers_obj = hundeklemmen.shared.script.JSON.toJson(headersObject);
-        JSONObject Body_obj = hundeklemmen.shared.script.JSON.toJson(objectMap);
+        JSONObject Headers_obj = toJson(headersObject);
+        JSONObject Body_obj = toJson(objectMap);
 
         String payload = Body_obj.toString();
         StringEntity entity = new StringEntity(payload,
@@ -107,7 +107,7 @@ public class HttpManager {
     }
 
     public String getWithHeaders(String url, Map<Object,Object> headersObject){
-        JSONObject Headers_obj = hundeklemmen.shared.script.JSON.toJson(headersObject);
+        JSONObject Headers_obj = toJson(headersObject);
 
         try {
             HttpClient client = new DefaultHttpClient();
@@ -126,5 +126,14 @@ public class HttpManager {
             e.printStackTrace();
             return null;
         }
+    }
+
+
+    public static JSONObject toJson(Map<Object, Object> objectMap){
+        JSONObject obj = new JSONObject();
+        for(Map.Entry<Object, Object> entry : objectMap.entrySet()){
+            obj.put(String.valueOf(entry.getKey()), entry.getValue());
+        };
+        return obj;
     }
 }

@@ -3,6 +3,7 @@ package hundeklemmen.legacy;
 
 import hundeklemmen.legacy.api.handlers.SpigotConfig;
 import hundeklemmen.legacy.expansions.Vault;
+import hundeklemmen.legacy.expansions.labymod.LabymodEvents;
 import hundeklemmen.legacy.expansions.placeholderapi.PlaceholderAPIExtension;
 import hundeklemmen.legacy.expansions.skript.SkAddon;
 import hundeklemmen.legacy.script.*;
@@ -14,6 +15,8 @@ import hundeklemmen.shared.api.interfaces.SetupMessage;
 import io.puharesource.mc.titlemanager.api.v2.TitleManagerAPI;
 import io.socket.client.Socket;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
+import net.labymod.serverapi.LabyModAPI;
+import net.labymod.serverapi.bukkit.LabyModPlugin;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -113,6 +116,11 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             drupi.log.info("TitleManager found, activating TitleManager expansion class.");
             TitleManagerAPI TitleManagerapi = (TitleManagerAPI) Bukkit.getServer().getPluginManager().getPlugin("TitleManager");
             drupi.registerManager("TitleManager", TitleManagerapi);
+        }
+        if (Bukkit.getPluginManager().getPlugin("LabyModAPI") != null) {
+            drupi.log.info("LabyModAPI found, activating LabyModAPI expansion class.");
+            drupi.registerManager("LabyModAPI", LabyModPlugin.getInstance());
+            this.getServer().getPluginManager().registerEvents(new LabymodEvents(drupi), this);
         }
         
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {

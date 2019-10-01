@@ -1,5 +1,7 @@
 package hundeklemmen.shared.script;
 
+import com.google.gson.JsonObject;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -30,10 +32,27 @@ public class JSON {
             return null;
         }
     }
-    public static JSONObject toJson(Map<Object, Object> objectMap){
+    public JSONObject toJson(Map<Object, Object> objectMap){
         JSONObject obj = new JSONObject();
         for(Map.Entry<Object, Object> entry : objectMap.entrySet()){
             obj.put(String.valueOf(entry.getKey()), entry.getValue());
+        };
+        return obj;
+    }
+    public JsonObject toGson(Map<Object, Object> objectMap){
+        JsonObject obj = new JsonObject();
+        for(Map.Entry<Object, Object> entry : objectMap.entrySet()){
+            if(entry.getValue() instanceof String){
+                obj.addProperty(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()));
+            } else if(entry.getValue() instanceof Number){
+                obj.addProperty(String.valueOf(entry.getKey()), (Number) entry.getValue());
+            } else if(entry.getValue() instanceof Boolean){
+                obj.addProperty(String.valueOf(entry.getKey()), (boolean) entry.getValue());
+            } else if(entry.getValue() instanceof Character){
+                obj.addProperty(String.valueOf(entry.getKey()), (Character) entry.getValue());
+            } else {
+                obj.addProperty(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()));
+            }
         };
         return obj;
     }
