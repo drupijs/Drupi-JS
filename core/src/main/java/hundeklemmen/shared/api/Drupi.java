@@ -33,6 +33,8 @@ public class Drupi {
     public static List<String> registeredCommands = new ArrayList<String>();
     public static HashMap<String, Object> managers = new HashMap<String, Object>();
 
+    public static HashMap<String, String> extraEvents = new HashMap<>();
+
     public File DataFolder;
 
     public config config;
@@ -150,6 +152,7 @@ public class Drupi {
         }
 
     }
+
 
     public Object callFunctionWithResult(String functionName, Object... args){
         if (engine.get(functionName) == null) {
