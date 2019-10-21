@@ -2,7 +2,7 @@ name: Drupi
 api: "1.0.0"
 main: hundeklemmen.legacy.MainPlugin
 author: Hundeklemmen
-version: "0.1.13"
+version: "0.1.14"
 description: Minecraft development made easy.
 softdepend: [PlaceholderAPI, Vault, WorldGuard, Holograms, Skript, TitleManager, LabyModAPI]
 commands:

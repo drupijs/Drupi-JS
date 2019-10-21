@@ -31,8 +31,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.io.File;
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -56,6 +59,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
     @Override
     public void onEnable() {
         instance = this;
+
         Metrics metrics = new Metrics(this); //OOF
 
         DrupiFile = instance.getFile();

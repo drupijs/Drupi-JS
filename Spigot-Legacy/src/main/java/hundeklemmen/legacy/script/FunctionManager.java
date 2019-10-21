@@ -87,6 +87,24 @@ public class FunctionManager {
         });
     }
 
+    public void eval(File loc, Runnable run){
+        DrupiScript DS = new DrupiScript(loc);
+        DS.Load(drupi, new ScriptLoadMessage() {
+            @Override
+            public void onSuccess() {
+                run.run();
+                drupi.log.info("A drupi script have successfully loaded " + loc.getName());
+            }
+
+            @Override
+            public void onError(String error){
+                run.run();
+                drupi.log.info("Could not load " + loc.getName());
+                drupi.log.info("[ERROR] " + error);
+            }
+        });
+    }
+
     public void writeToFile(File file, String content){
         try {
             if(!file.exists()){
