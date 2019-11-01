@@ -41,6 +41,10 @@
             <id>filoghost-repo</id>
             <url>https://ci.filoghost.me/plugin/repository/everything/</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -202,6 +206,12 @@
             <version>LATEST</version>
             <scope>system</scope>
             <systemPath>${basedir}/libs/LabyMod.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.github.Simonwep</groupId>
+            <artifactId>java-express</artifactId>
+            <version>LATEST</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>

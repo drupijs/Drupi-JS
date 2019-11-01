@@ -1,6 +1,6 @@
 package hundeklemmen.legacy;
 
-
+import express.Express;
 import hundeklemmen.legacy.api.handlers.SpigotConfig;
 import hundeklemmen.legacy.expansions.Vault;
 import hundeklemmen.legacy.expansions.labymod.LabymodEvents;
@@ -48,10 +48,10 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
     public static String serverVersion;
 
     public ArrayList<Socket> sockets = new ArrayList<Socket>();
+    public ArrayList<Express> ExpressRunning = new ArrayList<>();
 
     public static int ErrorAmount = 0;
     public static int ErrorAmountLibs = 0;
-
 
     public static Drupi drupi;
     public static boolean dev = false;
@@ -59,7 +59,6 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
     @Override
     public void onEnable() {
         instance = this;
-
         Metrics metrics = new Metrics(this); //OOF
 
         DrupiFile = instance.getFile();
@@ -110,6 +109,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
         drupi.registerManager("scoreboard", new scoreboardManager(instance));
         drupi.registerManager("material", new materialManager(instance));
         drupi.registerManager("socket", new socketManager(instance));
+        drupi.registerManager("Express", new ExpressManager(instance));
 
 
         if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
@@ -334,6 +334,13 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                 sockets.get(i).disconnect();
             }
             sockets = new ArrayList<Socket>();
+        }
+        if(ExpressRunning.size() != 0){
+            drupi.log.info("Stopping web servers..");
+            for (int i = 0; i < ExpressRunning.size(); i++){
+                ExpressRunning.get(i).stop();
+            }
+            ExpressRunning = new ArrayList<Express>();
         }
         if(serverVersion.startsWith("v1_8")||serverVersion.startsWith("v1_9")||serverVersion.startsWith("v1_10")||serverVersion.startsWith("v1_11")||serverVersion.startsWith("v1_12")) {
             Bukkit.getScheduler().cancelAllTasks();
