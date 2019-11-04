@@ -17,7 +17,7 @@ var setInterval = function (fn,delay) {
     });
     return server.getScheduler().scheduleSyncRepeatingTask(plugin,runnable, 0, delay);
 }
-var setAsyncScInterval = function (fn,delay) {
+var setAsyncInterval = function (fn,delay) {
     var runnable = new java.lang.Runnable({
         run: fn
     });
