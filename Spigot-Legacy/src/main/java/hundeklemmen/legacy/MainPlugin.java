@@ -379,13 +379,13 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                                 DS.Load(drupi, new ScriptLoadMessage() {
                                     @Override
                                     public void onSuccess() {
-                                        sender.sendMessage("§aLoaded lib §b" + UtilsJSFile.getName() + "§a successfully");
+                                        sender.sendMessage("§aLoaded lib §b" + file.getName() + "§a successfully");
 
                                     }
 
                                     @Override
                                     public void onError(String error){
-                                        sender.sendMessage("§cCould not load §a" + UtilsJSFile.getName());
+                                        sender.sendMessage("§cCould not load §a" + file.getName());
                                         sender.sendMessage("§4[ERROR]§c " + error);
                                         MainPlugin.ErrorAmountLibs++;
                                     }
