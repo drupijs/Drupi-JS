@@ -28,6 +28,10 @@ function players(){
     return server.getOnlinePlayers().size();
 }
 
+function import(string) {
+    return Java.type(string);
+}
+
 function color(message){
     return manager.color(message);
 }
