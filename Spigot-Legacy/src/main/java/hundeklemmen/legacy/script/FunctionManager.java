@@ -11,6 +11,7 @@ import hundeklemmen.legacy.util;
 import hundeklemmen.shared.api.Drupi;
 import hundeklemmen.shared.api.DrupiScript;
 import hundeklemmen.shared.api.interfaces.ScriptLoadMessage;
+import jdk.nashorn.api.scripting.JSObject;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -74,7 +75,7 @@ public class FunctionManager {
 
     public void eval(File loc){
         DrupiScript DS = new DrupiScript(loc);
-        DS.Load(drupi, new ScriptLoadMessage() {
+        DS.Load(drupi, true, new ScriptLoadMessage() {
             @Override
             public void onSuccess() {
                 drupi.log.info("A drupi script have successfully loaded " + loc.getName());
@@ -90,7 +91,7 @@ public class FunctionManager {
 
     public void eval(File loc, Runnable run){
         DrupiScript DS = new DrupiScript(loc);
-        DS.Load(drupi, new ScriptLoadMessage() {
+        DS.Load(drupi, true, new ScriptLoadMessage() {
             @Override
             public void onSuccess() {
                 run.run();

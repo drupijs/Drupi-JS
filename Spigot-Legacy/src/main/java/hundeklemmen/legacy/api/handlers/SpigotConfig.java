@@ -8,7 +8,7 @@ public class SpigotConfig extends hundeklemmen.shared.api.config {
     public FileConfiguration config;
 
     public SpigotConfig(MainPlugin instance) {
-        super(true, true);
+        super(true, true, true);
         instance.saveDefaultConfig(); //Saves default config if it doesn't exist.
 
         config = instance.getConfig();
@@ -17,6 +17,14 @@ public class SpigotConfig extends hundeklemmen.shared.api.config {
         }
         if(config.contains("versionChecker.checkOnLoad") == true) {
             this.VC_checkOnLoad = config.getBoolean("versionChecker.checkOnLoad");
+        }
+        if(config.contains("settings.babel") == true) {
+            this.VC_useBabel = config.getBoolean("settings.babel");
+            if(this.VC_useBabel == false) {
+                instance.getLogger().warning("Babel is disabled!");
+            }
+        } else {
+            this.VC_useBabel = true;
         }
     }
 

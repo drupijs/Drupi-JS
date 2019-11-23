@@ -42,1023 +42,1023 @@ public class loadEvents implements Listener{
 
     @EventHandler
     public void onEnchantItemEvent(EnchantItemEvent event){
-        drupi.callFunction("EnchantItemEvent", event);
+        drupi.callEvent("EnchantItemEvent", event);
     }
 
 
     @EventHandler
     public void onPrepareItemEnchantEvent(PrepareItemEnchantEvent event){
-        drupi.callFunction("PrepareItemEnchantEvent", event);
+        drupi.callEvent("PrepareItemEnchantEvent", event);
     }
 
 
     @EventHandler
     public void onAreaEffectCloudApplyEvent(AreaEffectCloudApplyEvent event){
-        drupi.callFunction("AreaEffectCloudApplyEvent", event);
+        drupi.callEvent("AreaEffectCloudApplyEvent", event);
     }
 
 
     @EventHandler
     public void onCreatureSpawnEvent(CreatureSpawnEvent event){
-        drupi.callFunction("CreatureSpawnEvent", event);
+        drupi.callEvent("CreatureSpawnEvent", event);
     }
 
 
     @EventHandler
     public void onCreeperPowerEvent(CreeperPowerEvent event){
-        drupi.callFunction("CreeperPowerEvent", event);
+        drupi.callEvent("CreeperPowerEvent", event);
     }
 
 
     @EventHandler
     public void onEnderDragonChangePhaseEvent(EnderDragonChangePhaseEvent event){
-        drupi.callFunction("EnderDragonChangePhaseEvent", event);
+        drupi.callEvent("EnderDragonChangePhaseEvent", event);
     }
 
 
     @EventHandler
     public void onEntityBreakDoorEvent(EntityBreakDoorEvent event){
-        drupi.callFunction("EntityBreakDoorEvent", event);
+        drupi.callEvent("EntityBreakDoorEvent", event);
     }
 
 
     @EventHandler
     public void onEntityChangeBlockEvent(EntityChangeBlockEvent event){
-        drupi.callFunction("EntityChangeBlockEvent", event);
+        drupi.callEvent("EntityChangeBlockEvent", event);
     }
 
 
     @EventHandler
     public void onEntityCombustByBlockEvent(EntityCombustByBlockEvent event){
-        drupi.callFunction("EntityCombustByBlockEvent", event);
+        drupi.callEvent("EntityCombustByBlockEvent", event);
     }
 
 
     @EventHandler
     public void onEntityCombustByEntityEvent(EntityCombustByEntityEvent event){
-        drupi.callFunction("EntityCombustByEntityEvent", event);
+        drupi.callEvent("EntityCombustByEntityEvent", event);
     }
 
 
     @EventHandler
     public void onEntityCombustEvent(EntityCombustEvent event){
-        drupi.callFunction("EntityCombustEvent", event);
+        drupi.callEvent("EntityCombustEvent", event);
     }
 
 
     @EventHandler
     public void onEntityCreatePortalEvent(EntityCreatePortalEvent event){
-        drupi.callFunction("EntityCreatePortalEvent", event);
+        drupi.callEvent("EntityCreatePortalEvent", event);
     }
 
 
     @EventHandler
     public void onEntityDamageByBlockEvent(EntityDamageByBlockEvent event){
-        drupi.callFunction("EntityDamageByBlockEvent", event);
+        drupi.callEvent("EntityDamageByBlockEvent", event);
     }
 
 
     @EventHandler
     public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event){
-        drupi.callFunction("EntityDamageByEntityEvent", event);
+        drupi.callEvent("EntityDamageByEntityEvent", event);
     }
 
 
     @EventHandler
     public void onEntityDamageEvent(EntityDamageEvent event){
-        drupi.callFunction("EntityDamageEvent", event);
+        drupi.callEvent("EntityDamageEvent", event);
     }
 
 
     @EventHandler
     public void onEntityDeathEvent(EntityDeathEvent event){
-        drupi.callFunction("EntityDeathEvent", event);
+        drupi.callEvent("EntityDeathEvent", event);
     }
 
 
     @EventHandler
     public void onEntityExplodeEvent(EntityExplodeEvent event){
-        drupi.callFunction("EntityExplodeEvent", event);
+        drupi.callEvent("EntityExplodeEvent", event);
     }
 
 
     @EventHandler
     public void onEntityInteractEvent(EntityInteractEvent event){
-        drupi.callFunction("EntityInteractEvent", event);
+        drupi.callEvent("EntityInteractEvent", event);
     }
 
 
     @EventHandler
     public void onEntityPortalEnterEvent(EntityPortalEnterEvent event){
-        drupi.callFunction("EntityPortalEnterEvent", event);
+        drupi.callEvent("EntityPortalEnterEvent", event);
     }
 
 
     @EventHandler
     public void onEntityPortalEvent(EntityPortalEvent event){
-        drupi.callFunction("EntityPortalEvent", event);
+        drupi.callEvent("EntityPortalEvent", event);
     }
 
 
     @EventHandler
     public void onEntityPortalExitEvent(EntityPortalExitEvent event){
-        drupi.callFunction("EntityPortalExitEvent", event);
+        drupi.callEvent("EntityPortalExitEvent", event);
     }
 
 
     @EventHandler
     public void onEntityRegainHealthEvent(EntityRegainHealthEvent event){
-        drupi.callFunction("EntityRegainHealthEvent", event);
+        drupi.callEvent("EntityRegainHealthEvent", event);
     }
 
 
     @EventHandler
     public void onEntityShootBowEvent(EntityShootBowEvent event){
-        drupi.callFunction("EntityShootBowEvent", event);
+        drupi.callEvent("EntityShootBowEvent", event);
     }
 
 
     @EventHandler
     public void onEntityTameEvent(EntityTameEvent event){
-        drupi.callFunction("EntityTameEvent", event);
+        drupi.callEvent("EntityTameEvent", event);
     }
 
 
     @EventHandler
     public void onEntityTargetEvent(EntityTargetEvent event){
-        drupi.callFunction("EntityTargetEvent", event);
+        drupi.callEvent("EntityTargetEvent", event);
     }
 
 
     @EventHandler
     public void onEntityTargetLivingEntityEvent(EntityTargetLivingEntityEvent event){
-        drupi.callFunction("EntityTargetLivingEntityEvent", event);
+        drupi.callEvent("EntityTargetLivingEntityEvent", event);
     }
 
 
     @EventHandler
     public void onEntityTeleportEvent(EntityTeleportEvent event){
-        drupi.callFunction("EntityTeleportEvent", event);
+        drupi.callEvent("EntityTeleportEvent", event);
     }
 
 
     @EventHandler
     public void onEntityToggleGlideEvent(EntityToggleGlideEvent event){
-        drupi.callFunction("EntityToggleGlideEvent", event);
+        drupi.callEvent("EntityToggleGlideEvent", event);
     }
 
 
     @EventHandler
     public void onEntityUnleashEvent(EntityUnleashEvent event){
-        drupi.callFunction("EntityUnleashEvent", event);
+        drupi.callEvent("EntityUnleashEvent", event);
     }
 
 
     @EventHandler
     public void onExpBottleEvent(ExpBottleEvent event){
-        drupi.callFunction("ExpBottleEvent", event);
+        drupi.callEvent("ExpBottleEvent", event);
     }
 
 
     @EventHandler
     public void onExplosionPrimeEvent(ExplosionPrimeEvent event){
-        drupi.callFunction("ExplosionPrimeEvent", event);
+        drupi.callEvent("ExplosionPrimeEvent", event);
     }
 
 
     @EventHandler
     public void onFireworkExplodeEvent(FireworkExplodeEvent event){
-        drupi.callFunction("FireworkExplodeEvent", event);
+        drupi.callEvent("FireworkExplodeEvent", event);
     }
 
 
     @EventHandler
     public void onFoodLevelChangeEvent(FoodLevelChangeEvent event){
-        drupi.callFunction("FoodLevelChangeEvent", event);
+        drupi.callEvent("FoodLevelChangeEvent", event);
     }
 
 
     @EventHandler
     public void onHorseJumpEvent(HorseJumpEvent event){
-        drupi.callFunction("HorseJumpEvent", event);
+        drupi.callEvent("HorseJumpEvent", event);
     }
 
 
     @EventHandler
     public void onItemDespawnEvent(ItemDespawnEvent event){
-        drupi.callFunction("ItemDespawnEvent", event);
+        drupi.callEvent("ItemDespawnEvent", event);
     }
 
 
     @EventHandler
     public void onItemMergeEvent(ItemMergeEvent event){
-        drupi.callFunction("ItemMergeEvent", event);
+        drupi.callEvent("ItemMergeEvent", event);
     }
 
 
     @EventHandler
     public void onItemSpawnEvent(ItemSpawnEvent event){
-        drupi.callFunction("ItemSpawnEvent", event);
+        drupi.callEvent("ItemSpawnEvent", event);
     }
 
 
     @EventHandler
     public void onLingeringPotionSplashEvent(LingeringPotionSplashEvent event){
-        drupi.callFunction("LingeringPotionSplashEvent", event);
+        drupi.callEvent("LingeringPotionSplashEvent", event);
     }
 
 
     @EventHandler
     public void onPigZapEvent(PigZapEvent event){
-        drupi.callFunction("PigZapEvent", event);
+        drupi.callEvent("PigZapEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerDeathEvent(PlayerDeathEvent event){
-        drupi.callFunction("PlayerDeathEvent", event);
+        drupi.callEvent("PlayerDeathEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerLeashEntityEvent(PlayerLeashEntityEvent event){
-        drupi.callFunction("PlayerLeashEntityEvent", event);
+        drupi.callEvent("PlayerLeashEntityEvent", event);
     }
 
 
     @EventHandler
     public void onPotionSplashEvent(PotionSplashEvent event){
-        drupi.callFunction("PotionSplashEvent", event);
+        drupi.callEvent("PotionSplashEvent", event);
     }
 
 
     @EventHandler
     public void onProjectileHitEvent(ProjectileHitEvent event){
-        drupi.callFunction("ProjectileHitEvent", event);
+        drupi.callEvent("ProjectileHitEvent", event);
     }
 
 
     @EventHandler
     public void onProjectileLaunchEvent(ProjectileLaunchEvent event){
-        drupi.callFunction("ProjectileLaunchEvent", event);
+        drupi.callEvent("ProjectileLaunchEvent", event);
     }
 
 
     @EventHandler
     public void onSheepDyeWoolEvent(SheepDyeWoolEvent event){
-        drupi.callFunction("SheepDyeWoolEvent", event);
+        drupi.callEvent("SheepDyeWoolEvent", event);
     }
 
 
     @EventHandler
     public void onSheepRegrowWoolEvent(SheepRegrowWoolEvent event){
-        drupi.callFunction("SheepRegrowWoolEvent", event);
+        drupi.callEvent("SheepRegrowWoolEvent", event);
     }
 
 
     @EventHandler
     public void onSlimeSplitEvent(SlimeSplitEvent event){
-        drupi.callFunction("SlimeSplitEvent", event);
+        drupi.callEvent("SlimeSplitEvent", event);
     }
 
 
     @EventHandler
     public void onVillagerAcquireTradeEvent(VillagerAcquireTradeEvent event){
-        drupi.callFunction("VillagerAcquireTradeEvent", event);
+        drupi.callEvent("VillagerAcquireTradeEvent", event);
     }
 
 
     @EventHandler
     public void onVillagerReplenishTradeEvent(VillagerReplenishTradeEvent event){
-        drupi.callFunction("VillagerReplenishTradeEvent", event);
+        drupi.callEvent("VillagerReplenishTradeEvent", event);
     }
 
 
 
     @EventHandler
     public void onHangingBreakByEntityEvent(HangingBreakByEntityEvent event){
-        drupi.callFunction("HangingBreakByEntityEvent", event);
+        drupi.callEvent("HangingBreakByEntityEvent", event);
     }
 
 
     @EventHandler
     public void onHangingBreakEvent(HangingBreakEvent event){
-        drupi.callFunction("HangingBreakEvent", event);
+        drupi.callEvent("HangingBreakEvent", event);
     }
 
 
     @EventHandler
     public void onHangingPlaceEvent(HangingPlaceEvent event){
-        drupi.callFunction("HangingPlaceEvent", event);
+        drupi.callEvent("HangingPlaceEvent", event);
     }
 
 
 
     @EventHandler
     public void onBrewEvent(BrewEvent event){
-        drupi.callFunction("BrewEvent", event);
+        drupi.callEvent("BrewEvent", event);
     }
 
 
     @EventHandler
     public void onCraftItemEvent(CraftItemEvent event){
-        drupi.callFunction("CraftItemEvent", event);
+        drupi.callEvent("CraftItemEvent", event);
     }
 
 
     @EventHandler
     public void onFurnaceBurnEvent(FurnaceBurnEvent event){
-        drupi.callFunction("FurnaceBurnEvent", event);
+        drupi.callEvent("FurnaceBurnEvent", event);
     }
 
 
     @EventHandler
     public void onFurnaceExtractEvent(FurnaceExtractEvent event){
-        drupi.callFunction("FurnaceExtractEvent", event);
+        drupi.callEvent("FurnaceExtractEvent", event);
     }
 
 
     @EventHandler
     public void onFurnaceSmeltEvent(FurnaceSmeltEvent event){
-        drupi.callFunction("FurnaceSmeltEvent", event);
+        drupi.callEvent("FurnaceSmeltEvent", event);
     }
 
 
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent event){
-        drupi.callFunction("InventoryClickEvent", event);
+        drupi.callEvent("InventoryClickEvent", event);
     }
 
 
     @EventHandler
     public void onInventoryCloseEvent(InventoryCloseEvent event){
-        drupi.callFunction("InventoryCloseEvent", event);
+        drupi.callEvent("InventoryCloseEvent", event);
     }
 
 
     @EventHandler
     public void onInventoryCreativeEvent(InventoryCreativeEvent event){
-        drupi.callFunction("InventoryCreativeEvent", event);
+        drupi.callEvent("InventoryCreativeEvent", event);
     }
 
 
     @EventHandler
     public void onInventoryDragEvent(InventoryDragEvent event){
-        drupi.callFunction("InventoryDragEvent", event);
+        drupi.callEvent("InventoryDragEvent", event);
     }
 
 
     @EventHandler
     public void onInventoryInteractEvent(InventoryInteractEvent event){
-        drupi.callFunction("InventoryInteractEvent", event);
+        drupi.callEvent("InventoryInteractEvent", event);
     }
 
 
     @EventHandler
     public void onInventoryMoveItemEvent(InventoryMoveItemEvent event){
-        drupi.callFunction("InventoryMoveItemEvent", event);
+        drupi.callEvent("InventoryMoveItemEvent", event);
     }
 
 
     @EventHandler
     public void onInventoryOpenEvent(InventoryOpenEvent event){
-        drupi.callFunction("InventoryOpenEvent", event);
+        drupi.callEvent("InventoryOpenEvent", event);
     }
 
 
     @EventHandler
     public void onInventoryPickupItemEvent(InventoryPickupItemEvent event){
-        drupi.callFunction("InventoryPickupItemEvent", event);
+        drupi.callEvent("InventoryPickupItemEvent", event);
     }
 
 
     @EventHandler
     public void onPrepareAnvilEvent(PrepareAnvilEvent event){
-        drupi.callFunction("PrepareAnvilEvent", event);
+        drupi.callEvent("PrepareAnvilEvent", event);
     }
 
 
     @EventHandler
     public void onPrepareItemCraftEvent(PrepareItemCraftEvent event){
-        drupi.callFunction("PrepareItemCraftEvent", event);
+        drupi.callEvent("PrepareItemCraftEvent", event);
     }
 
 
     @EventHandler
     public void onAsyncPlayerChatEvent(AsyncPlayerChatEvent event){
-        drupi.callFunction("AsyncPlayerChatEvent", event);
+        drupi.callEvent("AsyncPlayerChatEvent", event);
     }
 
 
     @EventHandler
     public void onAsyncPlayerPreLoginEvent(AsyncPlayerPreLoginEvent event){
-        drupi.callFunction("AsyncPlayerPreLoginEvent", event);
+        drupi.callEvent("AsyncPlayerPreLoginEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerAchievementAwardedEvent(PlayerAchievementAwardedEvent event){
-        drupi.callFunction("PlayerAchievementAwardedEvent", event);
+        drupi.callEvent("PlayerAchievementAwardedEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerAnimationEvent(PlayerAnimationEvent event){
-        drupi.callFunction("PlayerAnimationEvent", event);
+        drupi.callEvent("PlayerAnimationEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerArmorStandManipulateEvent(PlayerArmorStandManipulateEvent event){
-        drupi.callFunction("PlayerArmorStandManipulateEvent", event);
+        drupi.callEvent("PlayerArmorStandManipulateEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerBedEnterEvent(PlayerBedEnterEvent event){
-        drupi.callFunction("PlayerBedEnterEvent", event);
+        drupi.callEvent("PlayerBedEnterEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerBedLeaveEvent(PlayerBedLeaveEvent event){
-        drupi.callFunction("PlayerBedLeaveEvent", event);
+        drupi.callEvent("PlayerBedLeaveEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerBucketEmptyEvent(PlayerBucketEmptyEvent event){
-        drupi.callFunction("PlayerBucketEmptyEvent", event);
+        drupi.callEvent("PlayerBucketEmptyEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerBucketFillEvent(PlayerBucketFillEvent event){
-        drupi.callFunction("PlayerBucketFillEvent", event);
+        drupi.callEvent("PlayerBucketFillEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerChangedWorldEvent(PlayerChangedWorldEvent event){
-        drupi.callFunction("PlayerChangedWorldEvent", event);
+        drupi.callEvent("PlayerChangedWorldEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerChannelEvent(PlayerChannelEvent event){
-        drupi.callFunction("PlayerChannelEvent", event);
+        drupi.callEvent("PlayerChannelEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerChatTabCompleteEvent(PlayerChatTabCompleteEvent event){
-        drupi.callFunction("PlayerChatTabCompleteEvent", event);
+        drupi.callEvent("PlayerChatTabCompleteEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent event){
-        drupi.callFunction("PlayerCommandPreprocessEvent", event);
+        drupi.callEvent("PlayerCommandPreprocessEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerDropItemEvent(PlayerDropItemEvent event){
-        drupi.callFunction("PlayerDropItemEvent", event);
+        drupi.callEvent("PlayerDropItemEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerEditBookEvent(PlayerEditBookEvent event){
-        drupi.callFunction("PlayerEditBookEvent", event);
+        drupi.callEvent("PlayerEditBookEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerEggThrowEvent(PlayerEggThrowEvent event){
-        drupi.callFunction("PlayerEggThrowEvent", event);
+        drupi.callEvent("PlayerEggThrowEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerExpChangeEvent(PlayerExpChangeEvent event){
-        drupi.callFunction("PlayerExpChangeEvent", event);
+        drupi.callEvent("PlayerExpChangeEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerFishEvent(PlayerFishEvent event){
-        drupi.callFunction("PlayerFishEvent", event);
+        drupi.callEvent("PlayerFishEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerGameModeChangeEvent(PlayerGameModeChangeEvent event){
-        drupi.callFunction("PlayerGameModeChangeEvent", event);
+        drupi.callEvent("PlayerGameModeChangeEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerInteractAtEntityEvent(PlayerInteractAtEntityEvent event){
-        drupi.callFunction("PlayerInteractAtEntityEvent", event);
+        drupi.callEvent("PlayerInteractAtEntityEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerInteractEntityEvent(PlayerInteractEntityEvent event){
-        drupi.callFunction("PlayerInteractEntityEvent", event);
+        drupi.callEvent("PlayerInteractEntityEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerInteractEvent(PlayerInteractEvent event){
-        drupi.callFunction("PlayerInteractEvent", event);
+        drupi.callEvent("PlayerInteractEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerInventoryEvent(PlayerInventoryEvent event){
-        drupi.callFunction("PlayerInventoryEvent", event);
+        drupi.callEvent("PlayerInventoryEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerItemBreakEvent(PlayerItemBreakEvent event){
-        drupi.callFunction("PlayerItemBreakEvent", event);
+        drupi.callEvent("PlayerItemBreakEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerItemConsumeEvent(PlayerItemConsumeEvent event){
-        drupi.callFunction("PlayerItemConsumeEvent", event);
+        drupi.callEvent("PlayerItemConsumeEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerItemHeldEvent(PlayerItemHeldEvent event){
-        drupi.callFunction("PlayerItemHeldEvent", event);
+        drupi.callEvent("PlayerItemHeldEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event){
-        drupi.callFunction("PlayerJoinEvent", event);
+        drupi.callEvent("PlayerJoinEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerKickEvent(PlayerKickEvent event){
-        drupi.callFunction("PlayerKickEvent", event);
+        drupi.callEvent("PlayerKickEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerLevelChangeEvent(PlayerLevelChangeEvent event){
-        drupi.callFunction("PlayerLevelChangeEvent", event);
+        drupi.callEvent("PlayerLevelChangeEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerLoginEvent(PlayerLoginEvent event){
-        drupi.callFunction("PlayerLoginEvent", event);
+        drupi.callEvent("PlayerLoginEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerMoveEvent(PlayerMoveEvent event){
-        drupi.callFunction("PlayerMoveEvent", event);
+        drupi.callEvent("PlayerMoveEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerPickupArrowEvent(PlayerPickupArrowEvent event){
-        drupi.callFunction("PlayerPickupArrowEvent", event);
+        drupi.callEvent("PlayerPickupArrowEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerPickupItemEvent(PlayerPickupItemEvent event){
-        drupi.callFunction("PlayerPickupItemEvent", event);
+        drupi.callEvent("PlayerPickupItemEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerPortalEvent(PlayerPortalEvent event){
-        drupi.callFunction("PlayerPortalEvent", event);
+        drupi.callEvent("PlayerPortalEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerPreLoginEvent(PlayerPreLoginEvent event){
-        drupi.callFunction("PlayerPreLoginEvent", event);
+        drupi.callEvent("PlayerPreLoginEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerQuitEvent(PlayerQuitEvent event){
-        drupi.callFunction("PlayerQuitEvent", event);
+        drupi.callEvent("PlayerQuitEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerRegisterChannelEvent(PlayerRegisterChannelEvent event){
-        drupi.callFunction("PlayerRegisterChannelEvent", event);
+        drupi.callEvent("PlayerRegisterChannelEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerResourcePackStatusEvent(PlayerResourcePackStatusEvent event){
-        drupi.callFunction("PlayerResourcePackStatusEvent", event);
+        drupi.callEvent("PlayerResourcePackStatusEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerRespawnEvent(PlayerRespawnEvent event){
-        drupi.callFunction("PlayerRespawnEvent", event);
+        drupi.callEvent("PlayerRespawnEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerShearEntityEvent(PlayerShearEntityEvent event){
-        drupi.callFunction("PlayerShearEntityEvent", event);
+        drupi.callEvent("PlayerShearEntityEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerStatisticIncrementEvent(PlayerStatisticIncrementEvent event){
-        drupi.callFunction("PlayerStatisticIncrementEvent", event);
+        drupi.callEvent("PlayerStatisticIncrementEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerSwapHandItemsEvent(PlayerSwapHandItemsEvent event){
-        drupi.callFunction("PlayerSwapHandItemsEvent", event);
+        drupi.callEvent("PlayerSwapHandItemsEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerTeleportEvent(PlayerTeleportEvent event){
-        drupi.callFunction("PlayerTeleportEvent", event);
+        drupi.callEvent("PlayerTeleportEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerToggleFlightEvent(PlayerToggleFlightEvent event){
-        drupi.callFunction("PlayerToggleFlightEvent", event);
+        drupi.callEvent("PlayerToggleFlightEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerToggleSneakEvent(PlayerToggleSneakEvent event){
-        drupi.callFunction("PlayerToggleSneakEvent", event);
+        drupi.callEvent("PlayerToggleSneakEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerToggleSprintEvent(PlayerToggleSprintEvent event){
-        drupi.callFunction("PlayerToggleSprintEvent", event);
+        drupi.callEvent("PlayerToggleSprintEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerUnleashEntityEvent(PlayerUnleashEntityEvent event){
-        drupi.callFunction("PlayerUnleashEntityEvent", event);
+        drupi.callEvent("PlayerUnleashEntityEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerUnregisterChannelEvent(PlayerUnregisterChannelEvent event){
-        drupi.callFunction("PlayerUnregisterChannelEvent", event);
+        drupi.callEvent("PlayerUnregisterChannelEvent", event);
     }
 
 
     @EventHandler
     public void onPlayerVelocityEvent(PlayerVelocityEvent event){
-        drupi.callFunction("PlayerVelocityEvent", event);
+        drupi.callEvent("PlayerVelocityEvent", event);
     }
 
 
     @EventHandler
     public void onMapInitializeEvent(MapInitializeEvent event){
-        drupi.callFunction("MapInitializeEvent", event);
+        drupi.callEvent("MapInitializeEvent", event);
     }
 
 
     @EventHandler
     public void onPluginDisableEvent(PluginDisableEvent event){
-        drupi.callFunction("PluginDisableEvent", event);
+        drupi.callEvent("PluginDisableEvent", event);
     }
 
 
     @EventHandler
     public void onPluginEnableEvent(PluginEnableEvent event){
-        drupi.callFunction("PluginEnableEvent", event);
+        drupi.callEvent("PluginEnableEvent", event);
     }
 
 
     @EventHandler
     public void onRemoteServerCommandEvent(RemoteServerCommandEvent event){
-        drupi.callFunction("RemoteServerCommandEvent", event);
+        drupi.callEvent("RemoteServerCommandEvent", event);
     }
 
 
     @EventHandler
     public void onServerCommandEvent(ServerCommandEvent event){
-        drupi.callFunction("ServerCommandEvent", event);
+        drupi.callEvent("ServerCommandEvent", event);
     }
 
 
     @EventHandler
     public void onServerListPingEvent(ServerListPingEvent event){
-        drupi.callFunction("ServerListPingEvent", event);
+        drupi.callEvent("ServerListPingEvent", event);
     }
 
 
     @EventHandler
     public void onServiceRegisterEvent(ServiceRegisterEvent event){
-        drupi.callFunction("ServiceRegisterEvent", event);
+        drupi.callEvent("ServiceRegisterEvent", event);
     }
 
 
     @EventHandler
     public void onServiceUnregisterEvent(ServiceUnregisterEvent event){
-        drupi.callFunction("ServiceUnregisterEvent", event);
+        drupi.callEvent("ServiceUnregisterEvent", event);
     }
 
 
     @EventHandler
     public void onVehicleBlockCollisionEvent(VehicleBlockCollisionEvent event){
-        drupi.callFunction("VehicleBlockCollisionEvent", event);
+        drupi.callEvent("VehicleBlockCollisionEvent", event);
     }
 
 
     @EventHandler
     public void onVehicleCreateEvent(VehicleCreateEvent event){
-        drupi.callFunction("VehicleCreateEvent", event);
+        drupi.callEvent("VehicleCreateEvent", event);
     }
 
 
     @EventHandler
     public void onVehicleDamageEvent(VehicleDamageEvent event){
-        drupi.callFunction("VehicleDamageEvent", event);
+        drupi.callEvent("VehicleDamageEvent", event);
     }
 
 
     @EventHandler
     public void onVehicleDestroyEvent(VehicleDestroyEvent event){
-        drupi.callFunction("VehicleDestroyEvent", event);
+        drupi.callEvent("VehicleDestroyEvent", event);
     }
 
 
     @EventHandler
     public void onVehicleEnterEvent(VehicleEnterEvent event){
-        drupi.callFunction("VehicleEnterEvent", event);
+        drupi.callEvent("VehicleEnterEvent", event);
     }
 
 
     @EventHandler
     public void onVehicleEntityCollisionEvent(VehicleEntityCollisionEvent event){
-        drupi.callFunction("VehicleEntityCollisionEvent", event);
+        drupi.callEvent("VehicleEntityCollisionEvent", event);
     }
 
 
     @EventHandler
     public void onVehicleExitEvent(VehicleExitEvent event){
-        drupi.callFunction("VehicleExitEvent", event);
+        drupi.callEvent("VehicleExitEvent", event);
     }
 
 
     @EventHandler
     public void onVehicleMoveEvent(VehicleMoveEvent event){
-        drupi.callFunction("VehicleMoveEvent", event);
+        drupi.callEvent("VehicleMoveEvent", event);
     }
 
 
     @EventHandler
     public void onVehicleUpdateEvent(VehicleUpdateEvent event){
-        drupi.callFunction("VehicleUpdateEvent", event);
+        drupi.callEvent("VehicleUpdateEvent", event);
     }
 
 
     @EventHandler
     public void onLightningStrikeEvent(LightningStrikeEvent event){
-        drupi.callFunction("LightningStrikeEvent", event);
+        drupi.callEvent("LightningStrikeEvent", event);
     }
 
 
     @EventHandler
     public void onThunderChangeEvent(ThunderChangeEvent event){
-        drupi.callFunction("ThunderChangeEvent", event);
+        drupi.callEvent("ThunderChangeEvent", event);
     }
 
 
     @EventHandler
     public void onWeatherChangeEvent(WeatherChangeEvent event){
-        drupi.callFunction("WeatherChangeEvent", event);
+        drupi.callEvent("WeatherChangeEvent", event);
     }
 
 
     @EventHandler
     public void onChunkLoadEvent(ChunkLoadEvent event){
-        drupi.callFunction("ChunkLoadEvent", event);
+        drupi.callEvent("ChunkLoadEvent", event);
     }
 
 
     @EventHandler
     public void onChunkPopulateEvent(ChunkPopulateEvent event){
-        drupi.callFunction("ChunkPopulateEvent", event);
+        drupi.callEvent("ChunkPopulateEvent", event);
     }
 
 
     @EventHandler
     public void onChunkUnloadEvent(ChunkUnloadEvent event){
-        drupi.callFunction("ChunkUnloadEvent", event);
+        drupi.callEvent("ChunkUnloadEvent", event);
     }
 
 
     @EventHandler
     public void onPortalCreateEvent(PortalCreateEvent event){
-        drupi.callFunction("PortalCreateEvent", event);
+        drupi.callEvent("PortalCreateEvent", event);
     }
 
 
     @EventHandler
     public void onSpawnChangeEvent(SpawnChangeEvent event){
-        drupi.callFunction("SpawnChangeEvent", event);
+        drupi.callEvent("SpawnChangeEvent", event);
     }
 
 
     @EventHandler
     public void onStructureGrowEvent(StructureGrowEvent event){
-        drupi.callFunction("StructureGrowEvent", event);
+        drupi.callEvent("StructureGrowEvent", event);
     }
 
 
     @EventHandler
     public void onWorldInitEvent(WorldInitEvent event){
-        drupi.callFunction("WorldInitEvent", event);
+        drupi.callEvent("WorldInitEvent", event);
     }
 
 
     @EventHandler
     public void onWorldLoadEvent(WorldLoadEvent event){
-        drupi.callFunction("WorldLoadEvent", event);
+        drupi.callEvent("WorldLoadEvent", event);
     }
 
 
     @EventHandler
     public void onWorldSaveEvent(WorldSaveEvent event){
-        drupi.callFunction("WorldSaveEvent", event);
+        drupi.callEvent("WorldSaveEvent", event);
     }
 
 
     @EventHandler
     public void onWorldUnloadEvent(WorldUnloadEvent event){
-        drupi.callFunction("WorldUnloadEvent", event);
+        drupi.callEvent("WorldUnloadEvent", event);
     }
 
 
     @EventHandler
     public void onBlockBreakEvent(BlockBreakEvent event){
-        drupi.callFunction("BlockBreakEvent", event);
+        drupi.callEvent("BlockBreakEvent", event);
     }
 
 
     @EventHandler
     public void onBlockBurnEvent(BlockBurnEvent event){
-        drupi.callFunction("BlockBurnEvent", event);
+        drupi.callEvent("BlockBurnEvent", event);
     }
 
 
     @EventHandler
     public void onBlockCanBuildEvent(BlockCanBuildEvent event){
-        drupi.callFunction("BlockCanBuildEvent", event);
+        drupi.callEvent("BlockCanBuildEvent", event);
     }
 
 
     @EventHandler
     public void onBlockDamageEvent(BlockDamageEvent event){
-        drupi.callFunction("BlockDamageEvent", event);
+        drupi.callEvent("BlockDamageEvent", event);
     }
 
 
     @EventHandler
     public void onBlockDispenseEvent(BlockDispenseEvent event){
-        drupi.callFunction("BlockDispenseEvent", event);
+        drupi.callEvent("BlockDispenseEvent", event);
     }
 
 
     @EventHandler
     public void onBlockExpEvent(BlockExpEvent event){
-        drupi.callFunction("BlockExpEvent", event);
+        drupi.callEvent("BlockExpEvent", event);
     }
 
 
     @EventHandler
     public void onBlockExplodeEvent(BlockExplodeEvent event){
-        drupi.callFunction("BlockExplodeEvent", event);
+        drupi.callEvent("BlockExplodeEvent", event);
     }
 
 
     @EventHandler
     public void onBlockFadeEvent(BlockFadeEvent event){
-        drupi.callFunction("BlockFadeEvent", event);
+        drupi.callEvent("BlockFadeEvent", event);
     }
 
 
     @EventHandler
     public void onBlockFormEvent(BlockFormEvent event){
-        drupi.callFunction("BlockFormEvent", event);
+        drupi.callEvent("BlockFormEvent", event);
     }
 
 
     @EventHandler
     public void onBlockFromToEvent(BlockFromToEvent event){
-        drupi.callFunction("BlockFromToEvent", event);
+        drupi.callEvent("BlockFromToEvent", event);
     }
 
 
     @EventHandler
     public void onBlockGrowEvent(BlockGrowEvent event){
-        drupi.callFunction("BlockGrowEvent", event);
+        drupi.callEvent("BlockGrowEvent", event);
     }
 
 
     @EventHandler
     public void onBlockIgniteEvent(BlockIgniteEvent event){
-        drupi.callFunction("BlockIgniteEvent", event);
+        drupi.callEvent("BlockIgniteEvent", event);
     }
 
 
     @EventHandler
     public void onBlockMultiPlaceEvent(BlockMultiPlaceEvent event){
-        drupi.callFunction("BlockMultiPlaceEvent", event);
+        drupi.callEvent("BlockMultiPlaceEvent", event);
     }
 
 
     @EventHandler
     public void onBlockPhysicsEvent(BlockPhysicsEvent event){
-        drupi.callFunction("BlockPhysicsEvent", event);
+        drupi.callEvent("BlockPhysicsEvent", event);
     }
 
 
     @EventHandler
     public void onBlockPistonExtendEvent(BlockPistonExtendEvent event){
-        drupi.callFunction("BlockPistonExtendEvent", event);
+        drupi.callEvent("BlockPistonExtendEvent", event);
     }
 
 
     @EventHandler
     public void onBlockPistonRetractEvent(BlockPistonRetractEvent event){
-        drupi.callFunction("BlockPistonRetractEvent", event);
+        drupi.callEvent("BlockPistonRetractEvent", event);
     }
 
 
     @EventHandler
     public void onBlockPlaceEvent(BlockPlaceEvent event){
-        drupi.callFunction("BlockPlaceEvent", event);
+        drupi.callEvent("BlockPlaceEvent", event);
     }
 
 
     @EventHandler
     public void onBlockRedstoneEvent(BlockRedstoneEvent event){
-        drupi.callFunction("BlockRedstoneEvent", event);
+        drupi.callEvent("BlockRedstoneEvent", event);
     }
 
 
     @EventHandler
     public void onBlockSpreadEvent(BlockSpreadEvent event){
-        drupi.callFunction("BlockSpreadEvent", event);
+        drupi.callEvent("BlockSpreadEvent", event);
     }
 
 
     @EventHandler
     public void onCauldronLevelChangeEvent(CauldronLevelChangeEvent event){
-        drupi.callFunction("CauldronLevelChangeEvent", event);
+        drupi.callEvent("CauldronLevelChangeEvent", event);
     }
 
 
     @EventHandler
     public void onEntityBlockFormEvent(EntityBlockFormEvent event){
-        drupi.callFunction("EntityBlockFormEvent", event);
+        drupi.callEvent("EntityBlockFormEvent", event);
     }
 
 
     @EventHandler
     public void onLeavesDecayEvent(LeavesDecayEvent event){
-        drupi.callFunction("LeavesDecayEvent", event);
+        drupi.callEvent("LeavesDecayEvent", event);
     }
 
 
     @EventHandler
     public void onNotePlayEvent(NotePlayEvent event){
-        drupi.callFunction("NotePlayEvent", event);
+        drupi.callEvent("NotePlayEvent", event);
     }
 
 
     @EventHandler
     public void onSignChangeEvent(SignChangeEvent event){
-        drupi.callFunction("SignChangeEvent", event);
+        drupi.callEvent("SignChangeEvent", event);
     }
 
 

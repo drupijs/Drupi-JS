@@ -31,3 +31,17 @@ function players(){
 function color(message){
     return manager.color(message);
 }
+
+function convertBabelJS(i){
+    return Babel.transform(i, {
+        presets:[
+            [
+                'es2015',
+                {
+                    loose: !0,
+                    modules: !1
+                }
+            ]
+        ],
+    }).code
+}

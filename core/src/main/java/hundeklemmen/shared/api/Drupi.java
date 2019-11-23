@@ -2,11 +2,9 @@ package hundeklemmen.shared.api;
 
 import com.google.gson.Gson;
 import hundeklemmen.shared.api.interfaces.SetupMessage;
-import hundeklemmen.shared.script.DatabaseManager;
-import hundeklemmen.shared.script.HttpManager;
-import hundeklemmen.shared.script.JSON;
+import hundeklemmen.shared.script.*;
 import hundeklemmen.shared.api.utils.http;
-import hundeklemmen.shared.script.console;
+import jdk.nashorn.api.scripting.JSObject;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
@@ -32,8 +30,8 @@ public class Drupi {
     public static HashMap<String, Object> variables = new HashMap<String, Object>();
     public static List<String> registeredCommands = new ArrayList<String>();
     public static HashMap<String, Object> managers = new HashMap<String, Object>();
+    public static HashMap<String, ArrayList<JSObject>> registeredEvents = new HashMap<String, ArrayList<JSObject>>();
 
-    public static HashMap<String, String> extraEvents = new HashMap<>();
 
     public File DataFolder;
 
@@ -113,12 +111,16 @@ public class Drupi {
         log.info("Javascript engine: " + engine.getFactory().getEngineName() + " " + engine.getFactory().getEngineVersion());
         log.info("Engine factories: " + engine.getFactory().getLanguageName() + " " + engine.getFactory().getLanguageVersion());
 
+
+        registeredEvents.clear();
+
         //Load our global managers which is included in core to make things easier
         //Loading them before the others so that platforms can override the global managers
-        engine.put("JSON", new JSON());
+        //engine.put("JSON", new JSON());
         engine.put("database", new DatabaseManager());
         engine.put("http", new HttpManager());
         engine.put("console", new console(this));
+        engine.put("event", new EventManager(this));
 
         //Load all our managers here
         for(Map.Entry<String, Object> mng : managers.entrySet()){
@@ -149,9 +151,7 @@ public class Drupi {
             log.warning("Error while calling " + functionName);
             se.printStackTrace();
         }
-
     }
-
 
     public Object callFunctionWithResult(String functionName, Object... args){
         if (engine.get(functionName) == null) {
@@ -164,6 +164,18 @@ public class Drupi {
             se.printStackTrace();
         }
         return null;
+    }
+
+
+    public void callEvent(String eventName, Object... args){
+        if(registeredEvents.containsKey(eventName)){
+            for (JSObject function : registeredEvents.get(eventName)) {
+                function.call(null, args);
+            }
+        } else {
+            //For compatibility we will invoke a function name too.
+            this.callFunction(eventName, args);
+        }
     }
 
     public Object getPlugin(){

@@ -1,3 +1,6 @@
+settings:
+  babel: true
+
 versionChecker:
   checkOnLoad: true
   notifyOP: true

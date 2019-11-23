@@ -14,6 +14,7 @@ import hundeklemmen.shared.api.interfaces.ScriptLoadMessage;
 import hundeklemmen.shared.api.interfaces.SetupMessage;
 import io.puharesource.mc.titlemanager.api.v2.TitleManagerAPI;
 import io.socket.client.Socket;
+import jdk.nashorn.api.scripting.JSObject;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import net.labymod.serverapi.LabyModAPI;
 import net.labymod.serverapi.bukkit.LabyModPlugin;
@@ -56,6 +57,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
     public static Drupi drupi;
     public static boolean dev = false;
 
+
     @Override
     public void onEnable() {
         instance = this;
@@ -82,6 +84,11 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             util.copy(instance.getResource("utils.js"), UtilsJSFile);
         }
 
+        File BabelJSFile = new File(instance.getDataFolder(), "babel.js");
+        if(!BabelJSFile.exists()) {
+            util.copy(instance.getResource("babel.js"), BabelJSFile);
+        }
+
         File variablesFile = new File(instance.getDataFolder(), "variables.csv");
         if(!variablesFile.exists()) {
             saveResource("variables.csv", false);
@@ -102,6 +109,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
         drupi.registerManager("server", instance.getServer());
         drupi.registerManager("plugin", instance);
         drupi.registerManager("manager", new FunctionManager(instance, drupi));
+        drupi.registerManager("command", new commandManager(drupi));
 
         drupi.registerManager("cast", new castManager());
         drupi.registerManager("logger", instance.getLogger());
@@ -170,7 +178,21 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             @Override
             public void loadManagers(NashornScriptEngine engine) {
                 File UtilsJSFile = new File(instance.getDataFolder(), "utils.js");
+                File BabelJSFile = new File(instance.getDataFolder(), "babel.js");
                 devLog("[DEV] Loading managers!");
+
+                DrupiScript BabelJSDS = new DrupiScript(BabelJSFile);
+                BabelJSDS.Load(drupi, false, new ScriptLoadMessage() {
+                    @Override
+                    public void onSuccess() {
+                        drupi.log.info("Babel loaded successfully");
+                    }
+
+                    @Override
+                    public void onError(String error){
+                        drupi.log.warning("Babel error! " + error);
+                    }
+                });
 
 
                 devLog("[DEV] Done loading managers!");
@@ -180,7 +202,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                 ErrorAmount = 0;
 
                 DrupiScript UtilsDS = new DrupiScript(UtilsJSFile);
-                UtilsDS.Load(drupi, new ScriptLoadMessage() {
+                UtilsDS.Load(drupi, false, new ScriptLoadMessage() {
                     @Override
                     public void onSuccess() {
 
@@ -201,7 +223,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                         if(file.getName().toLowerCase().contains(".js")||file.getName().toLowerCase().contains(".drupi")){
                             if(!file.getName().substring(0, 1).equalsIgnoreCase("_")) {
                                 DrupiScript DS = new DrupiScript(file);
-                                DS.Load(drupi, new ScriptLoadMessage() {
+                                DS.Load(drupi, true, new ScriptLoadMessage() {
                                     @Override
                                     public void onSuccess() {
 
@@ -233,7 +255,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                     if(file.getName().toLowerCase().contains(".js")||file.getName().toLowerCase().contains(".drupi")){
                         if(!file.getName().substring(0, 1).equalsIgnoreCase("_")) {
                             DrupiScript DS = new DrupiScript(file);
-                            DS.Load(drupi, new ScriptLoadMessage() {
+                            DS.Load(drupi, true, new ScriptLoadMessage() {
                                 @Override
                                 public void onSuccess() {
 
@@ -362,7 +384,22 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             @Override
             public void loadManagers(NashornScriptEngine engine) {
                 File UtilsJSFile = new File(instance.getDataFolder(), "utils.js");
+                File BabelJSFile = new File(instance.getDataFolder(), "babel.js");
                 devLog("[DEV] Loading managers!");
+
+                DrupiScript BabelJSDS = new DrupiScript(BabelJSFile);
+                BabelJSDS.Load(drupi, false, new ScriptLoadMessage() {
+                    @Override
+                    public void onSuccess() {
+                        drupi.log.info("Babel loaded successfully");
+                    }
+
+                    @Override
+                    public void onError(String error){
+                        drupi.log.warning("Babel error! " + error);
+                    }
+                });
+
 
                 devLog("[DEV] Done loading managers!");
 
@@ -376,7 +413,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                         if(file.getName().toLowerCase().contains(".js")||file.getName().toLowerCase().contains(".drupi")){
                             if(!file.getName().substring(0, 1).equalsIgnoreCase("_")) {
                                 DrupiScript DS = new DrupiScript(file);
-                                DS.Load(drupi, new ScriptLoadMessage() {
+                                DS.Load(drupi, true, new ScriptLoadMessage() {
                                     @Override
                                     public void onSuccess() {
                                         sender.sendMessage("§aLoaded lib §b" + file.getName() + "§a successfully");
@@ -411,7 +448,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
 
                 sender.sendMessage("§a[§bDrupi§a] "+ "§aReloading all scripts..");
                 DrupiScript UtilsDS = new DrupiScript(UtilsJSFile);
-                UtilsDS.Load(drupi, new ScriptLoadMessage() {
+                UtilsDS.Load(drupi, false, new ScriptLoadMessage() {
                     @Override
                     public void onSuccess() {
                         sender.sendMessage("§aLoaded Script §b" + UtilsJSFile.getName() + "§a successfully");
@@ -431,7 +468,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                     if(file.getName().toLowerCase().contains(".js")||file.getName().toLowerCase().contains(".drupi")){
                         if(!file.getName().substring(0, 1).equalsIgnoreCase("_")) {
                             DrupiScript DS = new DrupiScript(file);
-                            DS.Load(drupi, new ScriptLoadMessage() {
+                            DS.Load(drupi, true, new ScriptLoadMessage() {
                                 @Override
                                 public void onSuccess() {
                                     sender.sendMessage("§aLoaded Script §b" + file.getName() + "§a successfully");
