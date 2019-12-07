@@ -1,5 +1,6 @@
 package hundeklemmen.shared.script;
 
+import jdk.nashorn.api.scripting.JSObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -34,7 +35,7 @@ public class HttpManager {
         }
     }
 
-    public String post(String url, JSONObject obj) {
+    public String post(String url, JSObject obj) {
         try {
             String payload = obj.toString();
             StringEntity entity = new StringEntity(payload,
@@ -69,10 +70,6 @@ public class HttpManager {
             e.printStackTrace();
             return null;
         }
-    }
-    public String post(String url, Map<Object,Object> objectMap){
-        JSONObject obj = toJson(objectMap);
-        return this.post(url, obj);
     }
 
 

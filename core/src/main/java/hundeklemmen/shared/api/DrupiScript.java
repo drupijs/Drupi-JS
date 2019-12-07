@@ -26,22 +26,31 @@ public class DrupiScript {
             while ((line = br.readLine()) != null) {
                 stringBuffer.append(line + System.lineSeparator());
             }
+            if(stringBuffer.toString().contains("module.exports") && !this.File.getName().equalsIgnoreCase("utils.js")&& !this.File.getName().equalsIgnoreCase("babel.js")) return;
             if (useBabel == true && Drupi.config.VC_useBabel == true) {
                 //Time to run it through babel
                 Invocable invocable = (Invocable) Drupi.engine;
                 convertedScript = (String) invocable.invokeFunction("convertBabelJS", stringBuffer.toString());
                 engine.eval(convertedScript);
-                Drupi.log.info("Loaded Script (Babel): " + File.getName());
+                String filePath = File.getPath();
+                String scriptsPath = Drupi.DataFolder.toString() + java.io.File.separator + "scripts" + java.io.File.separator;
+                String finalPath = filePath.replace(scriptsPath, "");
+                Drupi.log.info("Loaded Script (Babel): " + finalPath);
                 SLM.onSuccess();
             } else {
                 engine.eval(stringBuffer.toString());
-                Drupi.log.info("Loaded Script: " + File.getName());
+                String filePath = File.getPath();
+                String scriptsPath = Drupi.DataFolder.toString() + java.io.File.separator + "scripts" + java.io.File.separator;
+                String finalPath = filePath.replace(scriptsPath, "");
+                Drupi.log.info("Loaded Script: " + finalPath);
                 SLM.onSuccess();
             }
         } catch (final Exception e) {
-            Drupi.log.warning("An error while loading " + File.getName());
-            Drupi.log.info(convertedScript);
-            SLM.onError(e.getMessage().replaceAll("<eval>", File.getName()));
+            String filePath = File.getPath();
+            String scriptsPath = Drupi.DataFolder.toString() + java.io.File.separator + "scripts" + java.io.File.separator;
+            String finalPath = filePath.replace(scriptsPath, "");
+            Drupi.log.warning("An error while loading " + finalPath);
+            SLM.onError(e.getMessage().replaceAll("<eval>", finalPath));
             e.printStackTrace();
         }
     }

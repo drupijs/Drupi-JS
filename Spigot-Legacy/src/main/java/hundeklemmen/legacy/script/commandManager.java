@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -38,6 +40,21 @@ public class commandManager {
             MainPlugin.drupi.registeredCommands.add(command);
         } catch(Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean isConsoleSender(CommandSender sender){
+        if(sender instanceof ConsoleCommandSender){
+            return  true;
+        } else {
+            return false;
+        }
+    }
+    public boolean isPlayerSender(CommandSender sender){
+        if(sender instanceof Player){
+            return  true;
+        } else {
+            return false;
         }
     }
 

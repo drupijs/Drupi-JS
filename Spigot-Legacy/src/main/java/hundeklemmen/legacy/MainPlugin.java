@@ -2,6 +2,7 @@ package hundeklemmen.legacy;
 
 import express.Express;
 import hundeklemmen.legacy.api.handlers.SpigotConfig;
+import hundeklemmen.legacy.commands.drupiCommand;
 import hundeklemmen.legacy.expansions.Vault;
 import hundeklemmen.legacy.expansions.labymod.LabymodEvents;
 import hundeklemmen.legacy.expansions.placeholderapi.PlaceholderAPIExtension;
@@ -32,8 +33,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,22 +55,25 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
     public ArrayList<Express> ExpressRunning = new ArrayList<>();
 
     public static int ErrorAmount = 0;
-    public static int ErrorAmountLibs = 0;
 
     public static Drupi drupi;
     public static boolean dev = false;
+
+    public static int loadedScripts = 0;
+    public static ArrayList<String> loadedModules = new ArrayList<String>();
 
 
     @Override
     public void onEnable() {
         instance = this;
         Metrics metrics = new Metrics(this); //OOF
-
         DrupiFile = instance.getFile();
         serverVersion = instance.getServer().getClass().getPackage().getName().split("\\.")[3];
 
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", this);
+
+        registerCommands();
 
         //Prepare
         if (!instance.getDataFolder().exists()) {
@@ -78,6 +84,10 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             defaultJS.mkdir();
             File defaultJSFile = new File(defaultJS, "default.js");
             util.copy(instance.getResource("default.js"), defaultJSFile);
+        }
+        File defaultModules = new File(defaultJS, "modules");
+        if(!defaultModules.exists()){
+            defaultModules.mkdir();
         }
         File UtilsJSFile = new File(instance.getDataFolder(), "utils.js");
         if(!UtilsJSFile.exists()) {
@@ -110,6 +120,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
         drupi.registerManager("plugin", instance);
         drupi.registerManager("manager", new FunctionManager(instance, drupi));
         drupi.registerManager("command", new commandManager(drupi));
+        drupi.registerManager("drupihelper", new drupiHelper(instance));
 
         drupi.registerManager("cast", new castManager());
         drupi.registerManager("logger", instance.getLogger());
@@ -168,7 +179,6 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             new SkAddon(drupi);
         }
 
-
         drupi.Setup(new SetupMessage() {
             @Override
             public void onMessage(String message) {
@@ -214,43 +224,41 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                     }
                 });
 
-                drupi.log.info("Loading libs..");
-                File libsFolder = new File(instance.getDataFolder(), "libs");
-                if(libsFolder.exists()) {
-                    ErrorAmountLibs = 0;
-                    for (File file : Objects.requireNonNull(libsFolder.listFiles())) {
-                        if(file.isDirectory()) continue;
-                        if(file.getName().toLowerCase().contains(".js")||file.getName().toLowerCase().contains(".drupi")){
-                            if(!file.getName().substring(0, 1).equalsIgnoreCase("_")) {
-                                DrupiScript DS = new DrupiScript(file);
-                                DS.Load(drupi, true, new ScriptLoadMessage() {
-                                    @Override
-                                    public void onSuccess() {
 
-                                    }
-
-                                    @Override
-                                    public void onError(String error){
-                                        MainPlugin.ErrorAmountLibs++;
-                                    }
-                                });
-                            } else {
-                                drupi.log.warning(file.getName() + " is disabled and was not loaded! Remove _ to enable it!");
-                            }
-                        }
-                    }
-                    if(ErrorAmountLibs == 0) {
-                        drupi.log.info("Successfully reloaded all libs!");
-                    } else {
-                        drupi.log.info("Loaded all libs with a total of "+ ErrorAmountLibs + " errors!");
-                    }
-                } else {
-                    devLog("No libs founds, continuing.");
-                }
-
+                loadedScripts = 0;
 
                 File defaultJS = new File(instance.getDataFolder(), "scripts");
-                for (File file : Objects.requireNonNull(defaultJS.listFiles())) {
+                try {
+                    Files.walk(defaultJS.toPath())
+                            .filter(path -> !Files.isDirectory(path))
+                            .forEach(path -> {
+                                if(!path.toString().contains(new File(defaultJS, "modules").getPath())){
+                                    File file = new File(path.toString());
+                                    if(file.getName().toLowerCase().endsWith(".js")||file.getName().toLowerCase().endsWith(".drupi")) {
+                                        if (!file.getName().startsWith("_")) {
+                                            DrupiScript DS = new DrupiScript(file);
+                                            DS.Load(drupi, true, new ScriptLoadMessage() {
+                                                @Override
+                                                public void onSuccess() {
+                                                    loadedScripts++;
+                                                }
+
+                                                @Override
+                                                public void onError(String error) {
+                                                    MainPlugin.ErrorAmount++;
+                                                }
+                                            });
+                                        } else {
+                                            drupi.log.warning(file.getName() + " is disabled and was not loaded! Remove _ to enable it!");
+                                        }
+                                    }
+                                }
+                            });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                /*for (File file : Objects.requireNonNull(defaultJS.listFiles())) {
                     if(file.isDirectory()) continue;
                     if(file.getName().toLowerCase().contains(".js")||file.getName().toLowerCase().contains(".drupi")){
                         if(!file.getName().substring(0, 1).equalsIgnoreCase("_")) {
@@ -258,7 +266,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                             DS.Load(drupi, true, new ScriptLoadMessage() {
                                 @Override
                                 public void onSuccess() {
-
+                                    loadedScripts++;
                                 }
 
                                 @Override
@@ -270,7 +278,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                             drupi.log.warning(file.getName() + " is disabled and was not loaded! Remove _ to enable it!");
                         }
                     }
-                }
+                }*/
                 if(ErrorAmount == 0) {
                     drupi.log.info("Successfully reloaded all scripts!");
                 } else {
@@ -364,6 +372,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             }
             ExpressRunning = new ArrayList<Express>();
         }
+        loadedModules.clear();
         if(serverVersion.startsWith("v1_8")||serverVersion.startsWith("v1_9")||serverVersion.startsWith("v1_10")||serverVersion.startsWith("v1_11")||serverVersion.startsWith("v1_12")) {
             Bukkit.getScheduler().cancelAllTasks();
         } else {
@@ -375,6 +384,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             drupi.log.warning("Error while unregistering commands!");
             drupi.log.warning(e.getMessage());
         }
+        sender.sendMessage("§a[§bDrupi§a] "+ "§aReloading all scripts..");
         drupi.Setup(new SetupMessage() {
             @Override
             public void onMessage(String message) {
@@ -403,50 +413,9 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
 
                 devLog("[DEV] Done loading managers!");
 
-                drupi.log.info("Loading libs..");
-                File libsFolder = new File(instance.getDataFolder(), "libs");
-                if(libsFolder.exists()) {
-                    ErrorAmountLibs = 0;
-                    sender.sendMessage("§a[§bDrupi§a] "+ "§aReloading all libs..");
-                    for (File file : Objects.requireNonNull(libsFolder.listFiles())) {
-                        if(file.isDirectory()) continue;
-                        if(file.getName().toLowerCase().contains(".js")||file.getName().toLowerCase().contains(".drupi")){
-                            if(!file.getName().substring(0, 1).equalsIgnoreCase("_")) {
-                                DrupiScript DS = new DrupiScript(file);
-                                DS.Load(drupi, true, new ScriptLoadMessage() {
-                                    @Override
-                                    public void onSuccess() {
-                                        sender.sendMessage("§aLoaded lib §b" + file.getName() + "§a successfully");
-
-                                    }
-
-                                    @Override
-                                    public void onError(String error){
-                                        sender.sendMessage("§cCould not load §a" + file.getName());
-                                        sender.sendMessage("§4[ERROR]§c " + error);
-                                        MainPlugin.ErrorAmountLibs++;
-                                    }
-                                });
-                            } else {
-                                drupi.log.warning(file.getName() + " is disabled and was not loaded! Remove _ to enable it!");
-                            }
-                        }
-                    }
-                    if(ErrorAmountLibs == 0) {
-                        sender.sendMessage(util.color("§a[§bDrupi§a] "+ "&aSuccessfully reloaded all libs!"));
-                        drupi.log.info("Successfully reloaded all libs!");
-                    } else {
-                        sender.sendMessage(util.color("§a[§bDrupi§a] "+"§cLoaded all libs with a total of §4"+ ErrorAmountLibs + "§c errors!"));
-                        drupi.log.info("Loaded all libs with a total of "+ ErrorAmountLibs + " errors!");
-                    }
-                } else {
-                    devLog("No libs founds, continuing.");
-                }
-
                 drupi.log.info("Loading scripts..");
                 ErrorAmount = 0;
 
-                sender.sendMessage("§a[§bDrupi§a] "+ "§aReloading all scripts..");
                 DrupiScript UtilsDS = new DrupiScript(UtilsJSFile);
                 UtilsDS.Load(drupi, false, new ScriptLoadMessage() {
                     @Override
@@ -462,29 +431,42 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                     }
                 });
 
+                loadedScripts = 0;
                 File defaultJS = new File(instance.getDataFolder(), "scripts");
-                for (File file : Objects.requireNonNull(defaultJS.listFiles())) {
-                    if(file.isDirectory()) continue;
-                    if(file.getName().toLowerCase().contains(".js")||file.getName().toLowerCase().contains(".drupi")){
-                        if(!file.getName().substring(0, 1).equalsIgnoreCase("_")) {
-                            DrupiScript DS = new DrupiScript(file);
-                            DS.Load(drupi, true, new ScriptLoadMessage() {
-                                @Override
-                                public void onSuccess() {
-                                    sender.sendMessage("§aLoaded Script §b" + file.getName() + "§a successfully");
-                                }
+                try {
+                    Files.walk(defaultJS.toPath())
+                            .filter(path -> !Files.isDirectory(path))
+                            .forEach(path -> {
+                                if(!path.toString().contains("/plugins/Drupi/scripts/modules")){
+                                    File file = new File(path.toString());
+                                    if(file.getName().toLowerCase().endsWith(".js")||file.getName().toLowerCase().endsWith(".drupi")) {
+                                        if (!file.getName().startsWith("_")) {
+                                            DrupiScript DS = new DrupiScript(file);
+                                            String filePath = file.getPath();
+                                            String scriptsPath = instance.drupi.DataFolder.toString() + java.io.File.separator + "scripts" + java.io.File.separator;
+                                            String finalPath = filePath.replace(scriptsPath, "");
+                                            DS.Load(drupi, true, new ScriptLoadMessage() {
+                                                @Override
+                                                public void onSuccess() {
+                                                    loadedScripts++;
+                                                    sender.sendMessage("§aLoaded Script §b" + finalPath + "§a successfully");
+                                                }
 
-                                @Override
-                                public void onError(String error){
-                                    sender.sendMessage("§cCould not load §a" + file.getName());
-                                    sender.sendMessage("§4[ERROR]§c " + error);
-                                    MainPlugin.ErrorAmount++;
+                                                @Override
+                                                public void onError(String error) {
+                                                    sender.sendMessage("§cCould not load §a" + finalPath);
+                                                    sender.sendMessage("§4[ERROR]§c " + error);
+                                                    MainPlugin.ErrorAmount++;
+                                                }
+                                            });
+                                        } else {
+                                            drupi.log.warning(file.getName() + " is disabled and was not loaded! Remove _ to enable it!");
+                                        }
+                                    }
                                 }
                             });
-                        } else {
-                            drupi.log.warning(file.getName() + " is disabled and was not loaded! Remove _ to enable it!");
-                        }
-                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 if(ErrorAmount == 0) {
                     sender.sendMessage(util.color("§a[§bDrupi§a] "+ "&aSuccessfully reloaded all scripts!"));
@@ -510,65 +492,8 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
         }
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getLabel().equalsIgnoreCase("drupi")) {
-            if (args.length != 0) {
-                if (args[0].equalsIgnoreCase("reload")) {
-                    if (sender instanceof Player) {
-                        Player player = (Player) sender;
-                        if (player.isOp() || player.hasPermission("drupi.reload")) {
-                            sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
-                            // MainPlugin.setupDropi(sender);
-                            //stopping all old tasks
-                            reloadDrupi(sender);
-                        } else {
-                            sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
-                            sender.sendMessage(ChatColor.RED + "Whoops! It looks like you don't have access");
-                        }
-                    } else {
-                        sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
-                        reloadDrupi(sender);
-                    }
-                } else if (args[0].equalsIgnoreCase("update")) {
-                    if(args.length == 2){
-                        if(args[1].equalsIgnoreCase("download")) {
-                            Boolean access = true;
-                            if(sender instanceof Player){
-                                if(!((Player) sender).isOp()){
-                                    access = false;
-                                }
-                            }
-                            if(access == true){
-                                util.Update(sender);
-                            } else {
-                                sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
-                                sender.sendMessage(ChatColor.RED + "Whoops! It looks like you don't have access");
-                            }
-                        } else {
-                            sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
-                            sender.sendMessage(ChatColor.AQUA + "Arguments:");
-                            sender.sendMessage(ChatColor.AQUA + "/Drupi update " + ChatColor.GRAY + " - Check Drupi version.");
-                            sender.sendMessage(ChatColor.AQUA + "/Drupi update download" + ChatColor.GRAY + " - Download the latest version of Drupi");
-                        };
-                    } else {
-                        sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
-                        sender.sendMessage(ChatColor.GREEN + "You're currently running " + ChatColor.AQUA + MainPlugin.instance.getDescription().getVersion());
-                        sender.sendMessage(ChatColor.GREEN + "Latest version: " + ChatColor.AQUA + util.getLatestVersion());
-                        sender.sendMessage(ChatColor.GREEN + "Releases: " + ChatColor.AQUA + "https://drupi.js.org");
-                    }
-                } else {
-                    sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
-                    sender.sendMessage(ChatColor.GREEN + "/Drupi reload " + ChatColor.AQUA + "Reload your scripts");
-                    sender.sendMessage(ChatColor.GREEN + "/Drupi update " + ChatColor.AQUA + "Update Drupi");
-                }
-            } else {
-                sender.sendMessage(ChatColor.GREEN + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.GREEN + "]--------------");
-                sender.sendMessage(ChatColor.GREEN + "/Drupi reload " + ChatColor.AQUA + "Reload your scripts");
-                sender.sendMessage(ChatColor.GREEN + "/Drupi update " + ChatColor.AQUA + "Update Drupi");
-            }
-        }
-        return true;
+    private void registerCommands(){
+        instance.getCommand("drupi").setExecutor(new drupiCommand(instance));
     }
 
 

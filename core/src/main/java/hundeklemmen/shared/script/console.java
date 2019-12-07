@@ -12,7 +12,10 @@ public class console {
         this.instance = this;
     }
 
-    public static void log(String info){
+    public void log(String info){
         drupi.log.info(info);
+    }
+    public void warn(String info){
+        drupi.log.warning(info);
     }
 }

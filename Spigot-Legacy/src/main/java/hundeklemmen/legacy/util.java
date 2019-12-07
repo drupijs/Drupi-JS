@@ -3,6 +3,7 @@ package hundeklemmen.legacy;
 
 import com.google.gson.Gson;
 import hundeklemmen.legacy.script.FunctionManager;
+import hundeklemmen.legacy.script.commandManager;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -46,7 +47,7 @@ public class util {
         }
         for (Iterator<Command> i = knownCommands.values().iterator(); i.hasNext(); ) {
             org.bukkit.command.Command cmd=i.next();
-            if (cmd instanceof FunctionManager.EntryCommand) {
+            if (cmd instanceof FunctionManager.EntryCommand || cmd instanceof commandManager.drupiCommand) {
                 i.remove();
             }
         }

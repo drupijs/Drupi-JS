@@ -2,6 +2,7 @@ package hundeklemmen.legacy.script;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import com.google.gson.JsonObject;
 import hundeklemmen.legacy.MainPlugin;
 import hundeklemmen.legacy.extra.ActionBar;
 import hundeklemmen.legacy.extra.Title;
@@ -24,6 +25,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.Plugin;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -35,6 +38,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class FunctionManager {
@@ -79,6 +83,7 @@ public class FunctionManager {
             @Override
             public void onSuccess() {
                 drupi.log.info("A drupi script have successfully loaded " + loc.getName());
+                MainPlugin.loadedScripts++;
             }
 
             @Override
@@ -96,6 +101,7 @@ public class FunctionManager {
             public void onSuccess() {
                 run.run();
                 drupi.log.info("A drupi script have successfully loaded " + loc.getName());
+                MainPlugin.loadedScripts++;
             }
 
             @Override
@@ -105,6 +111,38 @@ public class FunctionManager {
                 drupi.log.info("[ERROR] " + error);
             }
         });
+    }
+
+    public JsonObject toGson(Map<Object, Object> objectMap){
+        JsonObject obj = new JsonObject();
+        for(Map.Entry<Object, Object> entry : objectMap.entrySet()){
+            if(entry.getValue() instanceof String){
+                obj.addProperty(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()));
+            } else if(entry.getValue() instanceof Number){
+                obj.addProperty(String.valueOf(entry.getKey()), (Number) entry.getValue());
+            } else if(entry.getValue() instanceof Boolean){
+                obj.addProperty(String.valueOf(entry.getKey()), (boolean) entry.getValue());
+            } else if(entry.getValue() instanceof Character){
+                obj.addProperty(String.valueOf(entry.getKey()), (Character) entry.getValue());
+            } else {
+                obj.addProperty(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()));
+            }
+        };
+        return obj;
+    }
+
+    public JSONObject toJson(Map<Object, Object> objectMap){
+        JSONObject obj = new JSONObject();
+        for(Map.Entry<Object, Object> entry : objectMap.entrySet()){
+            obj.put(String.valueOf(entry.getKey()), entry.getValue());
+        };
+        return obj;
+    }
+    public JSONObject parseRawObject(String raw){
+        return new JSONObject(raw);
+    }
+    public JSONArray parseRawArray(String raw){
+        return new JSONArray(raw);
     }
 
     public void writeToFile(File file, String content){

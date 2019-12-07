@@ -41,6 +41,7 @@ public class Drupi {
         this.instance = this;
         this.log = log;
         this.DataFolder = drupiPath;
+        this.platform = p;
 
         log.info("Starting Drupi instance");
         if(p == Platform.Spigot){
@@ -116,7 +117,6 @@ public class Drupi {
 
         //Load our global managers which is included in core to make things easier
         //Loading them before the others so that platforms can override the global managers
-        //engine.put("JSON", new JSON());
         engine.put("database", new DatabaseManager());
         engine.put("http", new HttpManager());
         engine.put("console", new console(this));

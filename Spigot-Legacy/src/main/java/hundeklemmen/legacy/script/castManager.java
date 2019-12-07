@@ -16,4 +16,18 @@ public class castManager extends CastManager {
     public Sign asSign(Object obj){
         return (Sign) obj;
     }
+    //public int getPing(Player p) {
+    //    CraftPlayer cp = (CraftPlayer) p;
+    //    EntityPlayer ep = cp.getHandle();
+    //    return ep.ping;
+    //}
+    public Object as(String type, Object obj){
+        try {
+            return Class.forName(type).cast(obj);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+            //(CraftPlayer) obj
+        }
+    }
 }
