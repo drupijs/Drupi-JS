@@ -110,8 +110,8 @@ public class Drupi {
             return;
         }
 
-        log.info("Javascript engine: " + engine.getFactory().getEngineName() + " " + engine.getFactory().getEngineVersion());
-        log.info("Engine factories: " + engine.getFactory().getLanguageName() + " " + engine.getFactory().getLanguageVersion());
+        //log.info("Javascript engine: " + engine.getFactory().getEngineName() + " " + engine.getFactory().getEngineVersion());
+        //log.info("Engine factories: " + engine.getFactory().getLanguageName() + " " + engine.getFactory().getLanguageVersion());
 
 
         registeredEvents.clear();
@@ -132,6 +132,7 @@ public class Drupi {
     }
 
     public void startCompileEngine(){
+        log.info("Starting compile engine.");
         String[] options = new String[] {"--language=es6"};
         final NashornScriptEngineFactory manager = new NashornScriptEngineFactory();
         compileEngine = (NashornScriptEngine) manager.getScriptEngine(options);
@@ -153,7 +154,7 @@ public class Drupi {
             }
             return;
         }
-        log.info("[DRUPI] Compile engine started.");
+        log.info("Compile engine started.");
     }
 
     public Drupi getInstance(){

@@ -124,10 +124,6 @@ public class loadEvents implements Listener{
     }
 
 
-    @EventHandler
-    public void onEntityCreatePortalEvent(EntityCreatePortalEvent event){
-        drupi.callEvent("EntityCreatePortalEvent", event);
-    }
 
 
     @EventHandler
@@ -531,11 +527,6 @@ public class loadEvents implements Listener{
         drupi.callEvent("AsyncPlayerPreLoginEvent", event);
     }
 
-
-    @EventHandler
-    public void onPlayerAchievementAwardedEvent(PlayerAchievementAwardedEvent event){
-        drupi.callEvent("PlayerAchievementAwardedEvent", event);
-    }
 
 
     @EventHandler

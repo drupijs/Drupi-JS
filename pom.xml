@@ -19,6 +19,7 @@
         <module>version.v1_12</module>
         <module>version.v1_13</module>
         <module>version.v1_14</module>
+        <module>version.v1_15</module>
 
         <module>Addon</module>
     </modules>

@@ -215,6 +215,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             public void loadManagers(NashornScriptEngine engine) {
                 File UtilsJSFile = new File(instance.getDataFolder(), "utils.js");
                 if(drupi.config.compileMethod.equalsIgnoreCase("legacy")) {
+                    drupi.log.info("Loading babel.js");
                     File BabelJSFile = new File(instance.getDataFolder(), "babel.js");
                     devLog("[DEV] Loading managers!");
 
@@ -222,7 +223,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                     BabelJSDS.Load(drupi, drupi.engine, false, new ScriptLoadMessage() {
                         @Override
                         public void onSuccess() {
-                            drupi.log.info("Babel loaded successfully");
+                            drupi.log.info("Babel.js loaded successfully");
                         }
 
                         @Override
@@ -260,9 +261,6 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                     Files.walk(defaultJS.toPath())
                             .filter(path -> !Files.isDirectory(path))
                             .forEach(path -> {
-                                System.out.println("-------------------------------");
-                                System.out.println("Path: " + path);
-                                System.out.println("Modules: " + new File(defaultJS, "modules").getPath());
                                 if(!path.toString().contains(new File(defaultJS, "modules").getPath())){
                                     File file = new File(path.toString());
                                     if(file.getName().toLowerCase().endsWith(".js")||file.getName().toLowerCase().endsWith(".drupi")) {
@@ -349,6 +347,10 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             drupi.log.info("Loading 1.14 1events");
             new hundeklemmen.v1_14.loadEvents(drupi); //From v1_14 module
             drupi.log.info("Loaded 1.14 events");
+        } else if(serverVersion.startsWith("v1_15")){
+            drupi.log.info("Loading 1.15 events");
+            new hundeklemmen.v1_15.loadEvents(drupi); //From v1_14 module
+            drupi.log.info("Loaded 1.15 events");
         } else {
             drupi.log.warning("This Drupi version doesn't support " + serverVersion + " events! Fallback: 1.8 events");
             drupi.log.info("Loading 1.8 events");
