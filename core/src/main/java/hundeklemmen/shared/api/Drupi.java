@@ -27,6 +27,7 @@ public class Drupi {
 
     public static boolean update = false;
     public static NashornScriptEngine engine;
+    public static NashornScriptEngine compileEngine;
     public static HashMap<String, Object> variables = new HashMap<String, Object>();
     public static List<String> registeredCommands = new ArrayList<String>();
     public static HashMap<String, Object> managers = new HashMap<String, Object>();
@@ -128,6 +129,31 @@ public class Drupi {
         };
         SM.loadManagers(engine);
 
+    }
+
+    public void startCompileEngine(){
+        String[] options = new String[] {"--language=es6"};
+        final NashornScriptEngineFactory manager = new NashornScriptEngineFactory();
+        compileEngine = (NashornScriptEngine) manager.getScriptEngine(options);
+        if (compileEngine == null) {
+            log.warning("No JavaScript engine was found!");
+            if(platform == Platform.Spigot){
+                ((org.bukkit.plugin.Plugin) this.plugin).getServer().shutdown();
+            } else if(platform == Platform.Bungeecord){
+                ((net.md_5.bungee.api.plugin.Plugin) this.plugin).getProxy().stop("[DRUPI] No JavaScript engine was found!");
+            }
+            return;
+        }
+        if (!(compileEngine instanceof Invocable)) {
+            log.warning("JavaScript engine does not support the Invocable API!");
+            if(platform == Platform.Spigot){
+                ((org.bukkit.plugin.Plugin) this.plugin).getServer().shutdown();
+            } else if(platform == Platform.Bungeecord){
+                ((net.md_5.bungee.api.plugin.Plugin) this.plugin).getProxy().stop("[DRUPI] JavaScript engine does not support the Invocable API!");
+            }
+            return;
+        }
+        log.info("[DRUPI] Compile engine started.");
     }
 
     public Drupi getInstance(){

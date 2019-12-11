@@ -1,6 +1,7 @@
-settings:
-  babel: true
+config:
+  version: 2.0
 
-versionChecker:
+settings:
+  compileMethod: modern
   checkOnLoad: true
   notifyOP: true

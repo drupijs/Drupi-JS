@@ -79,7 +79,7 @@ public class FunctionManager {
 
     public void eval(File loc){
         DrupiScript DS = new DrupiScript(loc);
-        DS.Load(drupi, true, new ScriptLoadMessage() {
+        DS.Load(drupi, drupi.engine,true, new ScriptLoadMessage() {
             @Override
             public void onSuccess() {
                 drupi.log.info("A drupi script have successfully loaded " + loc.getName());
@@ -96,7 +96,7 @@ public class FunctionManager {
 
     public void eval(File loc, Runnable run){
         DrupiScript DS = new DrupiScript(loc);
-        DS.Load(drupi, true, new ScriptLoadMessage() {
+        DS.Load(drupi, drupi.engine,true, new ScriptLoadMessage() {
             @Override
             public void onSuccess() {
                 run.run();
@@ -169,6 +169,7 @@ public class FunctionManager {
         }
         return null;
     }
+
 
     public World getWorld(String worldName){
         return plugin.getServer().getWorld(worldName);

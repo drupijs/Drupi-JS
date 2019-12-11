@@ -15,8 +15,7 @@ public class DrupiScript {
         this.File = File;
     }
 
-    public void Load(Drupi Drupi, Boolean useBabel, ScriptLoadMessage SLM) {
-        NashornScriptEngine engine = Drupi.engine;
+    public void Load(Drupi Drupi, NashornScriptEngine engine, Boolean useBabel, ScriptLoadMessage SLM) {
         String convertedScript = "";
         try (final BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(File), "UTF-8"))) {
             //Loaded file
@@ -27,11 +26,14 @@ public class DrupiScript {
                 stringBuffer.append(line + System.lineSeparator());
             }
             if(stringBuffer.toString().contains("module.exports") && !this.File.getName().equalsIgnoreCase("utils.js")&& !this.File.getName().equalsIgnoreCase("babel.js")) return;
-            if (useBabel == true && Drupi.config.VC_useBabel == true) {
-                //Time to run it through babel
+            if (useBabel == true && Drupi.config.compileMethod.equalsIgnoreCase("modern") || useBabel == true && Drupi.config.compileMethod.equalsIgnoreCase("legacy")) {
+                //Time to run it through
                 Invocable invocable = (Invocable) Drupi.engine;
+                if(Drupi.config.compileMethod.equalsIgnoreCase("modern")){
+                    invocable = (Invocable) Drupi.compileEngine;
+                }
                 convertedScript = (String) invocable.invokeFunction("convertBabelJS", stringBuffer.toString());
-                engine.eval(convertedScript);
+                Drupi.engine.eval(convertedScript);
                 String filePath = File.getPath();
                 String scriptsPath = Drupi.DataFolder.toString() + java.io.File.separator + "scripts" + java.io.File.separator;
                 String finalPath = filePath.replace(scriptsPath, "");

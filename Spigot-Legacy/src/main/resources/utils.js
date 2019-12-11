@@ -315,7 +315,7 @@ module = (typeof module === 'undefined') ? {} : module;
         input = new File(filename);
       }
       if(babel == true){
-        return convertBabelJS(new Scanner(input).useDelimiter('\\A').next());
+        return drupihelper.convertScript(new Scanner(input).useDelimiter('\\A').next());
       } else {
         return new Scanner(input).useDelimiter('\\A').next();
       }
