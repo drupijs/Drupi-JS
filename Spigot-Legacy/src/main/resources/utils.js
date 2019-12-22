@@ -315,9 +315,9 @@ module = (typeof module === 'undefined') ? {} : module;
         input = new File(filename);
       }
       if(babel == true){
-        return drupihelper.convertScript(new Scanner(input).useDelimiter('\\A').next());
+        return drupihelper.convertScript(manager.readFile(input));
       } else {
-        return new Scanner(input).useDelimiter('\\A').next();
+        return manager.readFile(input);
       }
     } catch (e) {
       throw new ModuleError('Cannot read file [' + input + ']: ', 'IO_ERROR', e);
