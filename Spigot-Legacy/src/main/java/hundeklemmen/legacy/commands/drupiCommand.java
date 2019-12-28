@@ -121,9 +121,9 @@ public class drupiCommand implements CommandExecutor {
                 JSONObject moduleObject = (JSONObject) module.get("package");
                 sender.sendMessage(prefix + ChatColor.AQUA + "Found " + ChatColor.DARK_AQUA + moduleObject.get("name") + "@" + moduleObject.get("version"));
                 sender.sendMessage(prefix + ChatColor.AQUA + "Starting download");
-                String downloadURL = httpGetRequest("https://api.stacket.net/modules/" + name + "/zip");
-                File modulePath = new File(plugin.getDataFolder(), "scripts/modules/" + name);
-                File cloneDirectoryPath = new File(plugin.getDataFolder(), "scripts/modules/" + name + ".zip");
+                String downloadURL = httpGetRequest("https://api.stacket.net/modules/" + moduleObject.get("name") + "/zip");
+                File modulePath = new File(plugin.getDataFolder(), "scripts/modules/" + moduleObject.get("name"));
+                File cloneDirectoryPath = new File(plugin.getDataFolder(), "scripts/modules/" + moduleObject.get("name") + ".zip");
 
                 if(modulePath.exists()) modulePath.delete();
                 if(cloneDirectoryPath.exists()) cloneDirectoryPath.delete();
@@ -131,7 +131,7 @@ public class drupiCommand implements CommandExecutor {
                 if(!downloadURL.equalsIgnoreCase("")){
 
                     new FileOutputStream(cloneDirectoryPath).getChannel().transferFrom(Channels.newChannel(new URL(downloadURL).openStream()), 0, Long.MAX_VALUE);
-                    sender.sendMessage(prefix + ChatColor.AQUA + "Downloaded " + ChatColor.DARK_AQUA + name + ".zip");
+                    sender.sendMessage(prefix + ChatColor.AQUA + "Downloaded " + ChatColor.DARK_AQUA + moduleObject.get("name") + ".zip");
                     if(modulePath.exists()) modulePath.delete();
                     sender.sendMessage(prefix + ChatColor.AQUA + "Unzipping " + ChatColor.DARK_AQUA + (String) moduleObject.get("name") + ".zip ...");
                     this.unZipIt(cloneDirectoryPath.getPath(), modulePath.getPath());

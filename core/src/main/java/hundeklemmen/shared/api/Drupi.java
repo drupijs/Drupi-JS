@@ -121,7 +121,6 @@ public class Drupi {
         engine.put("database", new DatabaseManager());
         engine.put("http", new HttpManager());
         engine.put("console", new console(this));
-        engine.put("event", new EventManager(this));
 
         //Load all our managers here
         for(Map.Entry<String, Object> mng : managers.entrySet()){

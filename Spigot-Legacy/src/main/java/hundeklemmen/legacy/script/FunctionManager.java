@@ -12,7 +12,6 @@ import hundeklemmen.legacy.util;
 import hundeklemmen.shared.api.Drupi;
 import hundeklemmen.shared.api.DrupiScript;
 import hundeklemmen.shared.api.interfaces.ScriptLoadMessage;
-import jdk.nashorn.api.scripting.JSObject;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -23,8 +22,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -32,11 +31,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.nio.file.Files;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -45,6 +44,7 @@ public class FunctionManager {
 
     private MainPlugin plugin;
     private Drupi drupi;
+    private static ClassLoader classLoader = FunctionManager.class.getClassLoader();
 
     public FunctionManager(MainPlugin plugin, Drupi drupi){
         this.plugin = plugin;
@@ -156,6 +156,21 @@ public class FunctionManager {
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public ClassLoader getClassLoader(){
+        return this.classLoader;
+    }
+
+    public URLClassLoader loadExternal(File file){
+        try {
+            String jarURL = "jar:" + file.toURI() + "!/";
+            URL urls [] = { new URL(jarURL) };
+            URLClassLoader ucl = new URLClassLoader(urls, FunctionManager.classLoader);
+            return ucl;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -341,6 +356,22 @@ public class FunctionManager {
     }
     public void kickPlayer(Player player, String reason){
         player.kickPlayer(reason);
+    }
+
+    public File getPluginFile(String pluginName){
+        try {
+            JavaPlugin plugin = (JavaPlugin) MainPlugin.instance.getServer().getPluginManager().getPlugin(pluginName);
+            Method getFileMethod = JavaPlugin.class.getDeclaredMethod("getFile");
+            getFileMethod.setAccessible(true);
+            return (File) getFileMethod.invoke(plugin);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

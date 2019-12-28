@@ -3,7 +3,6 @@ package hundeklemmen.legacy;
 import express.Express;
 import hundeklemmen.legacy.api.handlers.SpigotConfig;
 import hundeklemmen.legacy.commands.drupiCommand;
-import hundeklemmen.legacy.expansions.Vault;
 import hundeklemmen.legacy.expansions.labymod.LabymodEvents;
 import hundeklemmen.legacy.expansions.placeholderapi.PlaceholderAPIExtension;
 import hundeklemmen.legacy.expansions.skript.SkAddon;
@@ -15,34 +14,28 @@ import hundeklemmen.shared.api.interfaces.ScriptLoadMessage;
 import hundeklemmen.shared.api.interfaces.SetupMessage;
 import io.puharesource.mc.titlemanager.api.v2.TitleManagerAPI;
 import io.socket.client.Socket;
-import jdk.nashorn.api.scripting.JSObject;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
-import net.labymod.serverapi.LabyModAPI;
 import net.labymod.serverapi.bukkit.LabyModPlugin;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.RegisteredListener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import javax.script.ScriptException;
 import java.io.File;
 import java.io.IOException;
-import java.lang.management.ManagementFactory;
-import java.lang.management.RuntimeMXBean;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-
 
 
 public class MainPlugin extends JavaPlugin implements Listener, PluginMessageListener {
@@ -142,7 +135,10 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
 
         devLog("Registering global managers");
         //Register managers:
+
+        drupi.registerManager("event", new hundeklemmen.legacy.api.handlers.EventHandler(drupi));
         drupi.registerManager("server", instance.getServer());
+        drupi.registerManager("drupi", drupi);
         drupi.registerManager("plugin", instance);
         drupi.registerManager("manager", new FunctionManager(instance, drupi));
         drupi.registerManager("command", new commandManager(drupi));
@@ -155,11 +151,6 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
         drupi.registerManager("material", new materialManager(instance));
         drupi.registerManager("socket", new socketManager(instance));
         drupi.registerManager("Express", new ExpressManager(instance));
-
-
-        if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
-            drupi.registerManager("vault", new Vault());
-        }
 
         if (Bukkit.getPluginManager().getPlugin("TitleManager") != null) {
             drupi.log.info("TitleManager found, activating TitleManager expansion class.");
@@ -417,6 +408,21 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             drupi.log.warning("Error while unregistering commands!");
             drupi.log.warning(e.getMessage());
         }
+
+        sender.sendMessage("§a[§bDrupi§a] "+ "§aRemoving custom listeners.. ");
+        try {
+            ArrayList<RegisteredListener> handlers = HandlerList.getRegisteredListeners(instance);
+            for (RegisteredListener handler : handlers) {
+                if(handler.getListener() instanceof hundeklemmen.legacy.api.handlers.EventHandler.drupiCustomEvent){
+                    HandlerList.unregisterAll(handler.getListener());
+                }
+            }
+            sender.sendMessage("§a[§bDrupi§a] "+ "§aRemoved custom listeners. ");
+        } catch (Exception e){
+            e.printStackTrace();
+            sender.sendMessage("§a[§bDrupi§a] "+ "§cSomething went wrong while trying to unregister all custom events!");
+        }
+
         sender.sendMessage("§a[§bDrupi§a] "+ "§aReloading all scripts..");
         drupi.Setup(new SetupMessage() {
             @Override

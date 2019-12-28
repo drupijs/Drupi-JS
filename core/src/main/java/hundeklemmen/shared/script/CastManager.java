@@ -19,4 +19,7 @@ public class CastManager {
     public Number asNumber(Object text){
         return (Number) text;
     }
+    public Class<?> asClass(Class<?> text){
+        return text;
+    }
 }

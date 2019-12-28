@@ -25,7 +25,6 @@ public class SpigotConfig extends hundeklemmen.shared.api.config {
             }
             config = new YamlConfiguration();
             config.load(configFile);
-
             if(!config.contains("config.version")){
                 instance.drupi.log.warning("Outdated config, resetting it!");
                 instance.saveResource("config.yml", true);
