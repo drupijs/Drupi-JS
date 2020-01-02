@@ -478,7 +478,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                     Files.walk(defaultJS.toPath())
                             .filter(path -> !Files.isDirectory(path))
                             .forEach(path -> {
-                                if(!path.toString().contains("/plugins/Drupi/scripts/modules")){
+                                if(!path.toString().contains(new File(defaultJS, "modules").getPath())){
                                     File file = new File(path.toString());
                                     if(file.getName().toLowerCase().endsWith(".js")||file.getName().toLowerCase().endsWith(".drupi")) {
                                         if (!file.getName().startsWith("_")) {
