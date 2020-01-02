@@ -19,19 +19,19 @@ public class DrupiWGListener implements Listener {
 
     @EventHandler
     public void regionEnter(RegionEnteredEvent event){
-        drupi.callFunction("WorldGuard_RegionEnterEvent", event);
+        drupi.callEvent("WorldGuard_RegionEnterEvent", event);
     }
     @EventHandler
     public void regionsEnter(RegionsEnteredEvent event){
-        drupi.callFunction("WorldGuard_RegionsEnterEvent", event);
+        drupi.callEvent("WorldGuard_RegionsEnterEvent", event);
     }
 
     @EventHandler
     public void regionLeft(RegionLeftEvent event){
-        drupi.callFunction("WorldGuard_RegionLeaveEvent", event);
+        drupi.callEvent("WorldGuard_RegionLeaveEvent", event);
     }
     @EventHandler
     public void regionsLeft(RegionsLeftEvent event){
-        drupi.callFunction("WorldGuard_RegionsLeaveEvent", event);
+        drupi.callEvent("WorldGuard_RegionsLeaveEvent", event);
     }
 }

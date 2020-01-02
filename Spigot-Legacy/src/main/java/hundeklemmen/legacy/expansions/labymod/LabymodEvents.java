@@ -18,21 +18,21 @@ public class LabymodEvents implements Listener {
 
     @EventHandler
     public void LabyMessageReceive(MessageReceiveEvent event){
-        drupi.callFunction("LabyModMessageReceiveEvent", event);
+        drupi.callEvent("LabyModMessageReceiveEvent", event);
     }
 
     @EventHandler
     public void LabyModPlayerJoin(LabyModPlayerJoinEvent event){
-        drupi.callFunction("LabyModLabyModPlayerJoinEvent", event);
+        drupi.callEvent("LabyModLabyModPlayerJoinEvent", event);
     }
 
     @EventHandler
     public void PermissionsSend(PermissionsSendEvent event){
-        drupi.callFunction("LabyModPermissionsSendEvent", event);
+        drupi.callEvent("LabyModPermissionsSendEvent", event);
     }
 
     @EventHandler
     public void MessageSend(MessageSendEvent event){
-        drupi.callFunction("LabyModMessageSendEvent", event);
+        drupi.callEvent("LabyModMessageSendEvent", event);
     }
 }

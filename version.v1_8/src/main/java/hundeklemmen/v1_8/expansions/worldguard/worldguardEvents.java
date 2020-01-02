@@ -18,23 +18,23 @@ public class worldguardEvents implements Listener {
 
     @EventHandler
     public void pvpDisallowedEvent(DisallowedPVPEvent event){
-        drupi.callFunction("WorldGuard_"+event.getClass().getSimpleName(), event);
+        drupi.callEvent("WorldGuard_"+event.getClass().getSimpleName(), event);
     }
 
     @EventHandler
     public void regionEnter(RegionEnterEvent event){
-        drupi.callFunction("WorldGuard_"+event.getClass().getSimpleName(), event);
+        drupi.callEvent("WorldGuard_"+event.getClass().getSimpleName(), event);
     }
     @EventHandler
     public void regionEntered(RegionEnteredEvent event){
-        drupi.callFunction("WorldGuard_"+event.getClass().getSimpleName(), event);
+        drupi.callEvent("WorldGuard_"+event.getClass().getSimpleName(), event);
     }
     @EventHandler
     public void regionLeave(RegionLeaveEvent event){
-        drupi.callFunction("WorldGuard_"+event.getClass().getSimpleName(), event);
+        drupi.callEvent("WorldGuard_"+event.getClass().getSimpleName(), event);
     }
     @EventHandler
     public void regionLeave(RegionLeftEvent event){
-        drupi.callFunction("WorldGuard_"+event.getClass().getSimpleName(), event);
+        drupi.callEvent("WorldGuard_"+event.getClass().getSimpleName(), event);
     }
 }

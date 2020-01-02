@@ -11,6 +11,7 @@ import com.sk89q.worldguard.protection.managers.RemovalStrategy;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import hundeklemmen.shared.api.Drupi;
+import jdk.nashorn.api.scripting.JSObject;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -163,12 +164,23 @@ public class WorldguardAPIManager {
         RegionManager regionManager = wg.getRegionContainer().get(loc.getWorld());
 
         for (ProtectedRegion reg : regionManager.getApplicableRegions(loc)) {
-
             if (reg.contains(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ())) {
                 a = reg.getId().toString();
             }
         }
         return new String[] { a };
+    }
+    public ArrayList<ProtectedRegion> regionsAt(Location loc){
+        ArrayList<ProtectedRegion> list = new ArrayList<ProtectedRegion>();
+        WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
+        RegionManager regionManager = wg.getRegionContainer().get(loc.getWorld());
+
+        for (ProtectedRegion reg : regionManager.getApplicableRegions(loc)) {
+            if (reg.contains(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ())) {
+                list.add(reg);
+            }
+        }
+        return list;
     }
 
     public void setFlag(String region, World world, String flag, Object value){

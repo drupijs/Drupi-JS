@@ -8,7 +8,7 @@ public class PlaceholderAPIEventHandler implements Listener {
 
     @EventHandler
     public String get(PlaceholderAPIEvent event){
-        MainPlugin.drupi.callFunction("onPlaceholderRequest", event);
+        MainPlugin.drupi.callEvent("onPlaceholderRequest", event);
         return null;
     }
 }

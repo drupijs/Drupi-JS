@@ -203,6 +203,24 @@ public class Drupi {
             this.callFunction(eventName, args);
         }
     }
+    public NashornScriptEngine getEngine(){
+        return engine;
+    }
+    public NashornScriptEngine getCompileEngine(){
+        return compileEngine;
+    }
+    public HashMap<String, Object> getVariables(){
+        return variables;
+    }
+    public List<String> getRegisteredCommands(){
+        return registeredCommands;
+    }
+    public HashMap<String, Object> getManagers(){
+        return managers;
+    }
+    public HashMap<String, ArrayList<JSObject>> getRegisteredEvents(){
+        return registeredEvents;
+    }
 
     public Object getPlugin(){
         return plugin;

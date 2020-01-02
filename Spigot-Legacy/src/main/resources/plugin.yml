@@ -2,7 +2,7 @@ name: Drupi
 api: "1.0.0"
 main: hundeklemmen.legacy.MainPlugin
 author: ["Hundeklemmen", "Stacket"]
-version: "0.3.0"
+version: "0.3.1"
 description: "Minecraft development made easy."
 website: "https://stacket.net/drupi"
 softdepend: [PlaceholderAPI, WorldGuard, Holograms, Skript, TitleManager, LabyModAPI]

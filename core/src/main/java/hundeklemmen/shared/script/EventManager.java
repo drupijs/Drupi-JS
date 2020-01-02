@@ -27,7 +27,7 @@ public class EventManager {
 
     public void removeListener(String eventName, JSObject invokeFunction){
         if(this.drupi.registeredEvents.containsKey(eventName)) {
-            if(this.drupi.registeredEvents.containsValue(invokeFunction)) {
+            if(this.drupi.registeredEvents.get(eventName).contains(invokeFunction)) {
                 this.drupi.registeredEvents.get(eventName).remove(invokeFunction);
             }
         }
