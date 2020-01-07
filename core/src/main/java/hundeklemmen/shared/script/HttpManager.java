@@ -3,8 +3,10 @@ package hundeklemmen.shared.script;
 import jdk.nashorn.api.scripting.JSObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -44,6 +46,7 @@ public class HttpManager {
             HttpClient httpClient = HttpClientBuilder.create().build();
             HttpPost request = new HttpPost(url);
             request.setEntity(entity);
+            request.setHeader("User-Agent", "Mozilla/5.0");
 
             HttpResponse response = httpClient.execute(request);
             System.out.println(response.getStatusLine().getStatusCode());
@@ -63,8 +66,77 @@ public class HttpManager {
             HttpPost request = new HttpPost(url);
             request.setEntity(entity);
 
+            request.setHeader("User-Agent", "Mozilla/5.0");
+
             HttpResponse response = httpClient.execute(request);
             System.out.println(response.getStatusLine().getStatusCode());
+            return EntityUtils.toString(response.getEntity(), "UTF-8");
+        } catch(IOException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String put(String url, JSObject obj) {
+        try {
+            String payload = obj.toString();
+            StringEntity entity = new StringEntity(payload,
+                    ContentType.APPLICATION_JSON);
+
+            HttpClient httpClient = HttpClientBuilder.create().build();
+            HttpPut request = new HttpPut(url);
+            request.setEntity(entity);
+            request.setHeader("User-Agent", "Mozilla/5.0");
+
+            HttpResponse response = httpClient.execute(request);
+            System.out.println(response.getStatusLine().getStatusCode());
+            return EntityUtils.toString(response.getEntity(), "UTF-8");
+        } catch(IOException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public String put(String url, String obj) {
+        try {
+            String payload = obj.toString();
+            StringEntity entity = new StringEntity(payload,
+                    ContentType.DEFAULT_TEXT);
+
+            HttpClient httpClient = HttpClientBuilder.create().build();
+            HttpPut request = new HttpPut(url);
+            request.setEntity(entity);
+            request.setHeader("User-Agent", "Mozilla/5.0");
+
+            HttpResponse response = httpClient.execute(request);
+            System.out.println(response.getStatusLine().getStatusCode());
+            return EntityUtils.toString(response.getEntity(), "UTF-8");
+        } catch(IOException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public String putWithHeaders(String url, Map<Object,Object> headersObject, Map<Object,Object> objectMap){
+        JSONObject Headers_obj = toJson(headersObject);
+        JSONObject Body_obj = toJson(objectMap);
+
+        String payload = Body_obj.toString();
+        StringEntity entity = new StringEntity(payload,
+                ContentType.APPLICATION_JSON);
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            HttpPut post = new HttpPut(url);
+
+            // add header
+            post.setHeader("User-Agent", "Mozilla/5.0");
+            for(int i = 0; i<Headers_obj.names().length(); i++){
+                post.setHeader(Headers_obj.names().getString(i), (String) Headers_obj.get(Headers_obj.names().getString(i)));
+            }
+
+            post.setEntity(entity);
+
+            HttpResponse response = client.execute(post);
+
             return EntityUtils.toString(response.getEntity(), "UTF-8");
         } catch(IOException e){
             e.printStackTrace();
@@ -103,6 +175,49 @@ public class HttpManager {
         }
     }
 
+
+
+    public String delete(String url) {
+        try {
+            HttpClient httpClient = HttpClientBuilder.create().build();
+            HttpDelete request = new HttpDelete(url);
+
+            request.setHeader("User-Agent", "Mozilla/5.0");
+            HttpResponse response = httpClient.execute(request);
+            System.out.println(response.getStatusLine().getStatusCode());
+            return EntityUtils.toString(response.getEntity(), "UTF-8");
+        } catch(IOException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String deleteWithHeaders(String url, Map<Object,Object> headersObject){
+        JSONObject Headers_obj = toJson(headersObject);
+
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            HttpPost post = new HttpPost(url);
+
+            // add header
+            post.setHeader("User-Agent", "Mozilla/5.0");
+            for(int i = 0; i<Headers_obj.names().length(); i++){
+                post.setHeader(Headers_obj.names().getString(i), (String) Headers_obj.get(Headers_obj.names().getString(i)));
+            }
+
+            HttpResponse response = client.execute(post);
+
+            return EntityUtils.toString(response.getEntity(), "UTF-8");
+        } catch(IOException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+
     public String getWithHeaders(String url, Map<Object,Object> headersObject){
         JSONObject Headers_obj = toJson(headersObject);
 
@@ -124,6 +239,8 @@ public class HttpManager {
             return null;
         }
     }
+
+
 
 
     public static JSONObject toJson(Map<Object, Object> objectMap){
