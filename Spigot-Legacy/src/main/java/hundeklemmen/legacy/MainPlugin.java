@@ -251,6 +251,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                 try {
                     Files.walk(defaultJS.toPath())
                             .filter(path -> !Files.isDirectory(path))
+                            .sorted()
                             .forEach(path -> {
                                 if(!path.toString().contains(new File(defaultJS, "modules").getPath())){
                                     File file = new File(path.toString());
@@ -477,6 +478,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
                 try {
                     Files.walk(defaultJS.toPath())
                             .filter(path -> !Files.isDirectory(path))
+                            .sorted()
                             .forEach(path -> {
                                 if(!path.toString().contains(new File(defaultJS, "modules").getPath())){
                                     File file = new File(path.toString());
