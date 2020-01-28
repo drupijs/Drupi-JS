@@ -27,10 +27,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -38,6 +35,8 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 
 public class FunctionManager {
@@ -158,6 +157,69 @@ public class FunctionManager {
             e.printStackTrace();
         }
     }
+
+    public void moveFiles(File toDir, File currDir) {
+        for (File file : currDir.listFiles()) {
+            if (file.isDirectory()) {
+                moveFiles(toDir, file);
+            } else {
+                file.renameTo(new File(toDir, file.getName()));
+            }
+        }
+    }
+
+    public void unZipIt(File zippingFile, File outputFile){
+        String zipFile = zippingFile.getPath();
+        String outputFolder = outputFile.getPath();
+        byte[] buffer = new byte[1024];
+
+        try{
+
+            //create output directory is not exists
+            File folder = new File(outputFolder);
+            if(!folder.exists()){
+                folder.mkdir();
+            }
+
+            //get the zip file content
+            ZipInputStream zis =
+                    new ZipInputStream(new FileInputStream(zipFile));
+            //get the zipped file list entry
+            ZipEntry ze = zis.getNextEntry();
+
+            while(ze!=null){
+
+                String fileName = ze.getName();
+                File newFile = new File(outputFolder + File.separator + fileName);
+
+
+                //create all non exists folders
+                //else you will hit FileNotFoundException for compressed folder
+                new File(newFile.getParent()).mkdirs();
+
+                if (!ze.isDirectory()) {
+                    FileOutputStream fos = new FileOutputStream(newFile);
+
+                    int len;
+                    while ((len = zis.read(buffer)) > 0) {
+                        fos.write(buffer, 0, len);
+                    }
+
+                    fos.close();
+                }
+
+                ze = zis.getNextEntry();
+            }
+
+            zis.closeEntry();
+            zis.close();
+
+
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
     public ClassLoader getClassLoader(){
         return this.classLoader;
     }

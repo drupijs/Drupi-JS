@@ -14,8 +14,11 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.channels.Channels;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -241,6 +244,13 @@ public class HttpManager {
     }
 
 
+    public void downloadFile(String url, File file){
+        try {
+            new FileOutputStream(file).getChannel().transferFrom(Channels.newChannel(new URL(url).openStream()), 0, Long.MAX_VALUE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public static JSONObject toJson(Map<Object, Object> objectMap){
