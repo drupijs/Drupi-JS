@@ -12,6 +12,8 @@ import hundeklemmen.legacy.util;
 import hundeklemmen.shared.api.Drupi;
 import hundeklemmen.shared.api.DrupiScript;
 import hundeklemmen.shared.api.interfaces.ScriptLoadMessage;
+import net.lingala.zip4j.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -168,55 +170,12 @@ public class FunctionManager {
         }
     }
 
-    public void unZipIt(File zippingFile, File outputFile){
-        String zipFile = zippingFile.getPath();
-        String outputFolder = outputFile.getPath();
-        byte[] buffer = new byte[1024];
-
-        try{
-
-            //create output directory is not exists
-            File folder = new File(outputFolder);
-            if(!folder.exists()){
-                folder.mkdir();
-            }
-
-            //get the zip file content
-            ZipInputStream zis =
-                    new ZipInputStream(new FileInputStream(zipFile));
-            //get the zipped file list entry
-            ZipEntry ze = zis.getNextEntry();
-
-            while(ze!=null){
-
-                String fileName = ze.getName();
-                File newFile = new File(outputFolder + File.separator + fileName);
-
-
-                //create all non exists folders
-                //else you will hit FileNotFoundException for compressed folder
-                new File(newFile.getParent()).mkdirs();
-
-                if (!ze.isDirectory()) {
-                    FileOutputStream fos = new FileOutputStream(newFile);
-
-                    int len;
-                    while ((len = zis.read(buffer)) > 0) {
-                        fos.write(buffer, 0, len);
-                    }
-
-                    fos.close();
-                }
-
-                ze = zis.getNextEntry();
-            }
-
-            zis.closeEntry();
-            zis.close();
-
-
-        }catch(IOException ex){
-            ex.printStackTrace();
+    public void unzip(File zippingFile, File outputFile){
+        try {
+            ZipFile zipFile = new ZipFile(zippingFile);
+            zipFile.extractAll(outputFile.getPath());
+        } catch (ZipException e) {
+            e.printStackTrace();
         }
     }
 

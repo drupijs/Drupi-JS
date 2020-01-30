@@ -10,6 +10,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: net.lingala.zip4j:zip4j:2.3.1" level="project" />
     <orderEntry type="library" name="Maven: io.puharesource.mc:TitleManager:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.bstats:bstats-bukkit:1.4" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20180813" level="project" />

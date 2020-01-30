@@ -2,6 +2,8 @@ package hundeklemmen.legacy.commands;
 
 import hundeklemmen.legacy.MainPlugin;
 import hundeklemmen.legacy.util;
+import net.lingala.zip4j.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -134,7 +136,7 @@ public class drupiCommand implements CommandExecutor {
                     sender.sendMessage(prefix + ChatColor.AQUA + "Downloaded " + ChatColor.DARK_AQUA + moduleObject.get("name") + ".zip");
                     if(modulePath.exists()) modulePath.delete();
                     sender.sendMessage(prefix + ChatColor.AQUA + "Unzipping " + ChatColor.DARK_AQUA + (String) moduleObject.get("name") + ".zip ...");
-                    this.unZipIt(cloneDirectoryPath.getPath(), modulePath.getPath());
+                    this.unZipIt(cloneDirectoryPath, modulePath);
                     sender.sendMessage(prefix + ChatColor.AQUA + "Unzipped " + ChatColor.DARK_AQUA + (String) moduleObject.get("name") + ".zip");
                     cloneDirectoryPath.delete();
                     File[] fileList = modulePath.listFiles(File::isDirectory);
@@ -216,56 +218,15 @@ public class drupiCommand implements CommandExecutor {
         return null;
     }
 
-    public void unZipIt(String zipFile, String outputFolder){
-
-        byte[] buffer = new byte[1024];
-
-        try{
-
-            //create output directory is not exists
-            File folder = new File(outputFolder);
-            if(!folder.exists()){
-                folder.mkdir();
-            }
-
-            //get the zip file content
-            ZipInputStream zis =
-                    new ZipInputStream(new FileInputStream(zipFile));
-            //get the zipped file list entry
-            ZipEntry ze = zis.getNextEntry();
-
-            while(ze!=null){
-
-                String fileName = ze.getName();
-                File newFile = new File(outputFolder + File.separator + fileName);
-
-
-                //create all non exists folders
-                //else you will hit FileNotFoundException for compressed folder
-                new File(newFile.getParent()).mkdirs();
-
-                if (!ze.isDirectory()) {
-                    FileOutputStream fos = new FileOutputStream(newFile);
-
-                    int len;
-                    while ((len = zis.read(buffer)) > 0) {
-                        fos.write(buffer, 0, len);
-                    }
-
-                    fos.close();
-                }
-
-                ze = zis.getNextEntry();
-            }
-
-            zis.closeEntry();
-            zis.close();
-
-
-        }catch(IOException ex){
-            ex.printStackTrace();
+    public void unZipIt(File zippingFile, File outputFile){
+        try {
+            ZipFile zipFile = new ZipFile(zippingFile);
+            zipFile.extractAll(outputFile.getPath());
+        } catch (ZipException e) {
+            e.printStackTrace();
         }
     }
+
     private void move(File toDir, File currDir) {
         for (File file : currDir.listFiles()) {
             if (file.isDirectory()) {
