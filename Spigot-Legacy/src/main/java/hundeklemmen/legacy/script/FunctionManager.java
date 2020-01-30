@@ -14,6 +14,7 @@ import hundeklemmen.shared.api.DrupiScript;
 import hundeklemmen.shared.api.interfaces.ScriptLoadMessage;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.util.UnzipUtil;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -174,6 +175,17 @@ public class FunctionManager {
         try {
             ZipFile zipFile = new ZipFile(zippingFile);
             zipFile.extractAll(outputFile.getPath());
+        } catch (ZipException e) {
+            e.printStackTrace();
+        }
+    }
+    public void zip(File input, File output){
+        try {
+            if(input.isDirectory()) {
+                new ZipFile(output).addFolder(input);
+            } else {
+                new ZipFile(output).addFile(input);
+            }
         } catch (ZipException e) {
             e.printStackTrace();
         }
