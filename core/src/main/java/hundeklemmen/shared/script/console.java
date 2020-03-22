@@ -18,4 +18,8 @@ public class console {
     public void warn(String info){
         drupi.log.warning(info);
     }
+    public void error(String info){
+        drupi.log.warning(info);
+    }
+
 }

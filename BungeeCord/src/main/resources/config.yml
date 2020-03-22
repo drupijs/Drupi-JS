@@ -1,3 +1,7 @@
-versionChecker:
+config:
+  version: 2.1
+
+settings:
+  compileMethod: modern
   checkOnLoad: true
   notifyOP: true

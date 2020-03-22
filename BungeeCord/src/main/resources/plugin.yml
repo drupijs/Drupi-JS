@@ -1,4 +1,6 @@
 name: Drupi
 main: hundeklemmen.bungeecord.MainPlugin
-version: 0.1.0
-author: Hundeklemmen
+version: "0.4.0"
+author: "Hundeklemmen"
+description: "Minecraft development made easy."
+website: "https://stacket.net/drupi"

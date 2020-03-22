@@ -2,19 +2,35 @@ package hundeklemmen.bungeecord;
 
 
 import com.google.gson.Gson;
+import hundeklemmen.bungeecord.script.commandManager;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.plugin.Command;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 
 public class util {
 
+    public static boolean unregisterCommands(){
+        Collection<Map.Entry<String, Command>> knownCommands = MainPlugin.instance.getProxy().getPluginManager().getCommands();
 
+        for (Iterator<Map.Entry<String, Command>> iterator = knownCommands.iterator(); iterator.hasNext();) {
+            Map.Entry<String, Command> cmd = iterator.next();
+            if (cmd.getValue() instanceof commandManager.drupiCommand) {
+                MainPlugin.instance.getProxy().getPluginManager().unregisterCommand(cmd.getValue());
+            }
+        }
+
+
+        return true;
+    }
 
     public static void copy(InputStream in, File file) {
         try {

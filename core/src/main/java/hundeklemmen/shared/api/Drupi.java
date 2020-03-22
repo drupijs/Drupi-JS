@@ -218,6 +218,11 @@ public class Drupi {
     public HashMap<String, Object> getManagers(){
         return managers;
     }
+
+    public Platform getPlatform() {
+        return platform;
+    }
+
     public HashMap<String, ArrayList<JSObject>> getRegisteredEvents(){
         return registeredEvents;
     }

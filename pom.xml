@@ -8,8 +8,16 @@
     <artifactId>plugin</artifactId>
     <packaging>pom</packaging>
     <version>11.0.1</version>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
     <modules>
         <module>core</module>
+
+        <module>BungeeCord</module>
 
         <module>Spigot-Legacy</module>
         <module>version.v1_8</module>
@@ -22,6 +30,7 @@
         <module>version.v1_15</module>
 
         <module>Addon</module>
+
     </modules>
 
     <repositories>

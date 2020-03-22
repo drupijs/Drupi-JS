@@ -25,16 +25,9 @@
           <relocations>
             <relocation>
               <pattern>org.bstats</pattern>
-              <shadedPattern>hundeklemmen.legacy</shadedPattern>
+              <shadedPattern>hundeklemmen.bungeecord</shadedPattern>
             </relocation>
           </relocations>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>7</source>
-          <target>7</target>
         </configuration>
       </plugin>
     </plugins>
@@ -53,7 +46,7 @@
     <dependency>
       <groupId>net.md-5</groupId>
       <artifactId>bungeecord-api</artifactId>
-      <version>1.13-SNAPSHOT</version>
+      <version>LATEST</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -73,6 +66,14 @@
           <groupId>net.md-5</groupId>
         </exclusion>
         <exclusion>
+          <artifactId>netty-transport-native-unix-common</artifactId>
+          <groupId>io.netty</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>snakeyaml</artifactId>
+          <groupId>org.yaml</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>guava</artifactId>
           <groupId>com.google.guava</groupId>
         </exclusion>
@@ -81,7 +82,7 @@
     <dependency>
       <groupId>net.md-5</groupId>
       <artifactId>bungeecord-api</artifactId>
-      <version>1.13-SNAPSHOT</version>
+      <version>LATEST</version>
       <type>javadoc</type>
       <scope>provided</scope>
       <exclusions>
@@ -102,17 +103,23 @@
           <groupId>net.md-5</groupId>
         </exclusion>
         <exclusion>
+          <artifactId>netty-transport-native-unix-common</artifactId>
+          <groupId>io.netty</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>snakeyaml</artifactId>
+          <groupId>org.yaml</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>guava</artifactId>
           <groupId>com.google.guava</groupId>
         </exclusion>
       </exclusions>
     </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.16.4</version>
-      <scope>provided</scope>
-    </dependency>
   </dependencies>
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
 </project>
 
