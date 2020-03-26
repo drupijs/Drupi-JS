@@ -2,7 +2,7 @@ var setTimeout = function (fn,delay) {
   var runnable = new java.lang.Runnable({
     run: fn
   });
-  return server.getScheduler().runAsync(plugin,runnable, delay, java.util.concurrent.TimeUnit.SECONDS);
+  return server.getScheduler().schedule(plugin,runnable, delay, java.util.concurrent.TimeUnit.SECONDS);
 }
 var runAsync = function (fn) {
   var runnable = new java.lang.Runnable({
