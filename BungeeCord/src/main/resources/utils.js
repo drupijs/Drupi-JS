@@ -2,26 +2,20 @@ var setTimeout = function (fn,delay) {
   var runnable = new java.lang.Runnable({
     run: fn
   });
-  return server.getScheduler().scheduleSyncDelayedTask(plugin,runnable, delay);
+  return server.getScheduler().runAsync(plugin,runnable, delay, java.util.concurrent.TimeUnit.SECONDS);
 }
-var setAsyncTimeout = function (fn,delay) {
+var runAsync = function (fn) {
   var runnable = new java.lang.Runnable({
     run: fn
   });
-  return server.getScheduler().scheduleAsyncDelayedTask(plugin,runnable, delay);
+  return server.getScheduler().runAsync(plugin,runnable);
 }
 
 var setInterval = function (fn,delay) {
   var runnable = new java.lang.Runnable({
     run: fn
   });
-  return server.getScheduler().scheduleSyncRepeatingTask(plugin,runnable, 0, delay);
-}
-var setAsyncInterval = function (fn,delay) {
-  var runnable = new java.lang.Runnable({
-    run: fn
-  });
-  return server.getScheduler().scheduleAsyncRepeatingTask(plugin,runnable, 0, delay);
+  return server.getScheduler().schedule(plugin,runnable, 0, delay, java.util.concurrent.TimeUnit.SECONDS);
 }
 
 function players(){

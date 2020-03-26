@@ -31,7 +31,7 @@ public class DrupiCommand extends Command {
     private String prefix = ChatColor.DARK_AQUA + "[" + ChatColor.AQUA + "DRUPI" + ChatColor.DARK_AQUA + "] ";
 
     public DrupiCommand(String name, MainPlugin plugin) {
-        super(name);
+        super(name, "bdrupi");
         this.plugin = plugin;
     }
 
@@ -39,12 +39,12 @@ public class DrupiCommand extends Command {
     public void execute(CommandSender sender, String[] args) {
         if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
             sender.sendMessage(ChatColor.DARK_AQUA + "--------------[" + ChatColor.AQUA + "DRUPI" + ChatColor.DARK_AQUA + "]--------------");
-            sender.sendMessage(ChatColor.AQUA + "/drupi reload " + ChatColor.DARK_AQUA + "Reload your scripts");
-            sender.sendMessage(ChatColor.AQUA + "/drupi modules " + ChatColor.DARK_AQUA + "View all modules");
-            sender.sendMessage(ChatColor.AQUA + "/drupi install <module> " + ChatColor.DARK_AQUA + "Install a module");
-            sender.sendMessage(ChatColor.AQUA + "/drupi update " + ChatColor.DARK_AQUA + "Check for updates");
-            sender.sendMessage(ChatColor.AQUA + "/drupi info " + ChatColor.DARK_AQUA + "View information");
-            sender.sendMessage(ChatColor.AQUA + "/drupi help " + ChatColor.DARK_AQUA + "List commands");
+            sender.sendMessage(ChatColor.AQUA + "/bdrupi reload " + ChatColor.DARK_AQUA + "Reload your scripts");
+            sender.sendMessage(ChatColor.AQUA + "/bdrupi modules " + ChatColor.DARK_AQUA + "View all modules");
+            sender.sendMessage(ChatColor.AQUA + "/bdrupi install <module> " + ChatColor.DARK_AQUA + "Install a module");
+            sender.sendMessage(ChatColor.AQUA + "/bdrupi update " + ChatColor.DARK_AQUA + "Check for updates");
+            sender.sendMessage(ChatColor.AQUA + "/bdrupi info " + ChatColor.DARK_AQUA + "View information");
+            sender.sendMessage(ChatColor.AQUA + "/bdrupi help " + ChatColor.DARK_AQUA + "List commands");
             return;
         }
         if(args[0].equalsIgnoreCase("reload")){
