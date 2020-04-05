@@ -5,6 +5,7 @@ import hundeklemmen.bungeecord.Commands.DrupiCommand;
 import hundeklemmen.bungeecord.Events.eventListener;
 import hundeklemmen.bungeecord.api.BungeeConfig;
 import hundeklemmen.bungeecord.script.*;
+import hundeklemmen.bungeecord.script.labymod.LabymodEvents;
 import hundeklemmen.shared.api.Drupi;
 import hundeklemmen.shared.api.DrupiScript;
 import hundeklemmen.shared.api.Platform;
@@ -12,6 +13,7 @@ import hundeklemmen.shared.api.interfaces.ScriptLoadMessage;
 import hundeklemmen.shared.api.interfaces.SetupMessage;
 import io.socket.client.Socket;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
+import net.labymod.serverapi.bungee.LabyModPlugin;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -139,6 +141,12 @@ public class MainPlugin extends Plugin implements Listener {
         //drupi.registerManager("variable", new variableManager(instance));
         drupi.registerManager("socket", new socketManager(instance));
         drupi.registerManager("Express", new ExpressManager(instance));
+
+        if (instance.getProxy().getPluginManager().getPlugin("LabyModAPI") != null) {
+            drupi.log.info("LabyModAPI found, activating LabyModAPI expansion class.");
+            drupi.registerManager("LabyModAPI", LabyModPlugin.getInstance());
+            instance.getProxy().getPluginManager().registerListener(instance, new LabymodEvents(drupi));
+        }
 
         drupi.Setup(new SetupMessage() {
             @Override

@@ -116,6 +116,13 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>com.github.LabyMod</groupId>
+      <artifactId>labymod-server-api</artifactId>
+      <version>LATEST</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/libs/LabyMod.jar</systemPath>
+    </dependency>
   </dependencies>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>

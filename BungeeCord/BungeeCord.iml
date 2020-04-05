@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output url="file://$MODULE_DIR$/../BungeeCord/target/classes" />
-    <output-test url="file://$MODULE_DIR$/../BungeeCord/target/test-classes" />
-    <content url="file://$MODULE_DIR$/../BungeeCord">
-      <sourceFolder url="file://$MODULE_DIR$/../BungeeCord/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../BungeeCord/src/main/resources" type="java-resource" />
-      <excludeFolder url="file://$MODULE_DIR$/../BungeeCord/target" />
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -42,5 +42,14 @@
     <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: io.socket:socket.io-client:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: io.socket:engine.io-client:1.0.0" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../Spigot-Legacy/libs/LabyMod.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
