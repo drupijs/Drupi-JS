@@ -374,7 +374,7 @@ public class MainPlugin extends Plugin implements Listener {
     }
 
     public void registerCommands(){
-        instance.getProxy().getPluginManager().registerCommand(instance, new DrupiCommand("drupi", instance));
+        instance.getProxy().getPluginManager().registerCommand(instance, new DrupiCommand("bdrupi", instance));
     }
 
     public static void devLog(String Message){

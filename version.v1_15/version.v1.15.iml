@@ -17,6 +17,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.yaml:snakeyaml:1.25" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.bukkit:bukkit:1.15-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="core" scope="PROVIDED" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.eclipsesource.j2v8:j2v8_win32_x86_64:4.6.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.json:json:20180813" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.mongodb:mongo-java-driver:2.13.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.httpcomponents:httpclient:4.5.3" level="project" />

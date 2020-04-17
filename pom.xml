@@ -17,7 +17,7 @@
     <modules>
         <module>core</module>
 
-        <module>BungeeCord</module>
+        <!--<module>BungeeCord</module>-->
 
         <module>Spigot-Legacy</module>
         <module>version.v1_8</module>
@@ -29,7 +29,7 @@
         <module>version.v1_14</module>
         <module>version.v1_15</module>
 
-        <module>Addon</module>
+        <!--<module>Addon</module>-->
 
     </modules>
 

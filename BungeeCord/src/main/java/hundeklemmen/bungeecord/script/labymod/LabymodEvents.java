@@ -23,7 +23,7 @@ public class LabymodEvents implements Listener {
 
     @EventHandler
     public void LabyModPlayerJoin(LabyModPlayerJoinEvent event){
-        drupi.callEvent("LabyModLabyModPlayerJoinEvent", event);
+        drupi.callEvent("LabyModPlayerJoinEvent", event);
     }
 
     @EventHandler
