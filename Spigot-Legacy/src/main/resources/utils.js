@@ -24,6 +24,14 @@ var setAsyncInterval = function (fn,delay) {
   return server.getScheduler().scheduleAsyncRepeatingTask(plugin,runnable, 0, delay);
 }
 
+function clearInterval(id){
+  server.getScheduler().cancelTask(id);
+}
+
+function clearTimeout(id){
+  server.getScheduler().cancelTask(id);
+}
+
 function players(){
   return server.getOnlinePlayers().size();
 }
@@ -95,7 +103,8 @@ module = (typeof module === 'undefined') ? {} : module;
 
   Module._load = function _load (file, parent, core, main) {
     var module = new Module(file, parent, core);
-    var body = readFile(module.filename, module.core, true);
+    var contents = readFile(module.filename, module.core, true);
+    var body = '(function(){' + contents + (contents.indexOf("exports") !== -1 && contents.indexOf("module.exports") === -1 ? ";module.exports = exports;" : "") + '}());';
     var dir = new File(module.filename).getParent();
     var func = new Function('exports', 'module', 'require', '__filename', '__dirname', body);
     func.apply(module,
@@ -314,10 +323,12 @@ module = (typeof module === 'undefined') ? {} : module;
       } else {
         input = new File(filename);
       }
+      var script = manager.readFile(input);
       if(babel == true){
-        return drupihelper.convertScript(manager.readFile(input));
+        if(script.startsWith('"skip babel";') || script.startsWith("'skip babel';")) return script;
+        return drupihelper.convertScript(script);
       } else {
-        return manager.readFile(input);
+        return script;
       }
     } catch (e) {
       throw new ModuleError('Cannot read file [' + input + ']: ', 'IO_ERROR', e);
