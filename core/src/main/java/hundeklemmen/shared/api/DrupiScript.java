@@ -25,7 +25,11 @@ public class DrupiScript {
             while ((line = br.readLine()) != null) {
                 stringBuffer.append(line + System.lineSeparator());
             }
-            if(stringBuffer.toString().contains("module.exports") && !this.File.getName().equalsIgnoreCase("utils.js")&& !this.File.getName().equalsIgnoreCase("babel.js")) return;
+            boolean isModule = stringBuffer.toString().contains("module.exports") || stringBuffer.toString().contains("exports");
+            if(stringBuffer.toString().startsWith("\"skip babel\";") == true || stringBuffer.toString().startsWith("'skip babel';") == true){
+                useBabel = false;
+            }
+            if(isModule && !this.File.getName().equalsIgnoreCase("utils.js") && !this.File.getName().equalsIgnoreCase("babel.js")) return;
             if (useBabel == true && Drupi.config.compileMethod.equalsIgnoreCase("modern") || useBabel == true && Drupi.config.compileMethod.equalsIgnoreCase("legacy")) {
                 //Time to run it through
                 Invocable invocable = (Invocable) Drupi.engine;
