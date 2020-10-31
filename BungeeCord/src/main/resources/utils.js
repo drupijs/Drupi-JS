@@ -98,7 +98,7 @@ module = (typeof module === 'undefined') ? {} : module;
   Module._load = function _load (file, parent, core, main) {
     var module = new Module(file, parent, core);
     var contents = readFile(module.filename, module.core, true);
-    var body = '(function(){' + contents + (contents.indexOf("exports") !== -1 && contents.indexOf("module.exports") === -1 ? ";module.exports = exports;" : "") + '}());';
+    var body = '(function(){\nvar exports = module.exports;\n' + contents + '}());';
     var dir = new File(module.filename).getParent();
     var func = new Function('exports', 'module', 'require', '__filename', '__dirname', body);
     func.apply(module,
