@@ -117,14 +117,14 @@ public class DrupiCommand extends Command {
     private void installModule(String name, CommandSender sender){
         name = name.toLowerCase(); //To be sure.
         sender.sendMessage(prefix + ChatColor.AQUA + "Searching for " + ChatColor.DARK_AQUA + name);
-        String content = httpGetRequest("https://api.stacket.net/modules/" + name);
+        String content = httpGetRequest("https://repo-js.ostracize.net/modules/" + name);
         try {
             JSONObject module = (JSONObject) new org.json.simple.parser.JSONParser().parse(content);
             if(module.containsKey("package") && module.get("package") != null){
                 JSONObject moduleObject = (JSONObject) module.get("package");
                 sender.sendMessage(prefix + ChatColor.AQUA + "Found " + ChatColor.DARK_AQUA + moduleObject.get("name") + "@" + moduleObject.get("version"));
                 sender.sendMessage(prefix + ChatColor.AQUA + "Starting download");
-                String downloadURL = httpGetRequest("https://api.stacket.net/modules/" + moduleObject.get("name") + "/zip");
+                String downloadURL = httpGetRequest("https://repo-js.ostracize.net/modules/" + moduleObject.get("name") + "/zip");
                 File modulePath = new File(plugin.getDataFolder(), "scripts/modules/" + moduleObject.get("name"));
                 File cloneDirectoryPath = new File(plugin.getDataFolder(), "scripts/modules/" + moduleObject.get("name") + ".zip");
 
