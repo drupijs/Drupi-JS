@@ -65,6 +65,12 @@
       <artifactId>placeholderapi</artifactId>
       <version>LATEST</version>
       <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>annotations</artifactId>
+          <groupId>org.jetbrains</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.spigotmc</groupId>
