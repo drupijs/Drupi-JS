@@ -176,6 +176,12 @@
             <artifactId>version.v1.15</artifactId>
             <version>1.15.0</version>
         </dependency>
+        <!-- 1.16 -->
+        <dependency>
+            <groupId>drupi.xyz</groupId>
+            <artifactId>version.v1.16</artifactId>
+            <version>1.16.0</version>
+        </dependency>
 
         <!-- Spigot 1.8 stuff -->
         <dependency>

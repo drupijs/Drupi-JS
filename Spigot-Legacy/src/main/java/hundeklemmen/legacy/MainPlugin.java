@@ -341,8 +341,12 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             drupi.log.info("Loaded 1.14 events");
         } else if(serverVersion.startsWith("v1_15")){
             drupi.log.info("Loading 1.15 events");
-            new hundeklemmen.v1_15.loadEvents(drupi); //From v1_14 module
+            new hundeklemmen.v1_15.loadEvents(drupi); //From v1_15 module
             drupi.log.info("Loaded 1.15 events");
+        } else if(serverVersion.startsWith("v1_16")){
+            drupi.log.info("Loading 1.16 events");
+            new hundeklemmen.v1_16.loadEvents(drupi); //From v1_16 module
+            drupi.log.info("Loaded 1.16 events");
         } else {
             drupi.log.warning("This Drupi version doesn't support " + serverVersion + " events! Fallback: 1.8 events");
             drupi.log.info("Loading 1.8 events");
