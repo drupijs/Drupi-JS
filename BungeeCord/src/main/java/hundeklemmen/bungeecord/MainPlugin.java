@@ -12,13 +12,13 @@ import hundeklemmen.shared.api.Platform;
 import hundeklemmen.shared.api.interfaces.ScriptLoadMessage;
 import hundeklemmen.shared.api.interfaces.SetupMessage;
 import io.socket.client.Socket;
-import jdk.nashorn.api.scripting.NashornScriptEngine;
 import net.labymod.serverapi.bungee.LabyModPlugin;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import org.bstats.bungeecord.Metrics;
 
+import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import java.io.File;
 import java.io.IOException;
@@ -95,33 +95,7 @@ public class MainPlugin extends Plugin implements Listener {
         if(drupi.config.VC_checkOnLoad == true){
             drupi.CheckForUpdate();
         }
-        if(drupi.config.compileMethod.equalsIgnoreCase("modern")){
-            try {
-                drupi.startCompileEngine();
-                devLog("[DEV] Loading babel on compile engine");
 
-                DrupiScript BabelJSDS = new DrupiScript(BabelJSFile);
-                BabelJSDS.Load(drupi, drupi.compileEngine, false, new ScriptLoadMessage() {
-                    @Override
-                    public void onSuccess() {
-                        drupi.log.info("Babel loaded successfully");
-                    }
-
-                    @Override
-                    public void onError(String error){
-                        drupi.log.warning("Babel error! " + error);
-                    }
-                });
-                drupi.compileEngine.eval("function convertBabelJS(i){return Babel.transform(i, {presets:[['es2015',{loose: !0,modules: !1}]],}).code}");
-            } catch (ScriptException e) {
-                drupi.config.compileMethod = "legacy"; //Defaulting back to legacy
-                e.printStackTrace();
-            }
-
-
-        }
-
-        drupi.LoadVariables();
         devLog("[DEV] Setup proccess!");
 
         devLog("Registering global managers");
@@ -155,7 +129,7 @@ public class MainPlugin extends Plugin implements Listener {
             }
 
             @Override
-            public void loadManagers(NashornScriptEngine engine) {
+            public void loadManagers(ScriptEngine engine) {
                 File UtilsJSFile = new File(instance.getDataFolder(), "utils.js");
                 if(drupi.config.compileMethod.equalsIgnoreCase("legacy")) {
                     drupi.log.info("Loading babel.js");
@@ -283,7 +257,7 @@ public class MainPlugin extends Plugin implements Listener {
             }
 
             @Override
-            public void loadManagers(NashornScriptEngine engine) {
+            public void loadManagers(ScriptEngine engine) {
                 File UtilsJSFile = new File(instance.getDataFolder(), "utils.js");
                 if(drupi.config.compileMethod.equalsIgnoreCase("legacy")){
                     File BabelJSFile = new File(instance.getDataFolder(), "babel.js");

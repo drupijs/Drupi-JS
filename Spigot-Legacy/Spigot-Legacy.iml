@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -19,20 +19,12 @@
     <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.13.0" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:2.13.2" level="project" />
-    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.16.18" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: me.clip:placeholderapi:2.10.6" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.projectlombok:lombok:1.18.2" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: me.clip:placeholderapi:2.10.9" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jetbrains:annotations:19.0.0" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.6" level="project" />
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.6" level="project" />
     <orderEntry type="module" module-name="version.v1.8" />
-    <orderEntry type="module-library">
-      <library name="Maven: com.sainttx.holograms:Holograms-API:LATEST">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../libs/Holograms-2.6-SNAPSHOT.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="module" module-name="version.v1.9" />
     <orderEntry type="module" module-name="version.v1.10" />
     <orderEntry type="module" module-name="version.v1.11" />
@@ -54,7 +46,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.bukkit:bukkit:1.8.8-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="core" />
-    <orderEntry type="library" name="Maven: com.eclipsesource.j2v8:j2v8_win32_x86_64:4.6.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.6" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
@@ -78,5 +69,13 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Maven: com.github.Simonwep:java-express:0.0.10" level="project" />
+    <orderEntry type="library" name="Maven: org.graalvm.sdk:graal-sdk:20.3.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.graalvm.js:js:20.3.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.graalvm.regex:regex:20.3.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.graalvm.truffle:truffle-api:20.3.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.ibm.icu:icu4j:67.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.graalvm.js:js-scriptengine:20.3.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.graalvm.tools:profiler:20.3.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.graalvm.tools:chromeinspector:20.3.0" level="project" />
   </component>
 </module>

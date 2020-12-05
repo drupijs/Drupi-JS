@@ -4,11 +4,12 @@ import com.google.gson.Gson;
 import hundeklemmen.shared.api.interfaces.SetupMessage;
 import hundeklemmen.shared.script.*;
 import hundeklemmen.shared.api.utils.http;
-import jdk.nashorn.api.scripting.JSObject;
-import jdk.nashorn.api.scripting.NashornScriptEngine;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.graalvm.polyglot.Context;
+import org.graalvm.polyglot.Value;
 
 import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,12 +27,11 @@ public class Drupi {
     public String version;
 
     public static boolean update = false;
-    public static NashornScriptEngine engine;
-    public static NashornScriptEngine compileEngine;
+    public static ScriptEngine engine;
     public static HashMap<String, Object> variables = new HashMap<String, Object>();
     public static List<String> registeredCommands = new ArrayList<String>();
     public static HashMap<String, Object> managers = new HashMap<String, Object>();
-    public static HashMap<String, ArrayList<JSObject>> registeredEvents = new HashMap<String, ArrayList<JSObject>>();
+    public static HashMap<String, ArrayList<Value>> registeredEvents = new HashMap<String, ArrayList<Value>>();
 
 
     public File DataFolder;
@@ -72,15 +72,6 @@ public class Drupi {
         }
     }
 
-    public void LoadVariables(){
-        log.info("Loading variables");
-        variables = variablesHandler.load(instance);
-        log.info("Loaded variables");
-    }
-
-    public void SaveVariables(){
-        variablesHandler.save(instance);
-    }
 
     public void registerManager(String name, Object obj){
         managers.put(name, obj);
@@ -89,14 +80,13 @@ public class Drupi {
 
     public void Setup(SetupMessage SM){
         String[] options = new String[] {"--language=es6"};
-        final NashornScriptEngineFactory manager = new NashornScriptEngineFactory();
-        engine = (NashornScriptEngine) manager.getScriptEngine(options);
+        engine = new ScriptEngineManager().getEngineByName("graal.js");
         if (engine == null) {
             log.warning("No JavaScript engine was found!");
             if(platform == Platform.Spigot){
                 ((org.bukkit.plugin.Plugin) this.plugin).getServer().shutdown();
             } else if(platform == Platform.Bungeecord){
-                ((net.md_5.bungee.api.plugin.Plugin) this.plugin).getProxy().stop("[DRUPI] No JavaScript engine was found!");
+                ((net.md_5.bungee.api.plugin.Plugin) this.plugin).getProxy().stop("[DRUPI] No Graal.JS engine was found!");
             }
             return;
         }
@@ -130,31 +120,6 @@ public class Drupi {
 
     }
 
-    public void startCompileEngine(){
-        log.info("Starting compile engine.");
-        String[] options = new String[] {"--language=es6"};
-        final NashornScriptEngineFactory manager = new NashornScriptEngineFactory();
-        compileEngine = (NashornScriptEngine) manager.getScriptEngine(options);
-        if (compileEngine == null) {
-            log.warning("No JavaScript engine was found!");
-            if(platform == Platform.Spigot){
-                ((org.bukkit.plugin.Plugin) this.plugin).getServer().shutdown();
-            } else if(platform == Platform.Bungeecord){
-                ((net.md_5.bungee.api.plugin.Plugin) this.plugin).getProxy().stop("[DRUPI] No JavaScript engine was found!");
-            }
-            return;
-        }
-        if (!(compileEngine instanceof Invocable)) {
-            log.warning("JavaScript engine does not support the Invocable API!");
-            if(platform == Platform.Spigot){
-                ((org.bukkit.plugin.Plugin) this.plugin).getServer().shutdown();
-            } else if(platform == Platform.Bungeecord){
-                ((net.md_5.bungee.api.plugin.Plugin) this.plugin).getProxy().stop("[DRUPI] JavaScript engine does not support the Invocable API!");
-            }
-            return;
-        }
-        log.info("Compile engine started.");
-    }
 
     public Drupi getInstance(){
         return instance;
@@ -178,7 +143,6 @@ public class Drupi {
             se.printStackTrace();
         }
     }
-
     public Object callFunctionWithResult(String functionName, Object... args){
         if (engine.get(functionName) == null) {
             return null;
@@ -193,21 +157,18 @@ public class Drupi {
     }
 
 
+
+
     public void callEvent(String eventName, Object... args){
         if(registeredEvents.containsKey(eventName)){
-            for (JSObject function : registeredEvents.get(eventName)) {
-                function.call(null, args);
+            for (Value function : registeredEvents.get(eventName)) {
+                function.executeVoid(null, args);
             }
-        } else {
-            //For compatibility we will invoke a function name too.
-            this.callFunction(eventName, args);
         }
     }
-    public NashornScriptEngine getEngine(){
+
+    public ScriptEngine getEngine(){
         return engine;
-    }
-    public NashornScriptEngine getCompileEngine(){
-        return compileEngine;
     }
     public HashMap<String, Object> getVariables(){
         return variables;
@@ -223,7 +184,7 @@ public class Drupi {
         return platform;
     }
 
-    public HashMap<String, ArrayList<JSObject>> getRegisteredEvents(){
+    public HashMap<String, ArrayList<Value>> getRegisteredEvents(){
         return registeredEvents;
     }
 

@@ -14,7 +14,6 @@ import hundeklemmen.shared.api.interfaces.ScriptLoadMessage;
 import hundeklemmen.shared.api.interfaces.SetupMessage;
 import io.puharesource.mc.titlemanager.api.v2.TitleManagerAPI;
 import io.socket.client.Socket;
-import jdk.nashorn.api.scripting.NashornScriptEngine;
 import net.labymod.serverapi.bukkit.LabyModPlugin;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -30,12 +29,16 @@ import org.bukkit.plugin.RegisteredListener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineFactory;
+import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class MainPlugin extends JavaPlugin implements Listener, PluginMessageListener {
@@ -60,6 +63,19 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
     @Override
     public void onEnable() {
         instance = this;
+
+        ScriptEngineManager ooga = new ScriptEngineManager();
+        List<ScriptEngineFactory> factories = ooga.getEngineFactories();
+        for (ScriptEngineFactory factory : factories) {
+            System.out.println(factory.getEngineName());
+            System.out.println(factory.getEngineVersion());
+            System.out.println(factory.getLanguageName());
+            System.out.println(factory.getLanguageVersion());
+            System.out.println(factory.getExtensions());
+            System.out.println(factory.getMimeTypes());
+            System.out.println(factory.getNames());
+        }
+
         Metrics metrics = new Metrics(this); //OOF
         DrupiFile = instance.getFile();
         serverVersion = instance.getServer().getClass().getPackage().getName().split("\\.")[3];
@@ -104,33 +120,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
         if(drupi.config.VC_checkOnLoad == true){
             drupi.CheckForUpdate();
         }
-        if(drupi.config.compileMethod.equalsIgnoreCase("modern")){
-            try {
-                drupi.startCompileEngine();
-                devLog("[DEV] Loading babel on compile engine");
 
-                DrupiScript BabelJSDS = new DrupiScript(BabelJSFile);
-                BabelJSDS.Load(drupi, drupi.compileEngine, false, new ScriptLoadMessage() {
-                    @Override
-                    public void onSuccess() {
-                        drupi.log.info("Babel loaded successfully");
-                    }
-
-                    @Override
-                    public void onError(String error){
-                        drupi.log.warning("Babel error! " + error);
-                    }
-                });
-                drupi.compileEngine.eval("function convertBabelJS(i){return Babel.transform(i, {presets:[['es2015',{loose: !0,modules: !1}]],}).code}");
-            } catch (ScriptException e) {
-                drupi.config.compileMethod = "legacy"; //Defaulting back to legacy
-                e.printStackTrace();
-            }
-
-
-        }
-
-        drupi.LoadVariables();
         devLog("[DEV] Setup proccess!");
 
         devLog("Registering global managers");
@@ -186,10 +176,6 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             }
         }
 
-        if (Bukkit.getPluginManager().getPlugin("Holograms") != null) {
-            drupi.log.info("Holograms found, activating Holograms expansion class.");
-            drupi.registerManager("holograms", new hundeklemmen.v1_8.expansions.Holograms.HologramApi(drupi));
-        }
 
         if (Bukkit.getPluginManager().getPlugin("Skript") != null) {
             drupi.log.info("Skript found, activating Skript expansion class.");
@@ -203,30 +189,9 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             }
 
             @Override
-            public void loadManagers(NashornScriptEngine engine) {
+            public void loadManagers(ScriptEngine engine) {
                 File UtilsJSFile = new File(instance.getDataFolder(), "utils.js");
-                if(drupi.config.compileMethod.equalsIgnoreCase("legacy")) {
-                    drupi.log.info("Loading babel.js");
-                    File BabelJSFile = new File(instance.getDataFolder(), "babel.js");
-                    devLog("[DEV] Loading managers!");
-
-                    DrupiScript BabelJSDS = new DrupiScript(BabelJSFile);
-                    BabelJSDS.Load(drupi, drupi.engine, false, new ScriptLoadMessage() {
-                        @Override
-                        public void onSuccess() {
-                            drupi.log.info("Babel.js loaded successfully");
-                        }
-
-                        @Override
-                        public void onError(String error) {
-                            drupi.log.warning("Babel error! " + error);
-                        }
-                    });
-                }
-
-
                 devLog("[DEV] Done loading managers!");
-
 
                 drupi.log.info("Loading scripts..");
                 ErrorAmount = 0;
@@ -436,7 +401,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
             }
 
             @Override
-            public void loadManagers(NashornScriptEngine engine) {
+            public void loadManagers(ScriptEngine engine) {
                 File UtilsJSFile = new File(instance.getDataFolder(), "utils.js");
                 if(drupi.config.compileMethod.equalsIgnoreCase("legacy")){
                     File BabelJSFile = new File(instance.getDataFolder(), "babel.js");
@@ -528,9 +493,7 @@ public class MainPlugin extends JavaPlugin implements Listener, PluginMessageLis
 
     @Override
     public void onDisable(){
-        if(!drupi.variables.isEmpty()) {
-            drupi.SaveVariables();
-        }
+
     }
 
     public static void devLog(String Message){

@@ -8,8 +8,11 @@
     <artifactId>Spigot-Legacy</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <graalvm.version>20.3.0</graalvm.version>
+        <compiler.dir>${project.build.directory}/compiler</compiler.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <repositories>
@@ -106,7 +109,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.18</version>
+            <version>1.18.2</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>
@@ -166,16 +170,16 @@
         </dependency>
         <!-- 1.14 -->
         <dependency>
-            <groupId>drupi.xyz</groupId>
-            <artifactId>version.v1.14</artifactId>
-            <version>1.14.0</version>
-        </dependency>
+             <groupId>drupi.xyz</groupId>
+             <artifactId>version.v1.14</artifactId>
+             <version>1.14.0</version>
+         </dependency>
         <!-- 1.15 -->
         <dependency>
-            <groupId>drupi.xyz</groupId>
-            <artifactId>version.v1.15</artifactId>
-            <version>1.15.0</version>
-        </dependency>
+             <groupId>drupi.xyz</groupId>
+             <artifactId>version.v1.15</artifactId>
+             <version>1.15.0</version>
+         </dependency>
         <!-- 1.16 -->
         <dependency>
             <groupId>drupi.xyz</groupId>
@@ -228,9 +232,47 @@
             <version>LATEST</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.graalvm.sdk</groupId>
+            <artifactId>graal-sdk</artifactId>
+            <version>${graalvm.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.js</groupId>
+            <artifactId>js</artifactId>
+            <version>${graalvm.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.js</groupId>
+            <artifactId>js-scriptengine</artifactId>
+            <version>${graalvm.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.tools</groupId>
+            <artifactId>profiler</artifactId>
+            <version>${graalvm.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.tools</groupId>
+            <artifactId>chromeinspector</artifactId>
+            <version>${graalvm.version}</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <release>11</release>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

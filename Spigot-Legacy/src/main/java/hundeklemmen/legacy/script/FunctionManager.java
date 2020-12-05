@@ -140,12 +140,6 @@ public class FunctionManager {
         };
         return obj;
     }
-    public JSONObject parseRawObject(String raw){
-        return new JSONObject(raw);
-    }
-    public JSONArray parseRawArray(String raw){
-        return new JSONArray(raw);
-    }
 
     public void writeToFile(File file, String content){
         try {
@@ -249,20 +243,6 @@ public class FunctionManager {
         return null;
     }
 
-    public void createCommand(String name, String description, String functionName){
-
-        try {
-            final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
-
-            bukkitCommandMap.setAccessible(true);
-            CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
-
-            commandMap.register(name, new EntryCommand(name, description, functionName));
-            MainPlugin.drupi.registeredCommands.add(name);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public Location newLocation(double x, double y, double z){
         Location loc = null;
@@ -274,17 +254,6 @@ public class FunctionManager {
     public Location newLocationWorld(World world, double x, double y, double z){
         Location loc = new Location(world, x, y, z);
         return loc;
-    }
-    public int createTask(String functionName, int delay){
-        return plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new ModTask(functionName), delay);
-    }
-
-    public int createLoopTask(String functionName, int delay){
-        return plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new ModTask(functionName), 20, delay);
-    }
-
-    public void cancelTask(int id){
-        plugin.getServer().getScheduler().cancelTask(id);
     }
 
     public Plugin getPlugin(String name){
@@ -361,20 +330,6 @@ public class FunctionManager {
     }
 
 
-
-    public class ModTask implements Runnable {
-
-        private String functionName;
-
-        public ModTask(String functionName){
-            this.functionName = functionName;
-        }
-
-        @Override
-        public void run() {
-            plugin.drupi.callFunction(functionName);
-        }
-    }
     public ByteArrayDataOutput newByteArrayDataOutput(){
         return ByteStreams.newDataOutput();
     }
