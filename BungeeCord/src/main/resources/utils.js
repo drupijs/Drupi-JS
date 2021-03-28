@@ -1,31 +1,3 @@
-var setTimeout = function (fn,delay) {
-  var runnable = new java.lang.Runnable({
-    run: fn
-  });
-  return server.getScheduler().schedule(plugin,runnable, delay, java.util.concurrent.TimeUnit.SECONDS);
-}
-var runAsync = function (fn) {
-  var runnable = new java.lang.Runnable({
-    run: fn
-  });
-  return server.getScheduler().runAsync(plugin,runnable);
-}
-
-var setInterval = function (fn,delay) {
-  var runnable = new java.lang.Runnable({
-    run: fn
-  });
-  return server.getScheduler().schedule(plugin,runnable, 0, delay, java.util.concurrent.TimeUnit.SECONDS);
-}
-
-function clearInterval(id){
-  server.getScheduler().cancel(id);
-}
-
-function clearTimeout(id){
-  server.getScheduler().cancel(id);
-}
-
 function players(){
   return server.getOnlinePlayers().size();
 }
@@ -34,19 +6,6 @@ function color(message){
   return manager.color(message);
 }
 
-function convertBabelJS(i){
-  return Babel.transform(i, {
-    presets:[
-      [
-        'es2015',
-        {
-          loose: !0,
-          modules: !1
-        }
-      ]
-    ],
-  }).code
-}
 
 /**
  *  Copyright 2014-2016 Red Hat, Inc.
@@ -308,7 +267,7 @@ module = (typeof module === 'undefined') ? {} : module;
     return fileName + extension;
   }
 
-  function readFile (filename, core, babel) {
+  function readFile (filename, core) {
     var input;
     try {
       if (core) {
@@ -317,13 +276,7 @@ module = (typeof module === 'undefined') ? {} : module;
       } else {
         input = new File(filename);
       }
-      var script = manager.readFile(input);
-      if(babel == true){
-        if(script.startsWith('"skip babel";') || script.startsWith("'skip babel';")) return script;
-        return drupihelper.convertScript(script);
-      } else {
-        return script;
-      }
+      return manager.readFile(input);
     } catch (e) {
       throw new ModuleError('Cannot read file [' + input + ']: ', 'IO_ERROR', e);
     }

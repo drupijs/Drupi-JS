@@ -1,11 +1,11 @@
 name: Drupi
 api: "1.0.0"
-main: hundeklemmen.legacy.MainPlugin
-author: ["Hundeklemmen", "Stacket", "SlickNicky10"]
-version: "0.4.7"
+main: net.stacket.drupi.legacy.MainPlugin
+author: ["Hundeklemmen", "Stacket Group", "SlickNicky10"]
+version: "1.0.0"
 description: "Minecraft development made easy."
 website: "https://stacket.net/drupi"
-softdepend: [PlaceholderAPI, WorldGuard, Holograms, Skript, TitleManager, LabyModAPI]
+softdepend: [PlaceholderAPI, WorldGuard, Skript, TitleManager, LabyModAPI]
 commands:
   drupi:
     description: Interacting with the plugin

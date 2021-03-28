@@ -1,4 +1,4 @@
-package hundeklemmen.addon;
+package net.stacket.drupi.addon;
 
 public class DrupiAddon {
 

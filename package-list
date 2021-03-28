@@ -1,8 +1,8 @@
 hundeklemmen
-hundeklemmen.api
-hundeklemmen.events
-hundeklemmen.extra
-hundeklemmen.script
-hundeklemmen.worldedit
-hundeklemmen.worldguard
-hundeklemmen.worldguard.customEvents
+net.stacket.drupi.api
+net.stacket.drupi.events
+net.stacket.drupi.extra
+net.stacket.drupi.script
+net.stacket.drupi.worldedit
+net.stacket.drupi.worldguard
+net.stacket.drupi.worldguard.customEvents

@@ -1,37 +1,3 @@
-var setTimeout = function (fn,delay) {
-  var runnable = new java.lang.Runnable({
-    run: fn
-  });
-  return server.getScheduler().scheduleSyncDelayedTask(plugin,runnable, delay);
-}
-var setAsyncTimeout = function (fn,delay) {
-  var runnable = new java.lang.Runnable({
-    run: fn
-  });
-  return server.getScheduler().scheduleAsyncDelayedTask(plugin,runnable, delay);
-}
-
-var setInterval = function (fn,delay) {
-  var runnable = new java.lang.Runnable({
-    run: fn
-  });
-  return server.getScheduler().scheduleSyncRepeatingTask(plugin,runnable, 0, delay);
-}
-var setAsyncInterval = function (fn,delay) {
-  var runnable = new java.lang.Runnable({
-    run: fn
-  });
-  return server.getScheduler().scheduleAsyncRepeatingTask(plugin,runnable, 0, delay);
-}
-
-function clearInterval(id){
-  server.getScheduler().cancelTask(id);
-}
-
-function clearTimeout(id){
-  server.getScheduler().cancelTask(id);
-}
-
 function players(){
   return server.getOnlinePlayers().size();
 }
@@ -40,19 +6,6 @@ function color(message){
   return manager.color(message);
 }
 
-function convertBabelJS(i){
-  return Babel.transform(i, {
-    presets:[
-      [
-        'es2015',
-        {
-          loose: !0,
-          modules: !1
-        }
-      ]
-    ],
-  }).code
-}
 
 /**
  *  Copyright 2014-2016 Red Hat, Inc.
@@ -314,7 +267,7 @@ module = (typeof module === 'undefined') ? {} : module;
     return fileName + extension;
   }
 
-  function readFile (filename, core, babel) {
+  function readFile (filename, core) {
     var input;
     try {
       if (core) {
@@ -323,13 +276,7 @@ module = (typeof module === 'undefined') ? {} : module;
       } else {
         input = new File(filename);
       }
-      var script = manager.readFile(input);
-      if(babel == true){
-        if(script.startsWith('"skip babel";') || script.startsWith("'skip babel';")) return script;
-        return drupihelper.convertScript(script);
-      } else {
-        return script;
-      }
+      return manager.readFile(input);
     } catch (e) {
       throw new ModuleError('Cannot read file [' + input + ']: ', 'IO_ERROR', e);
     }

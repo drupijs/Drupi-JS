@@ -1,7 +1,7 @@
 name: Drupi
-main: hundeklemmen.bungeecord.MainPlugin
-version: "0.4.7"
-author: "Hundeklemmen"
+main: net.stacket.drupi.bungeecord.MainPlugin
+version: "1.0.0"
+author: "Stacket Group"
 description: "Minecraft development made easy."
 website: "https://stacket.net/drupi"
 softdepend: [LabyModAPI]

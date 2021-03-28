@@ -9,7 +9,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.1</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -22,7 +22,7 @@
           <relocations>
             <relocation>
               <pattern>org.bstats</pattern>
-              <shadedPattern>hundeklemmen.legacy</shadedPattern>
+              <shadedPattern>net.stacket.drupi.legacy</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
@@ -158,4 +158,3 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 </project>
-

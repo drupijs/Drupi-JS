@@ -1,0 +1,10 @@
+#https://github.com/graalvm/graaljs/issues/125
+
+language1.characterMimeType.0=application/tregex
+language1.className=com.oracle.truffle.regex.RegexLanguage
+language1.id=regex
+language1.implementationName=
+language1.interactive=false
+language1.internal=true
+language1.name=REGEX
+language1.version=0.1
